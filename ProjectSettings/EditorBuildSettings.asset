@@ -27,9 +27,12 @@ EditorBuildSettings:
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/YazteeGame/Scenes/Login.unity
+    path: Assets/YahtzeeGame/Scenes/Login.unity
     guid: 92a3798ff0ddcf74bab4a337da6f3921
   - enabled: 1
-    path: Assets/YazteeGame/Scenes/Game.unity
+    path: Assets/YahtzeeGame/Scenes/Game.unity
     guid: 8de720140bf71cf4589408275e0914c1
+  - enabled: 1
+    path: Assets/YahtzeeGame/Scenes/Lobby.unity
+    guid: e2fccd8fc76ef4a42be1c87f4b32d566
   m_configObjects: {}
