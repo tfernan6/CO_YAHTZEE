@@ -19,10 +19,6 @@ namespace edu.jhu.co
         private Text CurrentPlayerName;
 
 
-        [Tooltip("The Ui Text to inform the user about the connection progress")]
-        [SerializeField]
-        private Text GameStatus;
-
         [Tooltip("The Ui Text to inform the user PlayerList")]
         [SerializeField]
         private Text PlayerList;
@@ -44,15 +40,37 @@ namespace edu.jhu.co
         [SerializeField]
         public GameObject GamePanel;
 
+
+        [Tooltip("The Ui Text to inform the user about the connection progress")]
+        [SerializeField]
+        private Text GameStatus;
+
         [Tooltip("The welcome text on top of the game board")]
         [SerializeField]
         private Text WelcomeText;
 
-        private YahtzeePlayer yahtzeePlayer = null;
 
-        public bool gameStarted = false; 
+        [Tooltip("The room name text on top of the game board")]
+        [SerializeField]
+        private Text GameRoomText;
+
+
+        [Tooltip("The timer text on top of the game board")]
+        [SerializeField]
+        private Text TurnStatus;
+
+        [Tooltip("All user use this to enter a log")]
+        public TranscriptController transcriptController;
+
+
+        private YahtzeePlayer yahtzeePlayer = null; //not coded for it yet
+
+        public bool gameStarted = false;  //maybe not needed(SHould be in the Turn)
+
+        //show my dice value (test variable)
         public Text myDiceValue;
 
+        //I would need to derive from this class and construct my own
         public PunTurnManager turnManager;
 
         #region MonoBehaviour CallBacks
@@ -70,26 +88,23 @@ namespace edu.jhu.co
 
         #endregion
 
-        private void SetGameStatus()
-        {
-            WelcomeText.text = "Welcome " + PhotonNetwork.NickName + " to play Yahtzee++" + System.Environment.NewLine +
-                       "You are in " + PhotonNetwork.CurrentRoom.Name;
-        }
-
         /// <summary>
         /// 
         /// Start is called before the first frame update
         /// </summary>
         void Start()
         {
+            //connect to Photon NEtwork if it's not already been connected
             if (!PhotonNetwork.IsConnected)
             {
                 SceneManager.LoadScene("Login");
                 return;
             }
 
-            SetGameStatus();
+            //set the welcome and game status messages
+            SetWelcomeText();
 
+            //create player object for current player
             if(yahtzeePlayer == null)
             {
                 yahtzeePlayer = new YahtzeePlayer();
@@ -97,9 +112,9 @@ namespace edu.jhu.co
             yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;
             Debug.Log("Current Player: " + PhotonNetwork.NickName);
 
-            //update the list of players
+            //update the list of players in the left panel
             CurrentPlayerName.text = PhotonNetwork.NickName;
-            this.UpdatePlayerTexts();
+            this.UpdatePlayerList();
 
 
             //define the turn manager
@@ -109,7 +124,7 @@ namespace edu.jhu.co
             // duration of the turn
             turnManager.TurnDuration = 5f; // 5seconds
 
-            //enable begin game only for the first person
+            //enable begin game cntrol only for the first person
             if (PhotonNetwork.IsMasterClient && PhotonNetwork.PlayerList.Length > 1)
             {
                 this.BeginGame.SetActive(true);
@@ -123,61 +138,15 @@ namespace edu.jhu.co
             
             //Panel for dice turn disable till game clicked
             this.GamePanel.SetActive(false);
-        }
 
-        public void RefreshPanels()
-        {
-            
-            
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        public override void OnPlayerLeftRoom(Player other)
-        {
-            Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
-            LogFeedback("Player " + other.NickName + " left the Game");
-            this.UpdatePlayerTexts();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        public override void OnPlayerEnteredRoom(Player other)
-        {
-            Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // seen when other connects 
-            LogFeedback("Player " + other.NickName + " joined the Game");
-
-            //enable begin game if you have one player
-            if (PhotonNetwork.IsMasterClient &&
-                PhotonNetwork.PlayerList.Length > 1 &&
-                gameStarted == false) 
+             //grabs the transcript controller and populates the transcript controller
+            if (GameObject.Find("TranscriptController") != null)
             {
-                //game not begun)
-                this.BeginGame.SetActive(true);
+                transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
             }
 
-            this.UpdatePlayerTexts();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="message"></param>
-        public void LogFeedback(string message)
-        {
-            // we do not assume there is a feedbackText defined.
-            if (GameStatus == null)
-            {
-                return;
-            }
-
-            // add new messages as a new line and at the bottom of the log.
-            GameStatus.text = System.Environment.NewLine + message;
-        }
 
         /// <summary>
         /// 
@@ -191,6 +160,7 @@ namespace edu.jhu.co
                 return;
             }
 
+            //if more than one player, set turns to play
             if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
             {
                 if (this.turnManager.IsOver)
@@ -212,8 +182,8 @@ namespace edu.jhu.co
                 //LogFeedback(this.turnManager.Turn.ToString());
                 if (this.turnManager.Turn > 0)
                 {
-
-                    LogFeedback("Turn Time: " + this.turnManager.RemainingSecondsInTurn.ToString("F1") + " SECONDS");
+                    LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
+                  //  LogFeedback("Turn Time: " + this.turnManager.RemainingSecondsInTurn.ToString("F1") + " SECONDS");
 
                     this.GamePanel.SetActive(true);
                 }
@@ -227,141 +197,76 @@ namespace edu.jhu.co
                 Application.Quit();
             }
 
-            this.UpdatePlayerTexts();
+            //updateplayer list
+            this.UpdatePlayerList();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void LeaveRoom()
+
+        public void RefreshPanels()
         {
-            PhotonNetwork.LeaveRoom();
-            SceneManager.LoadScene("Login");
+            
+            
         }
+
+        #region MultiPlayerCalls
 
         /// <summary>
         /// 
         /// </summary>
-        public void ExitApplication()
+        /// <param name="other"></param>
+        public override void OnPlayerLeftRoom(Player other)
         {
-            Application.Quit();
+            Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
+            LogFeedback("Player " + other.NickName + " left the Game");
+            this.UpdatePlayerList();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public void GameBegins()
-        { 
-            if (PhotonNetwork.IsMasterClient)
+        /// <param name="other"></param>
+        public override void OnPlayerEnteredRoom(Player other)
+        {
+            Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // seen when other connects 
+            LogFeedback("Player " + other.NickName + " joined the Game");
+
+            //enable begin game if you have one player
+            if (PhotonNetwork.IsMasterClient &&
+                PhotonNetwork.PlayerList.Length > 1 &&
+                gameStarted == false) 
             {
-                turnManager.BeginTurn();
-                Debug.Log(PhotonNetwork.CurrentRoom.GetTurn());
-                this.BeginGame.SetActive(false);
-                gameStarted = true;
+                //game not begun)
+                this.BeginGame.SetActive(true);
             }
-            else
-            {
-                gameStarted = false;
-                LogFeedback("Wait for the Master Client to Start the Game"); 
-            }
-        }
 
+            this.UpdatePlayerList();
+        }
+        #endregion
+
+        #region GameManagerFunctions
         /// <summary>
         /// 
         /// </summary>
-        public void MakeTurn()
-        {
-            LogFeedback(" Making Move " + turnManager.Turn); 
-            SetScore();
-            int Score = PhotonNetwork.LocalPlayer.GetScore();
-
-            this.turnManager.SendMove(Score, true);
-            turnManager.BeginTurn();
-            this.UpdatePlayerTexts();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void OnEndTurn()
-        {
-            this.GameBegins();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="turn"></param>
-        public void OnTurnBegins(int turn)
-        {
-            LogFeedback("Turn " + turn);
-            Debug.Log("Turn Begins...");
-            Debug.Log("Turn " + turn);
-            this.UpdatePlayerTexts();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="turn"></param>
-        public void OnTurnCompleted(int turn)
-        {
-            Debug.Log("Turn Completed...");
-            Debug.Log("Turn " + turn);
-            this.SetScore();
-            this.UpdatePlayerTexts();
-        }
-
-        public void OnPlayerMove(Player player, int turn, object move)
-        {
-            Debug.Log("On Player Move...");
-            Debug.Log("Turn " + turn);
-
-            this.SetScore();
-            this.UpdatePlayerTexts();
-        }
-
-        /// <summary>
-        /// Not being called. In test mode
-        /// </summary>
-        /// <param name="player"></param>
-        /// <param name="turn"></param>
-        /// <param name="move"></param>
-        public void OnPlayerFinished(Player player, int turn, object move)
-        {
-            Debug.Log("On Player Finished...");
-            Debug.Log("Turn " + turn);
-            LogFeedback("Score " + move);
-            this.SetScore();
-            this.UpdatePlayerTexts();
-        }
-
-        /// <summary>
-        /// Not being called. In test mode
-        /// </summary>
-        /// <param name="turn"></param>
-        public void OnTurnTimeEnds(int turn)
-        {
-            Debug.Log("Turn Time Ends...");
-            Debug.Log("Turn " + turn);
-            this.SetScore();
-            this.UpdatePlayerTexts();
-        }
-
         public void SetScore()
         {
-
-            InputField inputField = ScoreObject.GetComponent<InputField>();
-            string value = inputField.text;
+            //get vaue of score 
+            Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
+            string value = DiceValue.text;
             if (string.IsNullOrEmpty(value))
             {
                 Debug.LogError("Score is empty");
                 return;
             }
 
+
+            //set game player's score
             try
             {
                 PhotonNetwork.LocalPlayer.SetScore(int.Parse(value));
+
+                //also set tht his turn for this round is complete
+                
+
             }
             catch (Exception ex)
             {
@@ -373,26 +278,217 @@ namespace edu.jhu.co
         /// <summary>
         /// 
         /// </summary>
-        public void UpdatePlayerTexts()
+        public void UpdatePlayerList()
         {
             PlayerList.text = "";
             Player LocalPlayer = PhotonNetwork.LocalPlayer;
             //PlayerList.text += LocalPlayer.NickName + " (" + LocalPlayer.GetScore() + ")" + System.Environment.NewLine;
+
+           //update the player list in chat dropdown
+            Dropdown chatPlayerList = GameObject.Find("DropdownPlayers").GetComponent<Dropdown>();
+            if (chatPlayerList != null)
+            {
+                
+            }
+            //
+
+            //display players in left panel and in chat window
             foreach (Player otherone in PhotonNetwork.PlayerList)
             {
-              //  if (LocalPlayer.NickName != otherone.NickName)
-                {
-                    PlayerList.text += otherone.NickName + " (score: " + otherone.GetScore() + ")" + System.Environment.NewLine;
-                }
- 
+                PlayerList.text += otherone.NickName + " (score: " + otherone.GetScore() + ")" + System.Environment.NewLine;
 
             }
+        }
 
-            //show for current player
-            if (myDiceValue != null)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        public void LogFeedback(string message)
+        {
+            // we do not assume there is a feedbackText defined.
+            if (GameStatus == null)
             {
-                myDiceValue.text = LocalPlayer.GetScore().ToString();
+                return;
             }
+
+            // add new messages as a new line and at the bottom of the log.
+            GameStatus.text = System.Environment.NewLine + message;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        public void SetWelcomeText()
+        {
+            if (WelcomeText != null)
+            {
+                WelcomeText.text = "Welcome " + PhotonNetwork.NickName + " to play Yahtzee++";
+                            //+ System.Environment.NewLine + "You are in " + PhotonNetwork.CurrentRoom.Name;
+            }
+
+            if (GameRoomText != null)
+            {
+                GameRoomText.text = PhotonNetwork.CurrentRoom.Name;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        public void LogTurnTime(string message)
+        {
+            // we do not assume there is a feedbackText defined.
+            if (TurnStatus == null)
+            {
+                return;
+            }
+
+            // add new messages as a new line and at the bottom of the log.
+            TurnStatus.text = "[Turn Time: " + message + "secs]";
+        }
+        #endregion
+
+        #region PageEventHandlers
+        /// <summary>
+        /// leave game and go to login page
+        /// </summary>
+        public void LeaveRoom()
+        {
+            PhotonNetwork.LeaveRoom();
+            SceneManager.LoadScene("Login");
+        }
+
+        /// <summary>
+        /// close window (remove for web build)
+        /// </summary>
+        public void ExitApplication()
+        {
+            Application.Quit();
+        }
+
+        /// <summary>
+        /// cliecked to begin the game
+        /// </summary>
+        public void GameBegins()
+        { 
+            if (PhotonNetwork.IsMasterClient)
+            {
+                turnManager.BeginTurn();
+                Debug.Log(PhotonNetwork.CurrentRoom.GetTurn());
+                
+                this.BeginGame.SetActive(false);
+                gameStarted = true;
+            }
+            else
+            {
+                gameStarted = false;
+                LogFeedback("Wait for the Master Client to Start the Game"); 
+            }
+        }
+
+      
+
+        /// <summary>
+        /// player commited his/her turn
+        /// </summary>
+        public void MakeTurn()
+        {
+            LogFeedback(" Making Move " + turnManager.Turn); 
+
+            //get dice value selected
+            int Score = 0;
+            Text _diceValueText = this.GetComponent<Text>();
+            if (_diceValueText != null)
+            {
+                Score = Convert.ToInt32(_diceValueText.text);
+            }
+            SetScore();
+
+         //   int Score = PhotonNetwork.LocalPlayer.GetScore();
+
+            //inform the turnmanager
+            this.turnManager.SendMove(Score, true);
+            turnManager.BeginTurn();
+            this.UpdatePlayerList();
+        }
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void OnEndTurn()
+        {
+            this.GameBegins();
+        }
+
+        /// <summary>
+        /// Called the turn begins event.
+        /// </summary>
+        /// <param name="turn">Turn Index</param>
+        public void OnTurnBegins(int turn)
+        {
+            LogFeedback("Turn " + turn);
+            Debug.Log("Turn Begins...");
+            Debug.Log("Turn " + turn);
+            this.UpdatePlayerList();
+        }
+
+        /// <summary>
+        /// Called when a turn is completed (finished by all players)
+        /// </summary>
+        /// <param name="turn">Turn Index</param>
+        public void OnTurnCompleted(int turn)
+        {
+            Debug.Log("Turn Completed...");
+            Debug.Log("Turn " + turn);
+            this.SetScore();
+            this.UpdatePlayerList();
+        }
+
+        /// <summary>
+        /// Called when a player moved (but did not finish the turn)
+        /// </summary>
+        /// <param name="player">Player reference</param>
+        /// <param name="turn">Turn Index</param>
+        /// <param name="move">Move Object data</param>
+        public void OnPlayerMove(Player player, int turn, object move)
+        {
+            Debug.Log("On Player Move...");
+            Debug.Log("Turn " + turn);
+
+            this.SetScore();
+            this.UpdatePlayerList();
+        }
+
+        /// <summary>
+        /// When a player finishes a turn (includes the action/move of that player)
+        /// </summary>
+        /// <param name="player">Player reference</param>
+        /// <param name="turn">Turn index</param>
+        /// <param name="move">Move Object data</param>
+        public void OnPlayerFinished(Player player, int turn, object move)
+        {
+            Debug.Log("On Player Finished...");
+            Debug.Log("Turn " + turn);
+            LogFeedback("Score " + move);
+            this.SetScore();
+            this.UpdatePlayerList();
+        }
+
+        /// <summary>
+        /// Called when a turn completes due to a time constraint (timeout for a turn)
+        /// </summary>
+        /// <param name="turn">Turn index</param>
+        public void OnTurnTimeEnds(int turn)
+        {
+            Debug.Log("Turn Time Ends...");
+            Debug.Log("Turn " + turn);
+            this.SetScore();
+            this.UpdatePlayerList();
         }
     }
 }

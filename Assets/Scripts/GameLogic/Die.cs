@@ -10,7 +10,7 @@ public class Die : MonoBehaviour
 
     public void toggleDice()
     {
-        TranscriptController transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+      /*  TranscriptController transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         isHold = !isHold;
 
         if (isHold)
@@ -21,6 +21,6 @@ public class Die : MonoBehaviour
         if(!isHold)
         {
             transcriptController.SendMessageToTranscript("Releasing Die", TranscriptMessage.SubsystemType.dice);
-        }
+        }*/
     }
 }
