@@ -146,7 +146,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.DefaultCompany.COYahtzee
+    Standalone: com.JHU.COYahtzee
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -593,6 +593,7 @@ PlayerSettings:
   assemblyVersionValidation: 1
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
+    WSA: 3
     WebGL: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
@@ -617,8 +618,14 @@ PlayerSettings:
   metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628, a: 1}
   metroSplashScreenUseBackgroundColor: 0
-  platformCapabilities: {}
-  metroTargetDeviceFamilies: {}
+  platformCapabilities:
+    WindowsStoreApps:
+      InternetClientServer: True
+      Chat: True
+      InternetClient: True
+  metroTargetDeviceFamilies:
+    Desktop: True
+    Mobile: True
   metroFTAName: 
   metroFTAFileTypes: []
   metroProtocolName: 
