@@ -67,6 +67,9 @@ namespace edu.jhu.co
 
         public bool gameStarted = false;  //maybe not needed(SHould be in the Turn)
 
+        public bool allowForSinglePerson = true; //allows for singleperson to be played
+
+
         //show my dice value (test variable)
         public Text myDiceValue;
 
@@ -124,18 +127,21 @@ namespace edu.jhu.co
             // duration of the turn
             turnManager.TurnDuration = 5f; // 5seconds
 
+
             //enable begin game cntrol only for the first person
-            if (PhotonNetwork.IsMasterClient && PhotonNetwork.PlayerList.Length > 1)
-            {
-                this.BeginGame.SetActive(true);
-                
-            }
-            else
-            {
-                //display that the first person has to press start
-                this.BeginGame.SetActive(false);
-            }
-            
+            /* if (PhotonNetwork.IsMasterClient )
+                // && (PhotonNetwork.PlayerList.Length > 1 || allowForSinglePerson))
+             {
+                 this.BeginGame.SetActive(true);
+
+             }
+             else
+             {
+                 //display that the first person has to press start
+                 this.BeginGame.SetActive(false);
+             }*/
+            this.BeginGame.SetActive(true);
+
             //Panel for dice turn disable till game clicked
             this.GamePanel.SetActive(false);
 
@@ -178,12 +184,15 @@ namespace edu.jhu.co
                 }
                 */
 
+                //allow for single player
+                this.GamePanel.SetActive(true);
+                //need to check all paths
+
 
                 //LogFeedback(this.turnManager.Turn.ToString());
                 if (this.turnManager.Turn > 0)
                 {
                     LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
-                  //  LogFeedback("Turn Time: " + this.turnManager.RemainingSecondsInTurn.ToString("F1") + " SECONDS");
 
                     this.GamePanel.SetActive(true);
                 }
@@ -230,10 +239,11 @@ namespace edu.jhu.co
             Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // seen when other connects 
             LogFeedback("Player " + other.NickName + " joined the Game");
 
+
             //enable begin game if you have one player
             if (PhotonNetwork.IsMasterClient &&
-                PhotonNetwork.PlayerList.Length > 1 &&
-                gameStarted == false) 
+                gameStarted == false)
+                //&& PhotonNetwork.PlayerList.Length > 1 ) 
             {
                 //game not begun)
                 this.BeginGame.SetActive(true);
@@ -378,6 +388,11 @@ namespace edu.jhu.co
             if (PhotonNetwork.IsMasterClient)
             {
                 turnManager.BeginTurn();
+
+                //for running single player mode
+                this.GamePanel.SetActive(true);
+                //need to check all paths
+
                 Debug.Log(PhotonNetwork.CurrentRoom.GetTurn());
                 
                 this.BeginGame.SetActive(false);

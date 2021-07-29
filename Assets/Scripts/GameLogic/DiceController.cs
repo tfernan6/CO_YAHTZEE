@@ -47,7 +47,8 @@ public class DiceController : GameManager
 
     public void rollDice()
     {
-        if (rollCounter >= 1) {
+        if (rollCounter >= 1)
+        {
             for (int i = 0; i < diceObjects.Length; i++)
             {
                 if (diceObjects[i].isHold == false)
@@ -65,7 +66,7 @@ public class DiceController : GameManager
                 transcriptController.SendMessageToTranscript("No more rerolls! Please select a score to end your turn"
                 , TranscriptMessage.SubsystemType.dice);
             }
-       }
+        }
 
 
         if (transcriptController != null)
@@ -80,13 +81,16 @@ public class DiceController : GameManager
         //multiplayer
         Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
         if (DiceValue != null) { DiceValue.text = ReturnDiceRolled().ToString(); }
-        bool turnOver = (rollCounter > 0 ) ? false : true;
-        this.turnManager.SendMove(System.Convert.ToInt32(DiceValue.text), turnOver);  //change to correct value
-        if (!turnOver) //if all 3 are over, your turn is over
-        {
-            this.turnManager.BeginTurn(); //your turn over, next player to move
-        }
 
+        if (!allowForSinglePerson)
+        { 
+            bool turnOver = (rollCounter > 0) ? false : true;
+            this.turnManager.SendMove(System.Convert.ToInt32(DiceValue.text), turnOver);  //change to correct value
+            if (!turnOver) //if all 3 are over, your turn is over
+            {
+                this.turnManager.BeginTurn(); //your turn over, next player to move
+            }
+        }
     }
 
 
