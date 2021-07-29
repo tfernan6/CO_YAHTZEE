@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +21,8 @@ public class ChatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        username = OldLogin.playerName;
+        //username = OldLogin.playerName;
+        username = PhotonNetwork.NickName;
     }
 
     // Update is called once per frame
