@@ -2650,7 +2650,7 @@ MonoBehaviour:
   chatPanel: {fileID: 215158208}
   textObject: {fileID: 5789023374519935190, guid: 50c59087f082c4ff0b82e9d08cd6454b, type: 3}
   chatBox: {fileID: 995840661}
-  playerMessage: {r: 1, g: 1, b: 1, a: 1}
+  playerMessage: {r: 0.14150941, g: 0.13149695, b: 0.13149695, a: 1}
   info: {r: 0.7921569, g: 0.7768263, b: 0.09411762, a: 1}
   username: 
   messageList: []
