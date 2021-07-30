@@ -27,11 +27,15 @@ public class ChatController : MonoBehaviour, IChatClientListener
     // callbacks
     public void DebugReturn(DebugLevel level, string message)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
     public void OnChatStateChange(ChatState state)
     {
-        throw new System.NotImplementedException();
+        if(state == ChatState.Uninitialized)
+        {
+            isConnected = false;
+            chatPanel.SetActive(false);
+        }
     }
     public void OnConnected() {
         UnityEngine.Debug.Log("Connection to chat successful");
@@ -39,7 +43,8 @@ public class ChatController : MonoBehaviour, IChatClientListener
     }
     public void OnDisconnected()
     {
-        throw new System.NotImplementedException();
+        isConnected = false;
+        chatPanel.SetActive(false);
     }
     public void OnGetMessages(string channelName, string[] senders, object[] messages) 
     {
@@ -54,7 +59,10 @@ public class ChatController : MonoBehaviour, IChatClientListener
     }
     public void OnPrivateMessage(string sender, object message, string channelName)
     {
-        throw new System.NotImplementedException();
+        string msgs = "";
+        msgs = string.Format("(Private) {0}: {1}", sender, message);
+        chatDisplay.text += "\n " + msgs;
+        UnityEngine.Debug.Log(msgs);
     }
     public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
     {
@@ -63,6 +71,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     public void OnSubscribed(string[] channels, bool[] results)
     {
         chatPanel.SetActive(true);
+        UnityEngine.Debug.Log("Subscribed to new channel");
     }
     public void OnUnsubscribed(string[] channels)
     {
@@ -97,7 +106,11 @@ public class ChatController : MonoBehaviour, IChatClientListener
 
     public void SubmitPublicChatOnClick()
     {
+        UnityEngine.Debug.Log("InSubmitPublicChatOnClick " + currentChat);
+        privateReceiver = "";
         if (privateReceiver == "" && currentChat != "") {
+            
+            UnityEngine.Debug.Log("SubmitPublic:  calling publish message");
             chatClient.PublishMessage("RegionChannel", currentChat);
             chatBox.text = "";
             currentChat = "";
@@ -112,6 +125,12 @@ public class ChatController : MonoBehaviour, IChatClientListener
             currentChat = "";
         }
 
+    }
+
+    public void OnApplicationQuit() 
+    {
+        if (chatClient != null)
+            chatClient.Disconnect();
     }
 
   
