@@ -620,7 +620,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 95347568}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7467a66903b572f499c796b0e8687eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isHold: 0
@@ -689,8 +689,7 @@ MonoBehaviour:
   Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 95347571}
+  ObservedComponents: []
   sceneViewId: 5
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1001,7 +1000,7 @@ RectTransform:
   m_LocalScale: {x: 1.0328, y: 1.0328, z: 1.0328}
   m_Children: []
   m_Father: {fileID: 1791744529}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1177,8 +1176,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1084307602}
+  m_Children: []
   m_Father: {fileID: 769024237}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2136,7 +2134,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 458958378}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7467a66903b572f499c796b0e8687eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isHold: 0
@@ -2205,8 +2203,7 @@ MonoBehaviour:
   Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 458958381}
+  ObservedComponents: []
   sceneViewId: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -2736,7 +2733,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1791744529}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3243,7 +3240,7 @@ MonoBehaviour:
   playerMessage: {r: 0.14150941, g: 0.13149695, b: 0.13149695, a: 1}
   info: {r: 0.7921569, g: 0.7768263, b: 0.09411762, a: 1}
   username: 
-  chatDisplay: {fileID: 1084307603}
+  chatDisplay: {fileID: 0}
   messageList: []
 --- !u!4 &713858662
 Transform:
@@ -3883,7 +3880,7 @@ RectTransform:
   m_Children:
   - {fileID: 534910576}
   m_Father: {fileID: 1791744529}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5040,9 +5037,9 @@ GameObject:
   - component: {fileID: 998055292}
   - component: {fileID: 998055296}
   - component: {fileID: 998055295}
-  - component: {fileID: 998055294}
   - component: {fileID: 998055293}
   - component: {fileID: 998055297}
+  - component: {fileID: 998055294}
   m_Layer: 0
   m_Name: Die0
   m_TagString: Untagged
@@ -5086,7 +5083,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 998055294}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Die, Assembly-CSharp
           m_MethodName: toggleDice
           m_Mode: 1
@@ -5107,7 +5104,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 998055291}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7467a66903b572f499c796b0e8687eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isHold: 0
@@ -5176,8 +5173,7 @@ MonoBehaviour:
   Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 1
-  ObservedComponents:
-  - {fileID: 998055294}
+  ObservedComponents: []
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5290,7 +5286,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1791744529}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6967,7 +6963,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1430330021}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7467a66903b572f499c796b0e8687eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isHold: 0
@@ -7036,8 +7032,7 @@ MonoBehaviour:
   Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1430330024}
+  ObservedComponents: []
   sceneViewId: 2
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -7339,7 +7334,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1578207590
 GameObject:
@@ -8224,7 +8219,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2012893961}
   - {fileID: 1909879770}
   - {fileID: 820102915}
   - {fileID: 598201846}
@@ -8513,7 +8507,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1860387595}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7467a66903b572f499c796b0e8687eb1, type: 3}
+  m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isHold: 0
@@ -8582,8 +8576,7 @@ MonoBehaviour:
   Synchronization: 1
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1860387598}
+  ObservedComponents: []
   sceneViewId: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -8888,7 +8881,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.006475568, y: 0.00390625}
+  m_AnchoredPosition: {x: -0.006174678, y: 0.00390625}
   m_SizeDelta: {x: 292.14, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1905482367
@@ -8962,7 +8955,7 @@ RectTransform:
   m_LocalScale: {x: 1.0328, y: 1.0328, z: 1.0328}
   m_Children: []
   m_Father: {fileID: 1791744529}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -9265,7 +9258,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2012893959}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70b9738b960911f47b0235fae31e2b11, type: 3}
+  m_Script: {fileID: 11500000, guid: 09fb3fdb167301c438eb95b5e57432bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   diceImages:
@@ -9276,11 +9269,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 24b8ecf0b5daf4067b2212910b16c39d, type: 3}
   - {fileID: 21300000, guid: 0ab6b419210b24529a1abadc172a17b0, type: 3}
   diceObjects:
-  - {fileID: 458958381}
-  - {fileID: 1860387598}
-  - {fileID: 95347571}
-  - {fileID: 1430330024}
   - {fileID: 998055294}
+  - {fileID: 1430330024}
+  - {fileID: 458958381}
+  - {fileID: 95347571}
+  - {fileID: 1860387598}
   scorecardController: {fileID: 0}
 --- !u!1 &2020903201
 GameObject:
