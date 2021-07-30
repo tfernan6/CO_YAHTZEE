@@ -2141,7 +2141,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2102256072}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.9999998
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4793,7 +4793,7 @@ GameObject:
   - component: {fileID: 1084307604}
   - component: {fileID: 1084307603}
   m_Layer: 5
-  m_Name: Text
+  m_Name: ChatDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

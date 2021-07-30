@@ -43,7 +43,14 @@ public class ChatController : MonoBehaviour, IChatClientListener
     }
     public void OnGetMessages(string channelName, string[] senders, object[] messages) 
     {
-        throw new System.NotImplementedException();
+        UnityEngine.Debug.Log("Calling OnGetMessages");
+        string msgs = "";
+        for (int i = 0; i < senders.Length; i++)
+        {
+            msgs = string.Format("{0}: {1}", senders[i], messages[i]);
+            chatDisplay.text += "\n" + msgs;
+            UnityEngine.Debug.Log(msgs);
+        }
     }
     public void OnPrivateMessage(string sender, object message, string channelName)
     {
@@ -107,6 +114,9 @@ public class ChatController : MonoBehaviour, IChatClientListener
 
     }
 
+  
+
+
     [SerializeField]
     List<Message> messageList = new List<Message>();
 
@@ -114,6 +124,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     void Start()
     {
         // might need to switch authentication values to Photon.Chat something
+        Application.runInBackground = true; 
         ChatConnect();
         //username = OldLogin.playerName;
         username = PhotonNetwork.NickName;
@@ -124,6 +135,8 @@ public class ChatController : MonoBehaviour, IChatClientListener
     {
         if (isConnected)
         {
+            UnityEngine.Debug.Log("isConnected = true");
+            UnityEngine.Debug.Log("Calling chatClient.Service");
             chatClient.Service();
         }
 
