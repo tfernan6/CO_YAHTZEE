@@ -17,6 +17,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     public InputField chatBox;
     public Color playerMessage, info;
     [SerializeField] string username;
+    [SerializeField] Text chatDisplay;
     ChatClient chatClient;
     bool isConnected;
     string currentChat;
@@ -96,6 +97,15 @@ public class ChatController : MonoBehaviour, IChatClientListener
         }
 
     }
+    public void SubmitPrivateChatOnClick()
+    {
+        if (privateReceiver == "" && currentChat != "") {
+            chatClient.PublishMessage("RegionChannel", currentChat);
+            chatBox.text = "";
+            currentChat = "";
+        }
+
+    }
 
     [SerializeField]
     List<Message> messageList = new List<Message>();
@@ -117,6 +127,13 @@ public class ChatController : MonoBehaviour, IChatClientListener
             chatClient.Service();
         }
 
+        if (chatBox.text != "" && Input.GetKey(KeyCode.Return))
+        {
+            SubmitPublicChatOnClick();
+            SubmitPrivateChatOnClick();
+        }
+
+        /*
         if (chatBox.text != "")
         {
             if (Input.GetKeyDown(KeyCode.Return))
@@ -136,6 +153,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
                 chatBox.ActivateInputField();
             }
         }
+        */
 
         /*
         if (!chatBox.isFocused)
