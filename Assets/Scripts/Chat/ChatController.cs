@@ -1,19 +1,121 @@
+using System;
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Chat;
+using ExitGames.Client.Photon;
 
 
-public class ChatController : MonoBehaviour
+public class ChatController : MonoBehaviour, IChatClientListener
 {
     public static int maxMessages = 1000;
-
     public GameObject chatPanel, textObject;
     public InputField chatBox;
     public Color playerMessage, info;
-    public string username;
+    [SerializeField] string username;
+    [SerializeField] Text chatDisplay;
+    ChatClient chatClient;
+    bool isConnected;
+    string currentChat;
+    string privateReceiver = "";
+
+
+    // callbacks
+    public void DebugReturn(DebugLevel level, string message)
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnChatStateChange(ChatState state)
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnConnected() {
+        UnityEngine.Debug.Log("Connection to chat successful");
+        chatClient.Subscribe(new string[] {"RegionChannel"});
+    }
+    public void OnDisconnected()
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnGetMessages(string channelName, string[] senders, object[] messages) 
+    {
+        UnityEngine.Debug.Log("Calling OnGetMessages");
+        string msgs = "";
+        for (int i = 0; i < senders.Length; i++)
+        {
+            msgs = string.Format("{0}: {1}", senders[i], messages[i]);
+            chatDisplay.text += "\n" + msgs;
+            UnityEngine.Debug.Log(msgs);
+        }
+    }
+    public void OnPrivateMessage(string sender, object message, string channelName)
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnSubscribed(string[] channels, bool[] results)
+    {
+        chatPanel.SetActive(true);
+    }
+    public void OnUnsubscribed(string[] channels)
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnUserSubscribed(string channel, string user)
+    {
+        throw new System.NotImplementedException();
+    }
+    public void OnUserUnsubscribed(string channel, string user)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void UsernameOnValueChange(string valueIn)
+    {
+        username = valueIn;
+    }
+
+    public void ChatConnect() 
+    {
+        isConnected = true;
+        chatClient = new ChatClient(this);
+        chatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, PhotonNetwork.AppVersion, new Photon.Chat.AuthenticationValues(PhotonNetwork.NickName));
+        UnityEngine.Debug.Log("Connection to chat");
+    }
+
+    public void TypeChatOnValueChange(string valueIn)
+    {
+        currentChat = valueIn;
+    }
+
+    public void SubmitPublicChatOnClick()
+    {
+        if (privateReceiver == "" && currentChat != "") {
+            chatClient.PublishMessage("RegionChannel", currentChat);
+            chatBox.text = "";
+            currentChat = "";
+        }
+
+    }
+    public void SubmitPrivateChatOnClick()
+    {
+        if (privateReceiver == "" && currentChat != "") {
+            chatClient.PublishMessage("RegionChannel", currentChat);
+            chatBox.text = "";
+            currentChat = "";
+        }
+
+    }
+
+  
+
 
     [SerializeField]
     List<Message> messageList = new List<Message>();
@@ -21,6 +123,9 @@ public class ChatController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // might need to switch authentication values to Photon.Chat something
+        Application.runInBackground = true; 
+        ChatConnect();
         //username = OldLogin.playerName;
         username = PhotonNetwork.NickName;
     }
@@ -28,7 +133,20 @@ public class ChatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isConnected)
+        {
+            UnityEngine.Debug.Log("isConnected = true");
+            UnityEngine.Debug.Log("Calling chatClient.Service");
+            chatClient.Service();
+        }
 
+        if (chatBox.text != "" && Input.GetKey(KeyCode.Return))
+        {
+            SubmitPublicChatOnClick();
+            SubmitPrivateChatOnClick();
+        }
+
+        /*
         if (chatBox.text != "")
         {
             if (Input.GetKeyDown(KeyCode.Return))
@@ -48,6 +166,7 @@ public class ChatController : MonoBehaviour
                 chatBox.ActivateInputField();
             }
         }
+        */
 
         /*
         if (!chatBox.isFocused)
