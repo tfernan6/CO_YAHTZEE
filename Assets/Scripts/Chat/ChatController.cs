@@ -22,6 +22,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     bool isConnected;
     string currentChat;
     string privateReceiver = "";
+    public Dropdown chatDropdown;
 
 
     // callbacks
@@ -99,6 +100,19 @@ public class ChatController : MonoBehaviour, IChatClientListener
         UnityEngine.Debug.Log("Connection to chat");
     }
 
+    public void setChatDropdown() 
+    {
+        chatDropdown.options.Clear();
+        chatDropdown.options.Add(new Dropdown.OptionData("public"));
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++ )
+        {
+            if (PhotonNetwork.PlayerList[i].NickName != PhotonNetwork.NickName)
+            {
+                chatDropdown.options.Add(new Dropdown.OptionData(PhotonNetwork.PlayerList[i].NickName));
+            }
+        }
+    }
+
     public void TypeChatOnValueChange(string valueIn)
     {
         currentChat = valueIn;
@@ -106,10 +120,9 @@ public class ChatController : MonoBehaviour, IChatClientListener
 
     public void SubmitPublicChatOnClick()
     {
-        UnityEngine.Debug.Log("InSubmitPublicChatOnClick " + currentChat);
-        privateReceiver = "";
+        
         if (privateReceiver == "" && currentChat != "") {
-            
+            UnityEngine.Debug.Log("InSubmitPublicChatOnClick " + currentChat);
             UnityEngine.Debug.Log("SubmitPublic:  calling publish message");
             chatClient.PublishMessage("RegionChannel", currentChat);
             chatBox.text = "";
@@ -119,8 +132,9 @@ public class ChatController : MonoBehaviour, IChatClientListener
     }
     public void SubmitPrivateChatOnClick()
     {
-        if (privateReceiver == "" && currentChat != "") {
-            chatClient.PublishMessage("RegionChannel", currentChat);
+        if (privateReceiver != "" && currentChat != "") {
+            UnityEngine.Debug.Log("InSubmitPrivateChatOnClick " + currentChat);
+            chatClient.PublishMessage(privateReceiver, currentChat);
             chatBox.text = "";
             currentChat = "";
         }
@@ -133,6 +147,15 @@ public class ChatController : MonoBehaviour, IChatClientListener
             chatClient.Disconnect();
     }
 
+    public void OnReceiverValueChanged()
+    {
+        UnityEngine.Debug.Log("Receiver value changed to: " + chatDropdown.options[chatDropdown.value].text );
+        privateReceiver = chatDropdown.options[chatDropdown.value].text;
+        if (privateReceiver == "public") 
+        {
+            privateReceiver = "";
+        }
+    }
   
 
 
@@ -147,6 +170,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
         ChatConnect();
         //username = OldLogin.playerName;
         username = PhotonNetwork.NickName;
+        setChatDropdown();
     }
 
     // Update is called once per frame
@@ -158,6 +182,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
             UnityEngine.Debug.Log("Calling chatClient.Service");
             chatClient.Service();
         }
+        setChatDropdown();
 
         if (chatBox.text != "" && Input.GetKey(KeyCode.Return))
         {

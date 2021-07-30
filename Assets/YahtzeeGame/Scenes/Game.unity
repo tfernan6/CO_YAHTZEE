@@ -1840,16 +1840,22 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: Player A
-      m_Image: {fileID: 0}
-    - m_Text: Player B
-      m_Image: {fileID: 0}
-    - m_Text: Player C
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 713858661}
+        m_TargetAssemblyTypeName: ChatController, Assembly-CSharp
+        m_MethodName: OnReceiverValueChanged
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &405231338
 MonoBehaviour:
@@ -2079,10 +2085,10 @@ RectTransform:
   m_Father: {fileID: 215158209}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 83, y: -7.708333}
-  m_SizeDelta: {x: 160, y: 15.416666}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450667442
 MonoBehaviour:
@@ -2457,8 +2463,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2102256073}
   m_HandleRect: {fileID: 2102256072}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.99999976
+  m_Value: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3301,6 +3307,7 @@ MonoBehaviour:
   info: {r: 0.7921569, g: 0.7768263, b: 0.09411762, a: 1}
   username: 
   chatDisplay: {fileID: 450667442}
+  chatDropdown: {fileID: 405231337}
   messageList: []
 --- !u!4 &713858662
 Transform:
@@ -4922,7 +4929,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player A
+  m_Text: 
 --- !u!222 &993370874
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8911,7 +8918,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.000088162495, y: 0.001953125}
+  m_AnchoredPosition: {x: 0.000088162495, y: -0.001953125}
   m_SizeDelta: {x: 292.14, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1905482367
