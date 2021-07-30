@@ -44,9 +44,7 @@ Logs/
 .DS_Store
 .DS_Store
 *.dll
-*.asset
 *.config
-*.assets
 *.resS
 CO_Yahtzee++_Data/ScriptingAssemblies.json
 MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser
@@ -75,7 +73,6 @@ MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx
 MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx
 CO_Yahtzee++_Data/app.info
 UserSettings/EditorUserSettings.asset
-*.asset
 CO_Yahtzee++.exe
 ProjectSettings/ProjectSettings.asset
 *.meta
