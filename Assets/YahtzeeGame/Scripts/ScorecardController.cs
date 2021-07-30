@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class ScorecardController : MonoBehaviour
 {
-    private static TranscriptController transcriptController;
-    public Score[] scoreList = new Score[16];
+    /*private static TranscriptController transcriptController;*/
+    /*public Score[] scoreList = new Score[16];*/
     
     //should contain logic for the bonus points
 
     // Start is called before the first frame update
     void Start()
     {
-        transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+/*        transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         scoreList[0] = GameObject.Find("Ones").GetComponent<Score>();
         scoreList[1] = GameObject.Find("Twos").GetComponent<Score>();
         scoreList[2] = GameObject.Find("Threes").GetComponent<Score>();
@@ -28,7 +28,7 @@ public class ScorecardController : MonoBehaviour
         scoreList[12] = GameObject.Find("Large Straight").GetComponent<Score>();
         scoreList[13] = GameObject.Find("Chance").GetComponent<Score>();
         scoreList[14] = GameObject.Find("Yahtzee").GetComponent<Score>();
-        scoreList[15] = GameObject.Find("Total Score").GetComponent<Score>();
+        scoreList[15] = GameObject.Find("Total Score").GetComponent<Score>();*/
     }
 
     // Update is called once per frame
@@ -38,11 +38,11 @@ public class ScorecardController : MonoBehaviour
 
     public void calculateScores()
     {
-        transcriptController.SendMessageToTranscript("Calculating Scores", TranscriptMessage.SubsystemType.scorecard);
+/*        transcriptController.SendMessageToTranscript("Calculating Scores", TranscriptMessage.SubsystemType.scorecard);
         foreach (Score score in scoreList)
         {
             score.resetDiceValueCount();
             score.calculateScore();
-        }
+        }*/
     }
 }

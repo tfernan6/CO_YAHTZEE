@@ -2,48 +2,47 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Photon.Pun;
 
 using edu.jhu.co;
 
-public class DiceController : GameManager
+public class DiceController : MonoBehaviour
 {
     public Sprite[] diceImages = new Sprite[6];
     public Die[] diceObjects = new Die[5];
     public static int rollCounter = 3;
     public ScorecardController scorecardController;
-
+    private GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        //gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //grabs the transcript controller and populates the transcript controller
-        if (transcriptController == null && 
-            GameObject.Find("TranscriptController") != null)
-        {
-            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-        }
-        else
-        {
-            Debug.Log("Transcript controller is null");
-        }
+        /* if (transcriptController == null &&
+             GameObject.Find("TranscriptController") != null)
+         {
+             transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+         }
+         else
+         {
+             Debug.Log("Transcript controller is null");
+         }
 
 
-        if (GameObject.Find("ScorecardController") != null)
-        {
+         if (GameObject.Find("ScorecardController") != null)
+         {
              scorecardController = GameObject.Find("ScorecardController").GetComponent<ScorecardController>();
-        }
+         }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        for (int i = 1; i < diceObjects.Length; i++)
-        {
-            Debug.Log("Dice Value: " + i.ToString());
-            diceObjects[i].GetComponent<Image>().sprite = diceImages[diceObjects[i].dieValue-1];
-        }
+        
     }
+
+
 
     public void rollDice()
     {
@@ -51,35 +50,32 @@ public class DiceController : GameManager
         {
             for (int i = 0; i < diceObjects.Length; i++)
             {
-                if (diceObjects[i].isHold == false)
-                {
-                    diceObjects[i].dieValue = Random.Range(1, 7);
-
-                }
+                diceObjects[i].rollDie();
             }
-            rollCounter -= 1;
+
+            //commenting out counter for testing
+            //rollCounter -= 1;
         }
         else
         {
-            if (transcriptController != null)
+           /* if (transcriptController != null)
             {
                 transcriptController.SendMessageToTranscript("No more rerolls! Please select a score to end your turn"
                 , TranscriptMessage.SubsystemType.dice);
-            }
+            }*/
         }
 
-
-        if (transcriptController != null)
+        /*if (transcriptController != null)
         {
             transcriptController.SendMessageToTranscript("Rerolled Dice -- Rolls Left: " + rollCounter, TranscriptMessage.SubsystemType.dice);
         }
         if (scorecardController != null)
         {
             scorecardController.calculateScores();
-        }
+        }*/
 
         //multiplayer
-        Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
+        /*Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
         if (DiceValue != null) { DiceValue.text = ReturnDiceRolled().ToString(); }
 
         if (!allowForSinglePerson)
@@ -90,7 +86,7 @@ public class DiceController : GameManager
             {
                 this.turnManager.BeginTurn(); //your turn over, next player to move
             }
-        }
+        }*/
     }
 
 

@@ -59,16 +59,15 @@ namespace edu.jhu.co
         [SerializeField]
         private Text TurnStatus;
 
-        [Tooltip("All user use this to enter a log")]
-        public TranscriptController transcriptController;
-
 
         private YahtzeePlayer yahtzeePlayer = null; //not coded for it yet
-
         public bool gameStarted = false;  //maybe not needed(SHould be in the Turn)
-
         public bool allowForSinglePerson = true; //allows for singleperson to be played
 
+        //creating controller objects
+        public ScorecardController scController;
+        public DiceController diceController;
+        public TranscriptController tsController;
 
         //show my dice value (test variable)
         public Text myDiceValue;
@@ -145,11 +144,13 @@ namespace edu.jhu.co
             //Panel for dice turn disable till game clicked
             this.GamePanel.SetActive(false);
 
-             //grabs the transcript controller and populates the transcript controller
-            if (GameObject.Find("TranscriptController") != null)
-            {
-                transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-            }
+             //initiates controller objects
+             //diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
+             scController = GameObject.Find("ScorecardController").GetComponent<ScorecardController>();
+             tsController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+             
+            
+
 
         }
 
@@ -210,6 +211,19 @@ namespace edu.jhu.co
             this.UpdatePlayerList();
         }
 
+        //called whenever the dice are rolled
+        public void OnDiceRoll()
+        {
+            /*Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
+            if (DiceValue != null) { DiceValue.text = ReturnDiceRolled().ToString(); }
+
+            this.turnManager.SendMove(System.Convert.ToInt32(DiceValue.text), turnOver);  //change to correct value
+            if (diceController.rollCounter < 1) 
+            {
+                this.turnManager.BeginTurn(); //your turn over, next player to move
+            }*/
+
+        }
 
         public void RefreshPanels()
         {
@@ -225,9 +239,9 @@ namespace edu.jhu.co
         /// <param name="other"></param>
         public override void OnPlayerLeftRoom(Player other)
         {
-            Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
+            /*Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
             LogFeedback("Player " + other.NickName + " left the Game");
-            this.UpdatePlayerList();
+            this.UpdatePlayerList();*/
         }
 
         /// <summary>
