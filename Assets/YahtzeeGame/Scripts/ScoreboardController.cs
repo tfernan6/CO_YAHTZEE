@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScorecardManager : MonoBehaviour
+public class ScoreboardController : MonoBehaviour
 {
-    
+
     // For testing purposes, will grab this from GameManager
     public int numberOfPlayers;
 

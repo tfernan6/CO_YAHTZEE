@@ -15,18 +15,13 @@ namespace edu.jhu.co
     [RequireComponent(typeof(InputField))]
     public class YahtzeePlayer : MonoBehaviour
     {
-        #region Private Constants
-
-
-        // Store the PlayerPref Key to avoid typos
-        const string playerNamePrefKey = "PlayerName";
-
-
-        #endregion
 
         #region Player Attributes
         //store name of crrent player
         public string CurrentPlayerName = string.Empty;
+
+        public int playerNumber;
+
         //store player points
         public int LeaderboardPoints = 0;
         #endregion
@@ -42,7 +37,7 @@ namespace edu.jhu.co
 
             string defaultName = string.Empty;
             InputField _inputField = this.GetComponent<InputField>();
-            if (_inputField != null)
+/*            if (_inputField != null)
             {
                 if (PlayerPrefs.HasKey(playerNamePrefKey))
                 {
@@ -50,7 +45,7 @@ namespace edu.jhu.co
                     _inputField.text = defaultName;
                 }
             }
-
+*/
 
             PhotonNetwork.NickName = defaultName;
         }
@@ -84,7 +79,7 @@ namespace edu.jhu.co
             PhotonNetwork.NickName = value;
 
 
-            PlayerPrefs.SetString(playerNamePrefKey, value);
+            /*PlayerPrefs.SetString(playerNamePrefKey, value);*/
         }
 
 

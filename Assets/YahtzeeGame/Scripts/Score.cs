@@ -21,7 +21,7 @@ public class Score : MonoBehaviour
                 {5, 0 },
                 {6, 0 }
         };
-    public int diceScore = 0;
+    public int scoreValue = 0;
     private Dictionary<string, int> UpperScoreKey = new Dictionary<string, int>()
         {
             {"Ones", 1 },
@@ -53,7 +53,7 @@ public class Score : MonoBehaviour
     public void calculateScore()
     {
 
-        diceScore = 0;
+        scoreValue = 0;
         if (!isSelected)
         {
             if (UpperScoreKey.ContainsKey(gameObject.name))
@@ -62,12 +62,12 @@ public class Score : MonoBehaviour
                 {
                     if (die.dieValue == UpperScoreKey[gameObject.name])
                     {
-                        diceScore = diceScore + die.dieValue;
+                        scoreValue = scoreValue + die.dieValue;
                     }
                 }
-                if (diceScore != 0)
+                if (scoreValue != 0)
                 {
-                    this.GetComponent<Text>().text = diceScore.ToString();
+                    this.GetComponent<Text>().text = scoreValue.ToString();
                 } else
                 {
                     this.GetComponent<Text>().text = null;
@@ -81,9 +81,9 @@ public class Score : MonoBehaviour
 
                     foreach (Die die in currentDice)
                     {
-                        diceScore = diceScore + die.dieValue;
+                        scoreValue = scoreValue + die.dieValue;
                     }
-                    this.GetComponent<Text>().text = diceScore.ToString();
+                    this.GetComponent<Text>().text = scoreValue.ToString();
                 }
                 else
                 {
@@ -96,10 +96,10 @@ public class Score : MonoBehaviour
                 {
                     foreach (Die die in currentDice)
                     {
-                        diceScore = diceScore + die.dieValue;
+                        scoreValue = scoreValue + die.dieValue;
                     }
                     
-                    this.GetComponent<Text>().text = diceScore.ToString();
+                    this.GetComponent<Text>().text = scoreValue.ToString();
                 }
                 else
                 {
@@ -110,8 +110,8 @@ public class Score : MonoBehaviour
             {
                 if (diceValueCount.ContainsValue(3) && diceValueCount.ContainsValue(2))
                 {
-                    diceScore = 25;
-                    this.GetComponent<Text>().text = diceScore.ToString();
+                    scoreValue = 25;
+                    this.GetComponent<Text>().text = scoreValue.ToString();
                 }
                 else
                 {
@@ -125,8 +125,8 @@ public class Score : MonoBehaviour
                     (diceValueCount[2] >= 1 && diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1) |
                     (diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1 && diceValueCount[6] >= 1))
                 {
-                    diceScore = 30;
-                    this.GetComponent<Text>().text = diceScore.ToString();
+                    scoreValue = 30;
+                    this.GetComponent<Text>().text = scoreValue.ToString();
                 }
                 else
                 {
@@ -138,8 +138,8 @@ public class Score : MonoBehaviour
                 if ((diceValueCount[1] >= 1 && diceValueCount[2] >= 1 && diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1) |
                     (diceValueCount[2] >= 1 && diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1 && diceValueCount[6] >= 1))
                 {
-                    diceScore = 40;
-                    this.GetComponent<Text>().text = diceScore.ToString();
+                    scoreValue = 40;
+                    this.GetComponent<Text>().text = scoreValue.ToString();
                 }
                 else
                 {
@@ -150,17 +150,17 @@ public class Score : MonoBehaviour
             {
                 foreach (Die die in currentDice)
                 {
-                    diceScore = diceScore + die.dieValue;
+                    scoreValue = scoreValue + die.dieValue;
                 }
-                this.GetComponent<Text>().text = diceScore.ToString();
+                this.GetComponent<Text>().text = scoreValue.ToString();
             }
 
             if (gameObject.name == "Yahtzee")
             {
                 if (diceValueCount.ContainsValue(5))
                 {
-                    diceScore = 50;
-                    this.GetComponent<Text>().text = diceScore.ToString();
+                    scoreValue = 50;
+                    this.GetComponent<Text>().text = scoreValue.ToString();
                 }
                 else
                 {

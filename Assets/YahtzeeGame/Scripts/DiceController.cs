@@ -11,7 +11,7 @@ public class DiceController : MonoBehaviour
     public Sprite[] diceImages = new Sprite[6];
     public Die[] diceObjects = new Die[5];
     public static int rollCounter = 3;
-    public ScorecardController scorecardController;
+    public Scorecard scorecard;
     private GameManager gameManager;
 
     // Start is called before the first frame update

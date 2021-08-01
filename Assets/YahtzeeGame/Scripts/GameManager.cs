@@ -65,9 +65,11 @@ namespace edu.jhu.co
         public bool allowForSinglePerson = true; //allows for singleperson to be played
 
         //creating controller objects
-        public ScorecardController scController;
+        public ScoreboardController sbController;
         public DiceController diceController;
         public TranscriptController tsController;
+        public List<YahtzeePlayer> yahtzeePlayers = new List<YahtzeePlayer>();
+        public Player[] photonPlayerList;
 
         //show my dice value (test variable)
         public Text myDiceValue;
@@ -110,6 +112,11 @@ namespace edu.jhu.co
             if(yahtzeePlayer == null)
             {
                 yahtzeePlayer = new YahtzeePlayer();
+                yahtzeePlayers.Add(yahtzeePlayer);
+
+                Debug.Log("# OF PLAYERS IS " + yahtzeePlayers.Count);
+                yahtzeePlayer.playerNumber = yahtzeePlayers.Count;
+
             }
             yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;
             Debug.Log("Current Player: " + PhotonNetwork.NickName);
@@ -146,10 +153,11 @@ namespace edu.jhu.co
 
              //initiates controller objects
              //diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
-             scController = GameObject.Find("ScorecardController").GetComponent<ScorecardController>();
+             sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
              tsController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-             
-            
+             photonPlayerList = PhotonNetwork.PlayerList;
+
+
 
 
         }
@@ -302,6 +310,8 @@ namespace edu.jhu.co
         /// <summary>
         /// 
         /// </summary>
+        /// 
+
         public void UpdatePlayerList()
         {
             PlayerList.text = "";
