@@ -16,18 +16,23 @@ public class DiceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //grabs the transcript controller and populates the transcript controller
-      /*  if (transcriptController == null &&
-            GameObject.Find("TranscriptController") != null)
-        {
-            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-        }
-        else
-        {
-            Debug.Log("Transcript controller is null");
-        }*/
+        /*  if (transcriptController == null &&
+              GameObject.Find("TranscriptController") != null)
+          {
+              transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+          }
+          else
+          {
+              Debug.Log("Transcript controller is null");
+          }*/
 
+        diceObjects[0] = GameObject.Find("Die0").GetComponent<Die>();
+        diceObjects[1] = GameObject.Find("Die1").GetComponent<Die>();
+        diceObjects[2] = GameObject.Find("Die2").GetComponent<Die>();
+        diceObjects[3] = GameObject.Find("Die3").GetComponent<Die>();
+        diceObjects[4] = GameObject.Find("Die4").GetComponent<Die>();
 
         if (GameObject.Find("Scorecard") != null)
         {
@@ -43,7 +48,7 @@ public class DiceController : MonoBehaviour
 
 
 
-    public void rollDice()
+    private void rollDice()
     {
         if (rollCounter >= 1)
         {
@@ -68,6 +73,8 @@ public class DiceController : MonoBehaviour
         {
             transcriptController.SendMessageToTranscript("Rerolled Dice -- Rolls Left: " + rollCounter, TranscriptMessage.SubsystemType.dice);
         }*/
+
+        //need to update this logic when we have scoreboard implemented.
         if (scorecard != null)
         {
             scorecard.calculateScores();

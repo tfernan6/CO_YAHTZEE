@@ -8,6 +8,7 @@ public class ScoreboardController : MonoBehaviour
 
     // For testing purposes, will grab this from GameManager
     public int numberOfPlayers;
+    public Scorecard[] scorecards;
 
     // Start is called before the first frame update
     void Start()

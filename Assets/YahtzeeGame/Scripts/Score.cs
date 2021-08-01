@@ -54,7 +54,7 @@ public class Score : MonoBehaviour
 
     public void calculateScore()
     {
-
+        resetDiceValueCount();
         scoreValue = 0;
         Debug.Log("Score value is " + scoreValue.ToString());
         if (!isSelected)
@@ -72,11 +72,12 @@ public class Score : MonoBehaviour
                 if (scoreValue != 0)
                 {
                     this.GetComponent<TMP_Text>().text = scoreValue.ToString();
-                } else
+                }
+                else
                 {
                     this.GetComponent<TMP_Text>().text = null;
                 }
-                
+
             }
             if (gameObject.name == "Three of a Kind")
             {
@@ -102,7 +103,7 @@ public class Score : MonoBehaviour
                     {
                         scoreValue = scoreValue + die.dieValue;
                     }
-                    
+
                     this.GetComponent<TMP_Text>().text = scoreValue.ToString();
                 }
                 else
@@ -177,7 +178,7 @@ public class Score : MonoBehaviour
         }
     }
 
-    public void resetDiceValueCount()
+    private void resetDiceValueCount()
     {
         List<int> keys = new List<int>(diceValueCount.Keys);
         foreach (int key in keys)

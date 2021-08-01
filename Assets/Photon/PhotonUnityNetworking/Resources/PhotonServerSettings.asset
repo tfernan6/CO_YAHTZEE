@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppSettings:
     AppIdRealtime: 745a9fdc-d0e1-422a-b4ae-d8ec18ff706b
-    AppIdChat: 
+    AppIdChat: 449da1a7-2946-4596-bf64-15785cfefccb
     AppIdVoice: 
     AppVersion: 
     UseNameServer: 1
@@ -40,6 +40,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - updateDiceFromOthers
   - updateDiceforOthers
+  - updateDieValueforOthers
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1
