@@ -42,6 +42,7 @@ public class Score : MonoBehaviour
     public void selectScore()
     {
         //include logic later that asks user to confirm if they want to hold a score that is empty i.e. 0;
+        //adjust logic to allow selection of 0 scores but add a prompt asking user if they are sure
         if ( !isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
         {
             isSelected = true;
@@ -56,7 +57,6 @@ public class Score : MonoBehaviour
     {
         resetDiceValueCount();
         scoreValue = 0;
-        Debug.Log("Score value is " + scoreValue.ToString());
         if (!isSelected)
         {
             if (UpperScoreKey.ContainsKey(gameObject.name))
@@ -123,7 +123,6 @@ public class Score : MonoBehaviour
                     this.GetComponent<TMP_Text>().text = null;
                 }
             }
-
             if (gameObject.name == "Small Straight")
             {
                 if ((diceValueCount[1] >= 1 && diceValueCount[2] >= 1 && diceValueCount[3] >= 1 && diceValueCount[4] >= 1) |
@@ -159,7 +158,6 @@ public class Score : MonoBehaviour
                 }
                 this.GetComponent<TMP_Text>().text = scoreValue.ToString();
             }
-
             if (gameObject.name == "YAHTZEE")
             {
                 if (diceValueCount.ContainsValue(5))
@@ -174,7 +172,9 @@ public class Score : MonoBehaviour
             }
 
             //add logic that if everything but Yahtzee is filled out, you have to select Yahtzee and get a 0
-            //adjust logic to allow selection of 0 scores but add a prompt asking user if they are sure
+
+            //begininng of special Yahtzee logic
+
         }
     }
 

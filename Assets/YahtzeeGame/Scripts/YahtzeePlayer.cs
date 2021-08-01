@@ -20,8 +20,6 @@ namespace edu.jhu.co
         //store name of crrent player
         public string CurrentPlayerName = string.Empty;
 
-        public int playerNumber;
-
         //store player points
         public int LeaderboardPoints = 0;
         #endregion

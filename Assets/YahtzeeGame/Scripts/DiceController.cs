@@ -16,7 +16,7 @@ public class DiceController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //grabs the transcript controller and populates the transcript controller
         /*  if (transcriptController == null &&
               GameObject.Find("TranscriptController") != null)

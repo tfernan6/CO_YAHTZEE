@@ -114,9 +114,6 @@ namespace edu.jhu.co
                 yahtzeePlayer = new YahtzeePlayer();
                 yahtzeePlayers.Add(yahtzeePlayer);
 
-                Debug.Log("# OF PLAYERS IS " + yahtzeePlayers.Count);
-                yahtzeePlayer.playerNumber = yahtzeePlayers.Count;
-
             }
             yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;
             Debug.Log("Current Player: " + PhotonNetwork.NickName);
@@ -281,7 +278,7 @@ namespace edu.jhu.co
         /// </summary>
         public void SetScore()
         {
-            //get vaue of score 
+            //get value of score 
             Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
             string value = DiceValue.text;
             if (string.IsNullOrEmpty(value))
