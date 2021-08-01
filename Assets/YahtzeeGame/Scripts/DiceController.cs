@@ -19,21 +19,21 @@ public class DiceController : MonoBehaviour
     {
         //gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //grabs the transcript controller and populates the transcript controller
-        /* if (transcriptController == null &&
-             GameObject.Find("TranscriptController") != null)
-         {
-             transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-         }
-         else
-         {
-             Debug.Log("Transcript controller is null");
-         }
+      /*  if (transcriptController == null &&
+            GameObject.Find("TranscriptController") != null)
+        {
+            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        }
+        else
+        {
+            Debug.Log("Transcript controller is null");
+        }*/
 
 
-         if (GameObject.Find("ScorecardController") != null)
-         {
-             scorecardController = GameObject.Find("ScorecardController").GetComponent<ScorecardController>();
-         }*/
+        if (GameObject.Find("Scorecard") != null)
+        {
+            scorecard = GameObject.Find("Scorecard").GetComponent<Scorecard>();
+        }
     }
 
     // Update is called once per frame
@@ -65,14 +65,14 @@ public class DiceController : MonoBehaviour
             }*/
         }
 
-        /*if (transcriptController != null)
+/*        if (transcriptController != null)
         {
             transcriptController.SendMessageToTranscript("Rerolled Dice -- Rolls Left: " + rollCounter, TranscriptMessage.SubsystemType.dice);
-        }
-        if (scorecardController != null)
-        {
-            scorecardController.calculateScores();
         }*/
+        if (scorecard != null)
+        {
+            scorecard.calculateScores();
+        }
 
         //multiplayer
         /*Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();

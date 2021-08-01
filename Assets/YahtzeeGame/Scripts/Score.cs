@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Score : MonoBehaviour
 {
@@ -9,8 +10,8 @@ public class Score : MonoBehaviour
 
     public bool isSelected = false;
 
-    public static DiceController diceController;
-    public static Die[] currentDice = new Die[5];
+    private static DiceController diceController;
+    private static Die[] currentDice = new Die[5];
     private static TranscriptController transcriptController;
     private Dictionary<int, int> diceValueCount = new Dictionary<int, int>()
         {
@@ -40,10 +41,10 @@ public class Score : MonoBehaviour
     }
     public void selectScore()
     {
-        if ( !isSelected &&! string.IsNullOrEmpty(this.GetComponent<Text>().text))
+        if ( !isSelected &&! string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
         {
             isSelected = true;
-            transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<Text>().text + " for " + gameObject.name + " Slot",
+            transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
                 TranscriptMessage.SubsystemType.score);
             transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
             diceController.resetRollCounter();
@@ -54,6 +55,7 @@ public class Score : MonoBehaviour
     {
 
         scoreValue = 0;
+        Debug.Log("Score value is " + scoreValue.ToString());
         if (!isSelected)
         {
             if (UpperScoreKey.ContainsKey(gameObject.name))
@@ -65,12 +67,13 @@ public class Score : MonoBehaviour
                         scoreValue = scoreValue + die.dieValue;
                     }
                 }
+                Debug.Log("Score value is " + scoreValue.ToString());
                 if (scoreValue != 0)
                 {
-                    this.GetComponent<Text>().text = scoreValue.ToString();
+                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
                 } else
                 {
-                    this.GetComponent<Text>().text = null;
+                    this.GetComponent<TMP_Text>().text = null;
                 }
                 
             }
@@ -83,11 +86,11 @@ public class Score : MonoBehaviour
                     {
                         scoreValue = scoreValue + die.dieValue;
                     }
-                    this.GetComponent<Text>().text = scoreValue.ToString();
+                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
                 }
                 else
                 {
-                    this.GetComponent<Text>().text = null;
+                    this.GetComponent<TMP_Text>().text = null;
                 }
             }
             if (gameObject.name == "Four of a Kind")
@@ -99,11 +102,11 @@ public class Score : MonoBehaviour
                         scoreValue = scoreValue + die.dieValue;
                     }
                     
-                    this.GetComponent<Text>().text = scoreValue.ToString();
+                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
                 }
                 else
                 {
-                    this.GetComponent<Text>().text = null;
+                    this.GetComponent<TMP_Text>().text = null;
                 }
             }
             if (gameObject.name == "Full House")
@@ -111,11 +114,11 @@ public class Score : MonoBehaviour
                 if (diceValueCount.ContainsValue(3) && diceValueCount.ContainsValue(2))
                 {
                     scoreValue = 25;
-                    this.GetComponent<Text>().text = scoreValue.ToString();
+                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
                 }
                 else
                 {
-                    this.GetComponent<Text>().text = null;
+                    this.GetComponent<TMP_Text>().text = null;
                 }
             }
 
@@ -126,11 +129,11 @@ public class Score : MonoBehaviour
                     (diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1 && diceValueCount[6] >= 1))
                 {
                     scoreValue = 30;
-                    this.GetComponent<Text>().text = scoreValue.ToString();
+                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
                 }
                 else
                 {
-                    this.GetComponent<Text>().text = null;
+                    this.GetComponent<TMP_Text>().text = null;
                 }
             }
             if (gameObject.name == "Large Straight")
@@ -139,11 +142,11 @@ public class Score : MonoBehaviour
                     (diceValueCount[2] >= 1 && diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1 && diceValueCount[6] >= 1))
                 {
                     scoreValue = 40;
-                    this.GetComponent<Text>().text = scoreValue.ToString();
+                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
                 }
                 else
                 {
-                    this.GetComponent<Text>().text = null;
+                    this.GetComponent<TMP_Text>().text = null;
                 }
             }
             if (gameObject.name == "Chance")
@@ -152,19 +155,19 @@ public class Score : MonoBehaviour
                 {
                     scoreValue = scoreValue + die.dieValue;
                 }
-                this.GetComponent<Text>().text = scoreValue.ToString();
+                this.GetComponent<TMP_Text>().text = scoreValue.ToString();
             }
 
-            if (gameObject.name == "Yahtzee")
+            if (gameObject.name == "YAHTZEE")
             {
                 if (diceValueCount.ContainsValue(5))
                 {
                     scoreValue = 50;
-                    this.GetComponent<Text>().text = scoreValue.ToString();
+                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
                 }
                 else
                 {
-                    this.GetComponent<Text>().text = null;
+                    this.GetComponent<TMP_Text>().text = null;
                 }
             }
 

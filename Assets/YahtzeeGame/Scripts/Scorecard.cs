@@ -42,11 +42,11 @@ public class Scorecard : MonoBehaviour
 
     public void calculateScores()
     {
-/*        transcriptController.SendMessageToTranscript("Calculating Scores", TranscriptMessage.SubsystemType.scorecard);
+        //transcriptController.SendMessageToTranscript("Calculating Scores", TranscriptMessage.SubsystemType.scorecard);
         foreach (Score score in scoreList)
         {
             score.resetDiceValueCount();
             score.calculateScore();
-        }*/
+        }
     }
 }
