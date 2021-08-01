@@ -11,14 +11,14 @@ public class Die : MonoBehaviour
     public bool isHold = false;
     public int dieValue = 1;
     public Sprite[] diceImages = new Sprite[6];
-    public PhotonView photonView;
+    private PhotonView photonView;
 
     void Start()
     {
         photonView = this.GetComponent<PhotonView>();
     }
 
-    public void toggleDice()
+    private void toggleDie()
     {
         isHold = !isHold;
       /*  TranscriptController transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
@@ -38,23 +38,21 @@ public class Die : MonoBehaviour
     {
         if (!isHold)
         {
-            Debug.Log("rolling dice");
             dieValue = Random.Range(1, 7);
             updateDiceSprite();
-            photonView.RPC("updateDiceforOthers", RpcTarget.All, dieValue);
+            photonView.RPC("updateDieValueforOthers", RpcTarget.All, dieValue);
         }
     }
 
-    public void updateDiceSprite()
+    private void updateDiceSprite()
     {
         this.GetComponent<Image>().sprite = diceImages[dieValue - 1];
     }
 
     //allows other clients to update the local client's dice when they roll
     [PunRPC]
-    void updateDiceforOthers(int newDieValue)
+    private void updateDieValueforOthers(int newDieValue)
     {
-        Debug.Log("RPC running");
         dieValue = newDieValue;
         updateDiceSprite();
     }

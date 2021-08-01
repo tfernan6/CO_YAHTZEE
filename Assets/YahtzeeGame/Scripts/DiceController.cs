@@ -8,7 +8,6 @@ using edu.jhu.co;
 
 public class DiceController : MonoBehaviour
 {
-    public Sprite[] diceImages = new Sprite[6];
     public Die[] diceObjects = new Die[5];
     public static int rollCounter = 3;
     public Scorecard scorecard;

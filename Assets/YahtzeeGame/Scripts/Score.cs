@@ -41,7 +41,8 @@ public class Score : MonoBehaviour
     }
     public void selectScore()
     {
-        if ( !isSelected &&! string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+        //include logic later that asks user to confirm if they want to hold a score that is empty i.e. 0;
+        if ( !isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
         {
             isSelected = true;
             transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
