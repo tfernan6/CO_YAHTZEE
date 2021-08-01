@@ -623,6 +623,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHold: 0
+  dieValue: 1
+  diceImages:
+  - {fileID: 21300000, guid: f6cf63418093c4f999205bb64930063f, type: 3}
+  - {fileID: 21300000, guid: 462eb9cf055d4423bbdd113f05c5e3e0, type: 3}
+  - {fileID: 21300000, guid: e85e085304bb94333a55271bb7a98eab, type: 3}
+  - {fileID: 21300000, guid: bbea25f27f82041db88a899ad38a8639, type: 3}
+  - {fileID: 21300000, guid: 24b8ecf0b5daf4067b2212910b16c39d, type: 3}
+  - {fileID: 21300000, guid: 0ab6b419210b24529a1abadc172a17b0, type: 3}
+  photonView: {fileID: 0}
 --- !u!114 &95347572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2213,6 +2223,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHold: 0
+  dieValue: 1
+  diceImages:
+  - {fileID: 21300000, guid: f6cf63418093c4f999205bb64930063f, type: 3}
+  - {fileID: 21300000, guid: 462eb9cf055d4423bbdd113f05c5e3e0, type: 3}
+  - {fileID: 21300000, guid: e85e085304bb94333a55271bb7a98eab, type: 3}
+  - {fileID: 21300000, guid: bbea25f27f82041db88a899ad38a8639, type: 3}
+  - {fileID: 21300000, guid: 24b8ecf0b5daf4067b2212910b16c39d, type: 3}
+  - {fileID: 21300000, guid: 0ab6b419210b24529a1abadc172a17b0, type: 3}
+  photonView: {fileID: 0}
 --- !u!114 &458958382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2463,8 +2483,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2102256073}
   m_HandleRect: {fileID: 2102256072}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3405,7 +3425,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1374136409}
   m_HandleRect: {fileID: 1374136408}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5174,6 +5194,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHold: 0
+  dieValue: 1
+  diceImages:
+  - {fileID: 21300000, guid: f6cf63418093c4f999205bb64930063f, type: 3}
+  - {fileID: 21300000, guid: 462eb9cf055d4423bbdd113f05c5e3e0, type: 3}
+  - {fileID: 21300000, guid: e85e085304bb94333a55271bb7a98eab, type: 3}
+  - {fileID: 21300000, guid: bbea25f27f82041db88a899ad38a8639, type: 3}
+  - {fileID: 21300000, guid: 24b8ecf0b5daf4067b2212910b16c39d, type: 3}
+  - {fileID: 21300000, guid: 0ab6b419210b24529a1abadc172a17b0, type: 3}
+  photonView: {fileID: 0}
 --- !u!114 &998055295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7023,6 +7053,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHold: 0
+  dieValue: 1
+  diceImages:
+  - {fileID: 21300000, guid: f6cf63418093c4f999205bb64930063f, type: 3}
+  - {fileID: 21300000, guid: 462eb9cf055d4423bbdd113f05c5e3e0, type: 3}
+  - {fileID: 21300000, guid: e85e085304bb94333a55271bb7a98eab, type: 3}
+  - {fileID: 21300000, guid: bbea25f27f82041db88a899ad38a8639, type: 3}
+  - {fileID: 21300000, guid: 24b8ecf0b5daf4067b2212910b16c39d, type: 3}
+  - {fileID: 21300000, guid: 0ab6b419210b24529a1abadc172a17b0, type: 3}
+  photonView: {fileID: 0}
 --- !u!114 &1430330025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8557,6 +8597,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24339a1748b9b5346a19a9dd0d86a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isHold: 0
+  dieValue: 1
+  diceImages:
+  - {fileID: 21300000, guid: f6cf63418093c4f999205bb64930063f, type: 3}
+  - {fileID: 21300000, guid: 462eb9cf055d4423bbdd113f05c5e3e0, type: 3}
+  - {fileID: 21300000, guid: e85e085304bb94333a55271bb7a98eab, type: 3}
+  - {fileID: 21300000, guid: bbea25f27f82041db88a899ad38a8639, type: 3}
+  - {fileID: 21300000, guid: 24b8ecf0b5daf4067b2212910b16c39d, type: 3}
+  - {fileID: 21300000, guid: 0ab6b419210b24529a1abadc172a17b0, type: 3}
+  photonView: {fileID: 0}
 --- !u!114 &1860387599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8918,7 +8968,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.000088162495, y: -0.001953125}
+  m_AnchoredPosition: {x: 0.009088027, y: 0}
   m_SizeDelta: {x: 292.14, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1905482367
@@ -9298,6 +9348,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09fb3fdb167301c438eb95b5e57432bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diceImages:
+  - {fileID: 21300000, guid: f6cf63418093c4f999205bb64930063f, type: 3}
+  - {fileID: 21300000, guid: 462eb9cf055d4423bbdd113f05c5e3e0, type: 3}
+  - {fileID: 21300000, guid: e85e085304bb94333a55271bb7a98eab, type: 3}
+  - {fileID: 21300000, guid: bbea25f27f82041db88a899ad38a8639, type: 3}
+  - {fileID: 21300000, guid: 24b8ecf0b5daf4067b2212910b16c39d, type: 3}
+  - {fileID: 21300000, guid: 0ab6b419210b24529a1abadc172a17b0, type: 3}
+  diceObjects:
+  - {fileID: 998055294}
+  - {fileID: 1430330024}
+  - {fileID: 458958381}
+  - {fileID: 95347571}
+  - {fileID: 1860387598}
+  scorecardController: {fileID: 0}
 --- !u!1 &2020903201
 GameObject:
   m_ObjectHideFlags: 0
