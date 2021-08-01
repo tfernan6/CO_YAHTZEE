@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using edu.jhu.co;
 
 public class Scorecard : MonoBehaviour
 {
     private static TranscriptController transcriptController;
     public Score[] scores = new Score[16];
+    public ScoreboardController sbController;
 
     /*public YahtzeePlayer yahtzeePlayer;*/
 
@@ -16,6 +18,7 @@ public class Scorecard : MonoBehaviour
     void Start()
     {
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
 
         scores[0] = this.transform.Find("Ones").gameObject.GetComponent<Score>();
         scores[1] = this.transform.Find("Twos").gameObject.GetComponent<Score>();

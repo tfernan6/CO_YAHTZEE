@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ScoreboardController : MonoBehaviour
-{
+using edu.jhu.co;
+
+
+    public class ScoreboardController : MonoBehaviour
+    {
 
     // For testing purposes, will grab this from GameManager
-    public int numberOfPlayers;
     public Scorecard[] scorecards;
+    public GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        gameManager = GameObject.Find("GameRoomObject").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -26,4 +29,6 @@ public class ScoreboardController : MonoBehaviour
     {
         
     }
-}
+    }
+
+

@@ -149,9 +149,10 @@ namespace edu.jhu.co
             this.GamePanel.SetActive(false);
 
              //initiates controller objects
-             //diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
-             sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
+  
+             /*sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
              tsController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+             diceController = GameObject.Find("DiceController").GetComponent<DiceController>();*/
              photonPlayerList = PhotonNetwork.PlayerList;
 
 

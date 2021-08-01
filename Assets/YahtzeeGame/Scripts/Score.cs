@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using edu.jhu.co;
 
 public class Score : MonoBehaviour
 {
     //this class will contain all of the game logic to calculate the scores based on dice values
 
     public bool isSelected = false;
+    public int scoreValue = 0;
 
-    private static DiceController diceController;
-    private static Die[] currentDice = new Die[5];
+    private DiceController diceController;
+    private Die[] currentDice = new Die[5];
     private static TranscriptController transcriptController;
+    private Scorecard scorecard;
     private Dictionary<int, int> diceValueCount = new Dictionary<int, int>()
         {
                 {1, 0 },
@@ -22,7 +25,6 @@ public class Score : MonoBehaviour
                 {5, 0 },
                 {6, 0 }
         };
-    public int scoreValue = 0;
     private Dictionary<string, int> UpperScoreKey = new Dictionary<string, int>()
         {
             {"Ones", 1 },
@@ -36,7 +38,10 @@ public class Score : MonoBehaviour
     void Start()
     {
         diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
+        scorecard = this.transform.parent.gameObject.GetComponent<Scorecard>();
         currentDice = diceController.diceObjects;
+
+
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
     }
     public void selectScore()
@@ -55,7 +60,7 @@ public class Score : MonoBehaviour
 
     public void calculateScore()
     {
-        resetDiceValueCount();
+        getDiceValueCount();
         scoreValue = 0;
         if (!isSelected)
         {
@@ -178,9 +183,11 @@ public class Score : MonoBehaviour
         }
     }
 
-    private void resetDiceValueCount()
+    private void getDiceValueCount()
     {
         List<int> keys = new List<int>(diceValueCount.Keys);
+        
+        //reset diceValueCount
         foreach (int key in keys)
         {
             diceValueCount[key] = 0;
