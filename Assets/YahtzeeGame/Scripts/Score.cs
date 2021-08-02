@@ -40,14 +40,13 @@ public class Score : MonoBehaviour
         diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
         scorecard = this.transform.parent.gameObject.GetComponent<Scorecard>();
         currentDice = diceController.diceObjects;
-
-
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
     }
     public void selectScore()
     {
         //include logic later that asks user to confirm if they want to hold a score that is empty i.e. 0;
         //adjust logic to allow selection of 0 scores but add a prompt asking user if they are sure
+        //include logic where only your Score can be locked by you
         if ( !isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
         {
             isSelected = true;

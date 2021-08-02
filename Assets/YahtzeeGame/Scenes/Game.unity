@@ -778,8 +778,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec88476eef8944439b6f9b92a5c8c59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPlayers: 0
   scorecards: []
+  gameManager: {fileID: 0}
 --- !u!1 &107178020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,10 +2165,10 @@ RectTransform:
   m_Father: {fileID: 215158209}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 83, y: -7.8125}
-  m_SizeDelta: {x: 160, y: 15.625}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450667442
 MonoBehaviour:
@@ -7079,9 +7079,9 @@ MonoBehaviour:
   TurnStatus: {fileID: 122220025}
   gameStarted: 0
   allowForSinglePerson: 1
-  sbController: {fileID: 0}
-  diceController: {fileID: 0}
-  tsController: {fileID: 0}
+  sbController: {fileID: 102598764}
+  diceController: {fileID: 2012893962}
+  tsController: {fileID: 1563405016}
   yahtzeePlayers: []
   myDiceValue: {fileID: 1087538075}
   turnManager: {fileID: 1393094425}
@@ -8941,7 +8941,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.008807757, y: 0}
+  m_AnchoredPosition: {x: 0.0003576966, y: 0}
   m_SizeDelta: {x: 292.14, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1905482367
