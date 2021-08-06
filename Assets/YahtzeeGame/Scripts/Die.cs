@@ -18,7 +18,7 @@ public class Die : MonoBehaviour
         photonView = this.GetComponent<PhotonView>();
     }
 
-    private void toggleDie()
+    public void toggleDie()
     {
         isHold = !isHold;
       /*  TranscriptController transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();

@@ -282,11 +282,11 @@ namespace edu.jhu.co
             //get value of score 
             Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
             string value = DiceValue.text;
-            if (string.IsNullOrEmpty(value))
+            /*if (string.IsNullOrEmpty(value))
             {
                 Debug.LogError("Score is empty");
                 return;
-            }
+            }*/
 
 
             //set game player's score

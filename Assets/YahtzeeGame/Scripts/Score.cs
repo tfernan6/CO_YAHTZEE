@@ -54,13 +54,14 @@ public class Score : MonoBehaviour
                 TranscriptMessage.SubsystemType.score);
             transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
             diceController.resetRollCounter();
+            scorecard.calculateSum();
         }
     }
 
-    public void calculateScore()
+    public void calculateUpperScore()
     {
         getDiceValueCount();
-        scoreValue = 0;
+        int tempScore = 0;
         if (!isSelected)
         {
             if (UpperScoreKey.ContainsKey(gameObject.name))
@@ -69,20 +70,36 @@ public class Score : MonoBehaviour
                 {
                     if (die.dieValue == UpperScoreKey[gameObject.name])
                     {
-                        scoreValue = scoreValue + die.dieValue;
+                        tempScore += + die.dieValue;
                     }
+                    this.scoreValue = tempScore;
                 }
-                Debug.Log("Score value is " + scoreValue.ToString());
-                if (scoreValue != 0)
+                if (this.scoreValue != 0)
                 {
-                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+                    updateScoreText();
                 }
                 else
                 {
-                    this.GetComponent<TMP_Text>().text = null;
+                    blankOutScoreText();
                 }
 
             }
+           
+
+            //add logic that if everything but Yahtzee is filled out, you have to select Yahtzee and get a 0
+
+            //begininng of special Yahtzee logic
+
+        }
+    }
+
+    public void calculateLowerScore()
+    {
+        Debug.Log("Calculating Lower Scores");
+        getDiceValueCount();
+        int tempScore = 0;
+        if (!isSelected)
+        {
             if (gameObject.name == "Three of a Kind")
             {
                 if (diceValueCount.ContainsValue(3))
@@ -90,13 +107,14 @@ public class Score : MonoBehaviour
 
                     foreach (Die die in currentDice)
                     {
-                        scoreValue = scoreValue + die.dieValue;
+                        tempScore += die.dieValue;
                     }
-                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+                    this.scoreValue = tempScore;
+                    updateScoreText();
                 }
                 else
                 {
-                    this.GetComponent<TMP_Text>().text = null;
+                    blankOutScoreText();
                 }
             }
             if (gameObject.name == "Four of a Kind")
@@ -105,26 +123,26 @@ public class Score : MonoBehaviour
                 {
                     foreach (Die die in currentDice)
                     {
-                        scoreValue = scoreValue + die.dieValue;
+                        tempScore += die.dieValue;
                     }
-
-                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+                    this.scoreValue = tempScore;
+                    updateScoreText();
                 }
                 else
                 {
-                    this.GetComponent<TMP_Text>().text = null;
+                    blankOutScoreText();
                 }
             }
             if (gameObject.name == "Full House")
             {
                 if (diceValueCount.ContainsValue(3) && diceValueCount.ContainsValue(2))
                 {
-                    scoreValue = 25;
-                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+                    this.scoreValue = 25;
+                    updateScoreText();
                 }
                 else
                 {
-                    this.GetComponent<TMP_Text>().text = null;
+                    blankOutScoreText();
                 }
             }
             if (gameObject.name == "Small Straight")
@@ -133,12 +151,12 @@ public class Score : MonoBehaviour
                     (diceValueCount[2] >= 1 && diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1) |
                     (diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1 && diceValueCount[6] >= 1))
                 {
-                    scoreValue = 30;
-                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+                    this.scoreValue = 30;
+                    updateScoreText();
                 }
                 else
                 {
-                    this.GetComponent<TMP_Text>().text = null;
+                    blankOutScoreText();
                 }
             }
             if (gameObject.name == "Large Straight")
@@ -146,39 +164,49 @@ public class Score : MonoBehaviour
                 if ((diceValueCount[1] >= 1 && diceValueCount[2] >= 1 && diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1) |
                     (diceValueCount[2] >= 1 && diceValueCount[3] >= 1 && diceValueCount[4] >= 1 && diceValueCount[5] >= 1 && diceValueCount[6] >= 1))
                 {
-                    scoreValue = 40;
-                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+                    this.scoreValue = 40;
+                    updateScoreText();
                 }
                 else
                 {
-                    this.GetComponent<TMP_Text>().text = null;
+                    blankOutScoreText();
                 }
             }
             if (gameObject.name == "Chance")
             {
                 foreach (Die die in currentDice)
                 {
-                    scoreValue = scoreValue + die.dieValue;
+                    tempScore += die.dieValue;
                 }
-                this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+                this.scoreValue = tempScore;
+                updateScoreText();
             }
             if (gameObject.name == "YAHTZEE")
             {
                 if (diceValueCount.ContainsValue(5))
                 {
-                    scoreValue = 50;
-                    this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+                    Debug.Log("YAHTZEE");
+                    if (this.scoreValue == 0)
+                    {
+                        if (isSelected)
+                        {
+                            joker();
+                        }
+                        this.scoreValue = 50;
+                    }
+                    else if (this.scoreValue == 50)
+                    {
+                        Debug.Log("double Yahtzee!");
+                        this.scoreValue += 100;
+                        joker();
+                    }
+                    updateScoreText();
                 }
                 else
                 {
-                    this.GetComponent<TMP_Text>().text = null;
+                    blankOutScoreText();
                 }
             }
-
-            //add logic that if everything but Yahtzee is filled out, you have to select Yahtzee and get a 0
-
-            //begininng of special Yahtzee logic
-
         }
     }
 
@@ -198,7 +226,18 @@ public class Score : MonoBehaviour
         }
     }
 
-    void Update()
+    public void updateScoreText()
     {
+        this.GetComponent<TMP_Text>().text = scoreValue.ToString();
+    }
+
+    public void blankOutScoreText()
+    {
+        this.GetComponent<TMP_Text>().text = null;
+    }
+
+    public void joker()
+    {
+        //tells turn manager that we have a joker
     }
 }
