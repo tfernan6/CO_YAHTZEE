@@ -52,11 +52,12 @@ public class Score : MonoBehaviour
             if (!isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
             {
                 isSelected = true;
-                transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
+/*                transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
                     TranscriptMessage.SubsystemType.score);
                 transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
-                diceController.resetRollCounter();
+*/                diceController.resetRollCounter();
                 scorecard.calculateSum();
+                scorecard.calculateTotal();
                 Debug.Log("Score has been selected");
             }
         }
@@ -188,8 +189,10 @@ public class Score : MonoBehaviour
         }
         if (gameObject.name == "YAHTZEE")
         {
+            //have to implement that if you get Yahtzee again, you can select the YAHTZEE score
             if (diceValueCount.ContainsValue(5))
             {
+                this.isSelected = false;
                 Debug.Log("YAHTZEE");
                 if (this.scoreValue == 0)
                 {
@@ -209,7 +212,14 @@ public class Score : MonoBehaviour
             }
             else
             {
-                blankOutScore();
+                if(this.scoreValue > 0)
+                {
+                    isSelected = true;
+                } else
+                {
+                    blankOutScore();
+                }
+               
             }
         }
     }

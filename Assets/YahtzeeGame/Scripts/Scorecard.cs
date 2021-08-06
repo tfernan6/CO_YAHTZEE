@@ -89,4 +89,17 @@ public class Scorecard : MonoBehaviour
             summaryScores[1].updateScoreText();
         }
     }
+    
+    public void calculateTotal()
+    {
+        summaryScores[2].scoreValue = summaryScores[0].scoreValue + summaryScores[1].scoreValue;
+        foreach (Score score in lowerScores)
+        {
+           if (score.isSelected)
+            {
+                summaryScores[2].scoreValue += score.scoreValue;
+            }
+        }
+        summaryScores[2].updateScoreText();
+    }
 }
