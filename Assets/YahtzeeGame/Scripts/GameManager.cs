@@ -153,7 +153,7 @@ namespace edu.jhu.co
              /*sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
              tsController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
              diceController = GameObject.Find("DiceController").GetComponent<DiceController>();*/
-             photonPlayerList = PhotonNetwork.PlayerList;
+             //photonPlayerList = PhotonNetwork.PlayerList;
 
 
 
