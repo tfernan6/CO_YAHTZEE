@@ -8,7 +8,8 @@ using edu.jhu.co;
 public class DiceController : MonoBehaviour
 {
     public Die[] diceObjects = new Die[5];
-    public static int rollCounter = 3;
+    private const int RollTries = 4; //for somereason, when you make it 3 turn ends after 2, codes needs check to reset this to 3
+    public  int rollCounter = RollTries;
     public Scorecard scorecard;
     private GameManager gameManager;
 
@@ -47,7 +48,7 @@ public class DiceController : MonoBehaviour
 
 
 
-    private void rollDice()
+    public void rollDice()
     {
         if (rollCounter >= 1)
         {
@@ -57,7 +58,7 @@ public class DiceController : MonoBehaviour
             }
 
             //commenting out counter for testing
-            //rollCounter -= 1;
+            rollCounter -= 1;
         }
         else
         {
@@ -78,20 +79,7 @@ public class DiceController : MonoBehaviour
         {
             scorecard.calculateScores();
         }
-
-        //multiplayer
-        /*Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
-        if (DiceValue != null) { DiceValue.text = ReturnDiceRolled().ToString(); }
-
-        if (!allowForSinglePerson)
-        { 
-            bool turnOver = (rollCounter > 0) ? false : true;
-            this.turnManager.SendMove(System.Convert.ToInt32(DiceValue.text), turnOver);  //change to correct value
-            if (!turnOver) //if all 3 are over, your turn is over
-            {
-                this.turnManager.BeginTurn(); //your turn over, next player to move
-            }
-        }*/
+        
     }
 
 
@@ -113,7 +101,7 @@ public class DiceController : MonoBehaviour
 
     public void resetRollCounter()
     {
-        rollCounter = 3;
+        rollCounter = RollTries;
     }
     //include UI to show number of rolls left
 

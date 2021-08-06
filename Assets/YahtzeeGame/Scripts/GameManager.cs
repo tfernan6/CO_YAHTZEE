@@ -32,14 +32,17 @@ namespace edu.jhu.co
         //only first player can start the game (change if needed)
         [Tooltip("Begin Game")]
         [SerializeField]
-        public GameObject BeginGame; 
+        public GameObject BeginGame;
+
+        //This is panel where the scoreboard will be placed,
+        [Tooltip("ScoreboardPanel")]
+        [SerializeField]
+        public GameObject ScoreboardPanel;
 
         //This is panel where the dices will be placed,
-        //currently has inout field and button to test Multiplayer turn feature
-        [Tooltip("GamePanel")]
+        [Tooltip("DicePanel")]
         [SerializeField]
-        public GameObject GamePanel;
-
+        public GameObject DicePanel;
 
         [Tooltip("The Ui Text to inform the user about the connection progress")]
         [SerializeField]
@@ -70,9 +73,6 @@ namespace edu.jhu.co
         public TranscriptController tsController;
         //public List<YahtzeePlayer> yahtzeePlayers = new List<YahtzeePlayer>();
         //public Player[] photonPlayerList;
-
-        //show my dice value (test variable)
-        public Text myDiceValue;
 
         //I would need to derive from this class and construct my own
         public PunTurnManager turnManager;
@@ -132,28 +132,28 @@ namespace edu.jhu.co
 
 
             //enable begin game cntrol only for the first person
-            /* if (PhotonNetwork.IsMasterClient )
-                // && (PhotonNetwork.PlayerList.Length > 1 || allowForSinglePerson))
-             {
-                 this.BeginGame.SetActive(true);
+            if (PhotonNetwork.IsMasterClient)
+            // && (PhotonNetwork.PlayerList.Length > 1 ))
+            {
+                this.BeginGame.SetActive(true);
 
-             }
-             else
-             {
-                 //display that the first person has to press start
-                 this.BeginGame.SetActive(false);
-             }*/
-            this.BeginGame.SetActive(true);
+            }
+            else
+            {
+                //display that the first person has to press start
+                this.BeginGame.SetActive(false);
+            }
 
-            //Panel for dice turn disable till game clicked
-            this.GamePanel.SetActive(false);
+            //Panel for dice and scoreboard turn disable till game clicked
+            this.ScoreboardPanel.SetActive(false);
+            this.DicePanel.SetActive(false);
 
-             //initiates controller objects
-  
-             /*sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
-             tsController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-             diceController = GameObject.Find("DiceController").GetComponent<DiceController>();*/
-             //photonPlayerList = PhotonNetwork.PlayerList;
+            //initiates controller objects
+
+            /*sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
+            tsController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+            diceController = GameObject.Find("DiceController").GetComponent<DiceController>();*/
+            //photonPlayerList = PhotonNetwork.PlayerList;
 
 
 
@@ -191,19 +191,16 @@ namespace edu.jhu.co
                 }
                 */
 
-                //allow for single player
-                this.GamePanel.SetActive(true);
+                this.ScoreboardPanel.SetActive(true);
+                this.DicePanel.SetActive(true);
                 //need to check all paths
 
+            }
 
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= 1 && this.gameStarted && this.turnManager.Turn > 0)
+            { 
                 //LogFeedback(this.turnManager.Turn.ToString());
-                if (this.turnManager.Turn > 0)
-                {
-                    LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
-
-                    this.GamePanel.SetActive(true);
-                }
-
+                LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
 
             }
 
@@ -217,17 +214,21 @@ namespace edu.jhu.co
             this.UpdatePlayerList();
         }
 
-        //called whenever the dice are rolled
+        /// <summary>
+        /// called whenever the dice are rolled
+        /// </summary>
         public void OnDiceRoll()
         {
-            /*Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
-            if (DiceValue != null) { DiceValue.text = ReturnDiceRolled().ToString(); }
+            Debug.Log("My roll counter value" + diceController.rollCounter.ToString());
+            diceController.rollDice(); // or get value you want
 
-            this.turnManager.SendMove(System.Convert.ToInt32(DiceValue.text), turnOver);  //change to correct value
-            if (diceController.rollCounter < 1) 
+
+            if (diceController.rollCounter == 0) 
             {
-                this.turnManager.BeginTurn(); //your turn over, next player to move
-            }*/
+                
+                MakeTurn();
+                diceController.resetRollCounter();
+            }
 
         }
 
@@ -279,30 +280,19 @@ namespace edu.jhu.co
         /// </summary>
         public void SetScore()
         {
-            //get value of score 
-            Text DiceValue = GameObject.Find("DiceValueText").GetComponent<Text>();
-            string value = DiceValue.text;
-            /*if (string.IsNullOrEmpty(value))
-            {
-                Debug.LogError("Score is empty");
-                return;
-            }*/
-
-
             //set game player's score
             try
             {
-                PhotonNetwork.LocalPlayer.SetScore(int.Parse(value));
+                //  PhotonNetwork.LocalPlayer.SetScore(no set value yet);
 
                 //also set tht his turn for this round is complete
-                
+
 
             }
             catch (Exception ex)
             {
                 PhotonNetwork.LocalPlayer.SetScore(0);
             }
-
         }
 
         /// <summary>
@@ -325,9 +315,12 @@ namespace edu.jhu.co
             //
 
             //display players in left panel and in chat window
+           // PlayerList.text = PhotonNetwork.LocalPlayer.NickName + System.Environment.NewLine;
             foreach (Player otherone in PhotonNetwork.PlayerList)
             {
-                PlayerList.text += otherone.NickName + " (score: " + otherone.GetScore() + ")" + System.Environment.NewLine;
+                //no score to show so just show player name
+                // PlayerList.text += otherone.NickName + " (score: " + otherone.GetScore() + ")" + System.Environment.NewLine;
+                PlayerList.text += otherone.NickName + System.Environment.NewLine;
 
             }
         }
@@ -358,9 +351,9 @@ namespace edu.jhu.co
             if (WelcomeText != null)
             {
                 WelcomeText.text = "Welcome " + PhotonNetwork.NickName + " to play Yahtzee++";
-                            //+ System.Environment.NewLine + "You are in " + PhotonNetwork.CurrentRoom.Name;
             }
 
+            //display game room name
             if (GameRoomText != null)
             {
                 GameRoomText.text = PhotonNetwork.CurrentRoom.Name;
@@ -411,8 +404,9 @@ namespace edu.jhu.co
             {
                 turnManager.BeginTurn();
 
-                //for running single player mode
-                this.GamePanel.SetActive(true);
+                //display gaming area
+                this.ScoreboardPanel.SetActive(true);
+                this.DicePanel.SetActive(true);
                 //need to check all paths
 
                 Debug.Log(PhotonNetwork.CurrentRoom.GetTurn());
@@ -434,26 +428,21 @@ namespace edu.jhu.co
         /// </summary>
         public void MakeTurn()
         {
-            LogFeedback(" Making Move " + turnManager.Turn); 
+            LogFeedback(" Making Move " + turnManager.Turn);
 
-            //get dice value selected
-            int Score = 0;
-            Text _diceValueText = this.GetComponent<Text>();
-            if (_diceValueText != null)
-            {
-                Score = Convert.ToInt32(_diceValueText.text);
-            }
+            //inform the turnmanager (ToDo: pass score value)
+            /*Score score = new Score();
+             * //set score of player here to save
             SetScore();
-
-         //   int Score = PhotonNetwork.LocalPlayer.GetScore();
-
-            //inform the turnmanager
-            this.turnManager.SendMove(Score, true);
+            this.turnManager.SendMove(score, true);*/
             turnManager.BeginTurn();
-            this.UpdatePlayerList();
+
+            //upate this list only when player changes
+           // this.UpdatePlayerList();
         }
         #endregion
 
+        #region PunTurnManagerCallbacks
         /// <summary>
         /// 
         /// </summary>
@@ -527,5 +516,6 @@ namespace edu.jhu.co
             this.SetScore();
             this.UpdatePlayerList();
         }
+        #endregion
     }
 }
