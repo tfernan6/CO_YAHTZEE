@@ -47,14 +47,18 @@ public class Score : MonoBehaviour
         //include logic later that asks user to confirm if they want to hold a score that is empty i.e. 0;
         //adjust logic to allow selection of 0 scores but add a prompt asking user if they are sure
         //include logic where only your Score can be locked by you
-        if ( !isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+        if (gameObject.name != "Sum" && gameObject.name != "Bonus" && gameObject.name != "Total Score")
         {
-            isSelected = true;
-            transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
-                TranscriptMessage.SubsystemType.score);
-            transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
-            diceController.resetRollCounter();
-            scorecard.calculateSum();
+            if (!isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+            {
+                isSelected = true;
+                transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
+                    TranscriptMessage.SubsystemType.score);
+                transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
+                diceController.resetRollCounter();
+                scorecard.calculateSum();
+                Debug.Log("Score has been selected");
+            }
         }
     }
 
@@ -80,7 +84,7 @@ public class Score : MonoBehaviour
                 }
                 else
                 {
-                    blankOutScoreText();
+                    blankOutScore();
                 }
 
             }
@@ -114,7 +118,7 @@ public class Score : MonoBehaviour
                 }
                 else
                 {
-                    blankOutScoreText();
+                    blankOutScore();
                 }
             }
             if (gameObject.name == "Four of a Kind")
@@ -130,7 +134,7 @@ public class Score : MonoBehaviour
                 }
                 else
                 {
-                    blankOutScoreText();
+                    blankOutScore();
                 }
             }
             if (gameObject.name == "Full House")
@@ -142,7 +146,7 @@ public class Score : MonoBehaviour
                 }
                 else
                 {
-                    blankOutScoreText();
+                    blankOutScore();
                 }
             }
             if (gameObject.name == "Small Straight")
@@ -156,7 +160,7 @@ public class Score : MonoBehaviour
                 }
                 else
                 {
-                    blankOutScoreText();
+                    blankOutScore();
                 }
             }
             if (gameObject.name == "Large Straight")
@@ -169,7 +173,7 @@ public class Score : MonoBehaviour
                 }
                 else
                 {
-                    blankOutScoreText();
+                    blankOutScore();
                 }
             }
             if (gameObject.name == "Chance")
@@ -181,31 +185,31 @@ public class Score : MonoBehaviour
                 this.scoreValue = tempScore;
                 updateScoreText();
             }
-            if (gameObject.name == "YAHTZEE")
+        }
+        if (gameObject.name == "YAHTZEE")
+        {
+            if (diceValueCount.ContainsValue(5))
             {
-                if (diceValueCount.ContainsValue(5))
+                Debug.Log("YAHTZEE");
+                if (this.scoreValue == 0)
                 {
-                    Debug.Log("YAHTZEE");
-                    if (this.scoreValue == 0)
+                    if (isSelected)
                     {
-                        if (isSelected)
-                        {
-                            joker();
-                        }
-                        this.scoreValue = 50;
-                    }
-                    else if (this.scoreValue == 50)
-                    {
-                        Debug.Log("double Yahtzee!");
-                        this.scoreValue += 100;
                         joker();
                     }
-                    updateScoreText();
+                    this.scoreValue = 50;
                 }
-                else
+                else if (this.scoreValue == 50)
                 {
-                    blankOutScoreText();
+                    Debug.Log("double Yahtzee!");
+                    this.scoreValue += 100;
+                    joker();
                 }
+                updateScoreText();
+            }
+            else
+            {
+                blankOutScore();
             }
         }
     }
@@ -231,8 +235,9 @@ public class Score : MonoBehaviour
         this.GetComponent<TMP_Text>().text = scoreValue.ToString();
     }
 
-    public void blankOutScoreText()
+    public void blankOutScore()
     {
+        this.scoreValue = 0;
         this.GetComponent<TMP_Text>().text = null;
     }
 

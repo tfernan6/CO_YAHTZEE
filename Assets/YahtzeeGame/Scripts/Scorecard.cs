@@ -80,7 +80,7 @@ public class Scorecard : MonoBehaviour
             }
             else
             {
-                summaryScores[0].blankOutScoreText();
+                summaryScores[0].blankOutScore();
             }
         }
         if (summaryScores[0].scoreValue >= 63)
