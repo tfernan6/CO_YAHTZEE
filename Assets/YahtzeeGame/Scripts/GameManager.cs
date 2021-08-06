@@ -34,6 +34,12 @@ namespace edu.jhu.co
         [SerializeField]
         public GameObject BeginGame;
 
+        //Roll dice button
+        [Tooltip("Roll Dice ")]
+        [SerializeField]
+        public GameObject RollDiceButton;
+
+
         //This is panel where the scoreboard will be placed,
         [Tooltip("ScoreboardPanel")]
         [SerializeField]
@@ -62,10 +68,15 @@ namespace edu.jhu.co
         [SerializeField]
         private Text TurnStatus;
 
+        // whose turn it is
+        private int whoseTurnItIs;
 
-        private YahtzeePlayer yahtzeePlayer = null; //not coded for it yet
-        public bool gameStarted = false;  //maybe not needed(Should be in the Turn)
-        public bool allowForSinglePerson = true; //allows for singleperson to be played
+        //not used
+        private int ScoreValue = 0;
+
+
+        private YahtzeePlayer yahtzeePlayer = null; //Player info of current player ToDo: save state
+        private bool gameStarted = false;  //has the game begun? //do we need this? can't turnmanager have this info?
 
         //creating controller objects
         public ScoreboardController sbController;
@@ -146,6 +157,7 @@ namespace edu.jhu.co
 
             //Panel for dice and scoreboard turn disable till game clicked
             this.ScoreboardPanel.SetActive(false);
+           // this.RollDiceButton.SetActive(false);
             this.DicePanel.SetActive(false);
 
             //initiates controller objects
@@ -173,10 +185,14 @@ namespace edu.jhu.co
                 return;
             }
 
+
             //if more than one player, set turns to play
-            if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= 1 && this.turnManager.Turn != 0)
             {
-                if (this.turnManager.IsOver)
+               this.ScoreboardPanel.SetActive(true);
+               this.DicePanel.SetActive(true);
+
+               if (this.turnManager.IsOver)
                 {
                     return;
                 }
@@ -191,19 +207,13 @@ namespace edu.jhu.co
                 }
                 */
 
-                this.ScoreboardPanel.SetActive(true);
-                this.DicePanel.SetActive(true);
                 //need to check all paths
 
-            }
-
-            if (PhotonNetwork.CurrentRoom.PlayerCount >= 1 && this.gameStarted && this.turnManager.Turn > 0)
-            { 
                 //LogFeedback(this.turnManager.Turn.ToString());
                 LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
-
             }
 
+ 
             //if user hits, escape close application
             if (Input.GetKey("escape"))
             {
@@ -223,9 +233,9 @@ namespace edu.jhu.co
             diceController.rollDice(); // or get value you want
 
 
+            //your 3 rolls are complete
             if (diceController.rollCounter == 0) 
             {
-                
                 MakeTurn();
                 diceController.resetRollCounter();
             }
@@ -339,7 +349,7 @@ namespace edu.jhu.co
             }
 
             // add new messages as a new line and at the bottom of the log.
-            GameStatus.text = System.Environment.NewLine + message;
+            GameStatus.text = message;
         }
 
         /// <summary>
@@ -396,23 +406,27 @@ namespace edu.jhu.co
         }
 
         /// <summary>
-        /// cliecked to begin the game
+        /// User clicked to begin the game
+        /// set player turn
         /// </summary>
         public void GameBegins()
         { 
+             //display gaming area
+            this.ScoreboardPanel.SetActive(true);
+            this.DicePanel.SetActive(true);
+
             if (PhotonNetwork.IsMasterClient)
             {
-                turnManager.BeginTurn();
+                 gameStarted = true;
+                 turnManager.BeginTurn(); //set your turn
 
-                //display gaming area
-                this.ScoreboardPanel.SetActive(true);
-                this.DicePanel.SetActive(true);
+
                 //need to check all paths
-
                 Debug.Log(PhotonNetwork.CurrentRoom.GetTurn());
-                
+
+                //begun so don't let anyone to click begin anymore
                 this.BeginGame.SetActive(false);
-                gameStarted = true;
+              //  this.RollDiceButton.SetActive(true);
             }
             else
             {
@@ -428,17 +442,23 @@ namespace edu.jhu.co
         /// </summary>
         public void MakeTurn()
         {
-            LogFeedback(" Making Move " + turnManager.Turn);
+            //set the play to next person
+            if ((whoseTurnItIs + 1) == PhotonNetwork.PlayerList.Length)
+            {
+                whoseTurnItIs = 0;
+            }
+            else
+            {
+                whoseTurnItIs++;
+            }
 
             //inform the turnmanager (ToDo: pass score value)
-            /*Score score = new Score();
-             * //set score of player here to save
+            ScoreValue = 10;//test value
+             //set score of player here to save
             SetScore();
-            this.turnManager.SendMove(score, true);*/
-            turnManager.BeginTurn();
 
-            //upate this list only when player changes
-           // this.UpdatePlayerList();
+            this.turnManager.SendMove(ScoreValue, true); //pass value and say my turn is over
+            turnManager.BeginTurn(); //set for next turn, here or elsewhere to indicate next turn
         }
         #endregion
 
@@ -448,7 +468,9 @@ namespace edu.jhu.co
         /// </summary>
         public void OnEndTurn()
         {
-            this.GameBegins();
+          //  this.RollDiceButton.SetActive(true);
+            this.GameBegins(); //why???
+
         }
 
         /// <summary>
@@ -457,9 +479,36 @@ namespace edu.jhu.co
         /// <param name="turn">Turn Index</param>
         public void OnTurnBegins(int turn)
         {
-            LogFeedback("Turn " + turn);
+            LogFeedback("Turn " + turn + " of " + PhotonNetwork.PlayerList[whoseTurnItIs].NickName); 
             Debug.Log("Turn Begins...");
             Debug.Log("Turn " + turn);
+
+            //ToDo: set this person turn complete 
+
+            //set the play to next person
+            if (PhotonNetwork.IsMasterClient) //first player
+            {
+                whoseTurnItIs = 0;
+            }
+            else
+            {
+                whoseTurnItIs++;
+            }
+
+
+            //ToDo: if it is not your turn
+            /*if(PhotonNetwork.PlayerList[whoseTurnItIs] != PhotonNetwork.LocalPlayer)
+            {
+                this.RollDiceButton.SetActive(false);
+            }
+            else 
+                 // && (!this.turnManager.IsFinishedByMe)) //informs if you have completed ur turn teena
+            {
+                this.RollDiceButton.SetActive(true);
+            }*/
+          
+
+            //not sure why do you need to update this list always. need to test
             this.UpdatePlayerList();
         }
 
@@ -471,8 +520,9 @@ namespace edu.jhu.co
         {
             Debug.Log("Turn Completed...");
             Debug.Log("Turn " + turn);
+
             this.SetScore();
-            this.UpdatePlayerList();
+            //this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -486,8 +536,18 @@ namespace edu.jhu.co
             Debug.Log("On Player Move...");
             Debug.Log("Turn " + turn);
 
+            //ToDo: if it is not your turn
+            /*if (player != PhotonNetwork.LocalPlayer)
+            {
+                this.RollDiceButton.SetActive(false);
+            }
+            else
+            {
+                this.RollDiceButton.SetActive(true);
+            }*/
+
             this.SetScore();
-            this.UpdatePlayerList();
+            //this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -500,9 +560,9 @@ namespace edu.jhu.co
         {
             Debug.Log("On Player Finished...");
             Debug.Log("Turn " + turn);
-            LogFeedback("Score " + move);
+            LogFeedback("My turn is over ");
             this.SetScore();
-            this.UpdatePlayerList();
+           // this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -514,7 +574,7 @@ namespace edu.jhu.co
             Debug.Log("Turn Time Ends...");
             Debug.Log("Turn " + turn);
             this.SetScore();
-            this.UpdatePlayerList();
+          //  this.UpdatePlayerList();
         }
         #endregion
     }

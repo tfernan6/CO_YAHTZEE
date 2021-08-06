@@ -894,7 +894,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 154.14055, y: 3.0829926}
+  m_AnchoredPosition: {x: 154.14055, y: 3.0830078}
   m_SizeDelta: {x: 146.05, y: 26.178}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &122220024
@@ -6778,14 +6778,13 @@ MonoBehaviour:
   PlayerList: {fileID: 361826248}
   ScoreObject: {fileID: 0}
   BeginGame: {fileID: 1699520811}
+  RollDiceButton: {fileID: 392275962}
   ScoreboardPanel: {fileID: 1791744528}
   DicePanel: {fileID: 1130598063}
   GameStatus: {fileID: 1909879772}
   WelcomeText: {fileID: 1301269008}
   GameRoomText: {fileID: 18663256}
   TurnStatus: {fileID: 122220025}
-  gameStarted: 0
-  allowForSinglePerson: 1
   sbController: {fileID: 102598764}
   diceController: {fileID: 2012893962}
   tsController: {fileID: 1563405016}
@@ -8029,7 +8028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.7600098, y: -0.93330383}
+  m_AnchoredPosition: {x: 3.7600098, y: -0.9332886}
   m_SizeDelta: {x: -348.4, y: -90.846}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1791744530
@@ -8640,7 +8639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.0013718754, y: 0.00390625}
+  m_AnchoredPosition: {x: -0.014192789, y: 0.00390625}
   m_SizeDelta: {x: 292.14, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1905482367
