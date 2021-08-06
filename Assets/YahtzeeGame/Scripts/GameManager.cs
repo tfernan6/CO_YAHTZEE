@@ -61,15 +61,15 @@ namespace edu.jhu.co
 
 
         private YahtzeePlayer yahtzeePlayer = null; //not coded for it yet
-        public bool gameStarted = false;  //maybe not needed(SHould be in the Turn)
+        public bool gameStarted = false;  //maybe not needed(Should be in the Turn)
         public bool allowForSinglePerson = true; //allows for singleperson to be played
 
         //creating controller objects
         public ScoreboardController sbController;
         public DiceController diceController;
         public TranscriptController tsController;
-        public List<YahtzeePlayer> yahtzeePlayers = new List<YahtzeePlayer>();
-        public Player[] photonPlayerList;
+        //public List<YahtzeePlayer> yahtzeePlayers = new List<YahtzeePlayer>();
+        //public Player[] photonPlayerList;
 
         //show my dice value (test variable)
         public Text myDiceValue;
@@ -112,7 +112,7 @@ namespace edu.jhu.co
             if(yahtzeePlayer == null)
             {
                 yahtzeePlayer = new YahtzeePlayer();
-                yahtzeePlayers.Add(yahtzeePlayer);
+                //yahtzeePlayers.Add(yahtzeePlayer);
 
             }
             yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;
