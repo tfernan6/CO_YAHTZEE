@@ -41,6 +41,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     }
     public void OnConnected() {
         UnityEngine.Debug.Log("Connection to chat successful");
+        transcriptController.SendMessageToTranscript("subscribing to group chat", TranscriptMessage.SubsystemType.chat);
         chatClient.Subscribe(new string[] {"RegionChannel"});
     }
     public void OnDisconnected()
@@ -95,9 +96,12 @@ public class ChatController : MonoBehaviour, IChatClientListener
 
     public void ChatConnect() 
     {
+        WaitForSeconds(1);
         isConnected = true;
         chatClient = new ChatClient(this);
+        transcriptController.SendMessageToTranscript("connecting to chat server", TranscriptMessage.SubsystemType.chat);
         chatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, PhotonNetwork.AppVersion, new Photon.Chat.AuthenticationValues(PhotonNetwork.NickName));
+        transcriptController.SendMessageToTranscript("connection to chat server successful", TranscriptMessage.SubsystemType.chat);
         UnityEngine.Debug.Log("Connection to chat");
     }
 
@@ -126,6 +130,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
             UnityEngine.Debug.Log("InSubmitPublicChatOnClick " + currentChat);
             UnityEngine.Debug.Log("SubmitPublic:  calling publish message");
             chatClient.PublishMessage("RegionChannel", currentChat);
+            transcriptController.SendMessageToTranscript("publishing new message to chat", TranscriptMessage.SubsystemType.chat);
             chatBox.text = "";
             currentChat = "";
         }
@@ -167,11 +172,12 @@ public class ChatController : MonoBehaviour, IChatClientListener
     // Start is called before the first frame update
     void Start()
     {
-        transcriptController = gameObject.GetComponent<TranscriptController>();
+        
         // might need to switch authentication values to Photon.Chat something
         Application.runInBackground = true; 
+        
         ChatConnect();
-        transcriptController.SendMessageToTranscript("this is a test",TranscriptMessage.SubsystemType.chat);
+        
         //username = OldLogin.playerName;
         username = PhotonNetwork.NickName;
         
@@ -183,8 +189,6 @@ public class ChatController : MonoBehaviour, IChatClientListener
     {
         if (isConnected)
         {
-            UnityEngine.Debug.Log("isConnected = true");
-            UnityEngine.Debug.Log("Calling chatClient.Service");
             chatClient.Service();
         }
         setChatDropdown();
