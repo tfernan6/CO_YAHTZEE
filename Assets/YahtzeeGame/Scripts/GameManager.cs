@@ -68,9 +68,6 @@ namespace edu.jhu.co
         [SerializeField]
         private Text TurnStatus;
 
-        // whose turn it is
-        private int whoseTurnItIs;
-
         //not used
         private int ScoreValue = 0;
 
@@ -207,7 +204,10 @@ namespace edu.jhu.co
                 }
                 */
 
-                //need to check all paths
+                //ToDo: if it is not your turn, you cannot roll the dice
+
+                //turn counter keeps incrementing, it does not reset after all players have completed (is this an issue?)
+                LogTurnStatus(turnManager.Turn);
 
                 //LogFeedback(this.turnManager.Turn.ToString());
                 LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
@@ -385,6 +385,30 @@ namespace edu.jhu.co
             // add new messages as a new line and at the bottom of the log.
             TurnStatus.text = "[Turn Time: " + message + "secs]";
         }
+
+        /// <summary>
+        /// Log the turn feedback for testing
+        /// </summary>
+        /// <param name="turn"></param>
+        private void LogTurnStatus(int turn)
+        {
+            //turn counter keeps incrementing, it does not reset after all players have completed (is this an issue or the way turnmanager is set?)
+            int playerOrderInTurn = (turn % PhotonNetwork.PlayerList.Length == 0) ?
+                        PhotonNetwork.PlayerList.Length : (turn % PhotonNetwork.PlayerList.Length);
+            string playerWhoseTurnItIs = string.Empty;
+            if ((playerOrderInTurn - 1 >= 0) || (playerOrderInTurn <= PhotonNetwork.PlayerList.Length)) //error check
+            {
+                playerWhoseTurnItIs = PhotonNetwork.PlayerList[playerOrderInTurn - 1].NickName;
+            }
+
+            //actual round is turn / PhotonNetwork.PlayerList.Length
+            int round = (PhotonNetwork.PlayerList.Length == 1) ? turn : ((turn / PhotonNetwork.PlayerList.Length) + 1);
+
+            //log whose turn it is
+            LogFeedback("Round: " + round + " Turn: " + turn + " of " + playerWhoseTurnItIs);
+            Debug.Log("Turn Begins " + turn);
+
+        }
         #endregion
 
         #region PageEventHandlers
@@ -442,18 +466,8 @@ namespace edu.jhu.co
         /// </summary>
         public void MakeTurn()
         {
-            //set the play to next person
-            if ((whoseTurnItIs + 1) == PhotonNetwork.PlayerList.Length)
-            {
-                whoseTurnItIs = 0;
-            }
-            else
-            {
-                whoseTurnItIs++;
-            }
-
             //inform the turnmanager (ToDo: pass score value)
-            ScoreValue = 10;//test value
+            ScoreValue = 10;//dummy value
              //set score of player here to save
             SetScore();
 
@@ -468,48 +482,19 @@ namespace edu.jhu.co
         /// </summary>
         public void OnEndTurn()
         {
-          //  this.RollDiceButton.SetActive(true);
-            this.GameBegins(); //why???
 
         }
 
         /// <summary>
-        /// Called the turn begins event.
+        /// Called when the player's turn begins
         /// </summary>
         /// <param name="turn">Turn Index</param>
         public void OnTurnBegins(int turn)
         {
-            LogFeedback("Turn " + turn + " of " + PhotonNetwork.PlayerList[whoseTurnItIs].NickName); 
-            Debug.Log("Turn Begins...");
-            Debug.Log("Turn " + turn);
-
-            //ToDo: set this person turn complete 
-
+            LogTurnStatus(turn);
             //set the play to next person
-            if (PhotonNetwork.IsMasterClient) //first player
-            {
-                whoseTurnItIs = 0;
-            }
-            else
-            {
-                whoseTurnItIs++;
-            }
 
-
-            //ToDo: if it is not your turn
-            /*if(PhotonNetwork.PlayerList[whoseTurnItIs] != PhotonNetwork.LocalPlayer)
-            {
-                this.RollDiceButton.SetActive(false);
-            }
-            else 
-                 // && (!this.turnManager.IsFinishedByMe)) //informs if you have completed ur turn teena
-            {
-                this.RollDiceButton.SetActive(true);
-            }*/
-          
-
-            //not sure why do you need to update this list always. need to test
-            this.UpdatePlayerList();
+            //ToDo: if it is not your turn you cannot roll the dice
         }
 
         /// <summary>
@@ -520,9 +505,7 @@ namespace edu.jhu.co
         {
             Debug.Log("Turn Completed...");
             Debug.Log("Turn " + turn);
-
             this.SetScore();
-            //this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -535,19 +518,7 @@ namespace edu.jhu.co
         {
             Debug.Log("On Player Move...");
             Debug.Log("Turn " + turn);
-
-            //ToDo: if it is not your turn
-            /*if (player != PhotonNetwork.LocalPlayer)
-            {
-                this.RollDiceButton.SetActive(false);
-            }
-            else
-            {
-                this.RollDiceButton.SetActive(true);
-            }*/
-
             this.SetScore();
-            //this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -560,9 +531,7 @@ namespace edu.jhu.co
         {
             Debug.Log("On Player Finished...");
             Debug.Log("Turn " + turn);
-            LogFeedback("My turn is over ");
             this.SetScore();
-           // this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -574,7 +543,6 @@ namespace edu.jhu.co
             Debug.Log("Turn Time Ends...");
             Debug.Log("Turn " + turn);
             this.SetScore();
-          //  this.UpdatePlayerList();
         }
         #endregion
     }
