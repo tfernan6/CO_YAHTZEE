@@ -14,7 +14,7 @@ public class TranscriptController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SendMessageToTranscript("Transcript initialized", TranscriptMessage.SubsystemType.transcript);
     }
 
     // Update is called once per frame

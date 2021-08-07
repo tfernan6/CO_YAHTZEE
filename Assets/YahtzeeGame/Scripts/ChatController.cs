@@ -23,6 +23,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     string currentChat;
     string privateReceiver = "";
     public Dropdown chatDropdown;
+    public TranscriptController transcriptController;
 
 
     // callbacks
@@ -161,15 +162,19 @@ public class ChatController : MonoBehaviour, IChatClientListener
 
     [SerializeField]
     List<Message> messageList = new List<Message>();
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        transcriptController = gameObject.GetComponent<TranscriptController>();
         // might need to switch authentication values to Photon.Chat something
         Application.runInBackground = true; 
         ChatConnect();
+        transcriptController.SendMessageToTranscript("this is a test",TranscriptMessage.SubsystemType.chat);
         //username = OldLogin.playerName;
         username = PhotonNetwork.NickName;
+        
         setChatDropdown();
     }
 
