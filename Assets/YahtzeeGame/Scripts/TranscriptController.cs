@@ -36,7 +36,7 @@ public class TranscriptController : MonoBehaviour
             messageList.Remove(messageList[0]);
         }        
         TranscriptMessage newMessage = new TranscriptMessage();
-        newMessage.text = text;
+        newMessage.text = "* " + text;
         GameObject newText = Instantiate(textObject, chatPanel.transform);
         newMessage.textObject = newText.GetComponent<Text>();
         newMessage.textObject.text = newMessage.text;
