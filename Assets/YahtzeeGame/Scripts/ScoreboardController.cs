@@ -12,13 +12,22 @@ using edu.jhu.co;
     // For testing purposes, will grab this from GameManager
     public Scorecard[] scorecards;
     public GameManager gameManager;
-    public TranscriptController transcriptController;
+    private static TranscriptController transcriptController;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameRoomObject").GetComponent<GameManager>();
-        transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        if (transcriptController == null &&
+            GameObject.Find("TranscriptController") != null)
+        {
+            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        }
+        else
+        {
+            Debug.Log("Transcript controller is null");
+        }
+
     }
 
     // Update is called once per frame

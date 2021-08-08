@@ -78,7 +78,7 @@ namespace edu.jhu.co
         //creating controller objects
         public ScoreboardController sbController;
         public DiceController diceController;
-        public TranscriptController transcriptController;
+        private static TranscriptController transcriptController;
         //public List<YahtzeePlayer> yahtzeePlayers = new List<YahtzeePlayer>();
         //public Player[] photonPlayerList;
 
@@ -107,9 +107,20 @@ namespace edu.jhu.co
         void Start()
         {
             //connect to Photon NEtwork if it's not already been connected
+            if (transcriptController == null &&
+                GameObject.Find("TranscriptController") != null)
+            {
+                transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+            }
+            else
+            {
+                Debug.Log("Transcript controller is null");
+            }
+
             if (!PhotonNetwork.IsConnected)
             {
-                transcriptController.SendMessageToTranscript("Loaded login scene", TranscriptMessage.SubsystemType.game);
+                if (transcriptController != null)
+                    transcriptController.SendMessageToTranscript("Loaded login scene", TranscriptMessage.SubsystemType.game);
                 SceneManager.LoadScene("Login");
                 return;
             }
@@ -129,7 +140,8 @@ namespace edu.jhu.co
 
             //update the list of players in the left panel
             CurrentPlayerName.text = PhotonNetwork.NickName;
-            transcriptController.SendMessageToTranscript("Added player " + CurrentPlayerName.text +  " to player list", TranscriptMessage.SubsystemType.game);
+            if (transcriptController != null)
+                transcriptController.SendMessageToTranscript("Added player " + CurrentPlayerName.text +  " to player list", TranscriptMessage.SubsystemType.game);
             this.UpdatePlayerList();
 
 
@@ -145,7 +157,8 @@ namespace edu.jhu.co
             if (PhotonNetwork.IsMasterClient)
             // && (PhotonNetwork.PlayerList.Length > 1 ))
             {
-                transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
+                if (transcriptController != null)
+                    transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
                 this.BeginGame.SetActive(true);
 
             }
@@ -220,7 +233,8 @@ namespace edu.jhu.co
             //if user hits, escape close application
             if (Input.GetKey("escape"))
             {
-                transcriptController.SendMessageToTranscript("Exiting the application", TranscriptMessage.SubsystemType.game);
+                if (transcriptController != null)
+                    transcriptController.SendMessageToTranscript("Exiting the application", TranscriptMessage.SubsystemType.game);
                 Application.Quit();
             }
 
@@ -273,7 +287,8 @@ namespace edu.jhu.co
         {
             Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // seen when other connects 
             LogFeedback("Player " + other.NickName + " joined the Game");
-            transcriptController.SendMessageToTranscript(other.NickName + " entered the room", TranscriptMessage.SubsystemType.game);
+            if (transcriptController != null)
+                transcriptController.SendMessageToTranscript(other.NickName + " entered the room", TranscriptMessage.SubsystemType.game);
 
 
             //enable begin game if you have one player
@@ -282,7 +297,8 @@ namespace edu.jhu.co
                 //&& PhotonNetwork.PlayerList.Length > 1 ) 
             {
                 //game not begun)
-                transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
+                if (transcriptController != null)
+                    transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
                 this.BeginGame.SetActive(true);
             }
 
@@ -423,7 +439,8 @@ namespace edu.jhu.co
         /// </summary>
         public void LeaveRoom()
         {
-            transcriptController.SendMessageToTranscript("Player left the room", TranscriptMessage.SubsystemType.game);
+            if (transcriptController != null)
+                transcriptController.SendMessageToTranscript("Player left the room", TranscriptMessage.SubsystemType.game);
             PhotonNetwork.LeaveRoom();
             SceneManager.LoadScene("Login");
         }
@@ -433,7 +450,8 @@ namespace edu.jhu.co
         /// </summary>
         public void ExitApplication()
         {
-            transcriptController.SendMessageToTranscript("Clicked \"Exit Application\"", TranscriptMessage.SubsystemType.game);
+            if (transcriptController != null)
+                transcriptController.SendMessageToTranscript("Clicked \"Exit Application\"", TranscriptMessage.SubsystemType.game);
             Application.Quit();
         }
 
@@ -444,7 +462,8 @@ namespace edu.jhu.co
         public void GameBegins()
         { 
              //display gaming area
-            transcriptController.SendMessageToTranscript("Clicked \"Begin Game\"", TranscriptMessage.SubsystemType.game);
+            if (transcriptController != null)
+                transcriptController.SendMessageToTranscript("Clicked \"Begin Game\"", TranscriptMessage.SubsystemType.game);
             this.ScoreboardPanel.SetActive(true);
             this.DicePanel.SetActive(true);
 

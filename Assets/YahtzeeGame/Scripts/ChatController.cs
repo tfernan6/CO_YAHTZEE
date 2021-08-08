@@ -23,7 +23,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     string currentChat;
     string privateReceiver = "";
     public Dropdown chatDropdown;
-    public TranscriptController transcriptController;
+    private static TranscriptController transcriptController;
 
 
     // callbacks
@@ -41,18 +41,21 @@ public class ChatController : MonoBehaviour, IChatClientListener
     }
     public void OnConnected() {
         UnityEngine.Debug.Log("Connection to chat successful");
-        transcriptController.SendMessageToTranscript("subscribing to group chat", TranscriptMessage.SubsystemType.chat);
+        if (transcriptController != null)
+            transcriptController.SendMessageToTranscript("Subscribing to group chat", TranscriptMessage.SubsystemType.chat);
         chatClient.Subscribe(new string[] {"RegionChannel"});
     }
     public void OnDisconnected()
     {
-        transcriptController.SendMessageToTranscript("Disconnecting from chat server", TranscriptMessage.SubsystemType.chat);
+        if (transcriptController != null)
+            transcriptController.SendMessageToTranscript("Disconnecting from chat server", TranscriptMessage.SubsystemType.chat);
         isConnected = false;
         chatPanel.SetActive(false);
     }
     public void OnGetMessages(string channelName, string[] senders, object[] messages) 
     {
-        transcriptController.SendMessageToTranscript(string.Format("pulling {0} new message(s) from chat server", messages.Length), TranscriptMessage.SubsystemType.chat);
+        if (transcriptController != null)
+            transcriptController.SendMessageToTranscript(string.Format("Pulling {0} new message(s) from chat server", messages.Length), TranscriptMessage.SubsystemType.chat);
         UnityEngine.Debug.Log("Calling OnGetMessages");
         string msgs = "";
         for (int i = 0; i < senders.Length; i++)
@@ -100,9 +103,13 @@ public class ChatController : MonoBehaviour, IChatClientListener
     {
         isConnected = true;
         chatClient = new ChatClient(this);
-        transcriptController.SendMessageToTranscript("connecting to chat server", TranscriptMessage.SubsystemType.chat);
+        if (transcriptController != null)
+            transcriptController.SendMessageToTranscript("Connecting to chat server", TranscriptMessage.SubsystemType.chat);
+        
         chatClient.Connect(PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat, PhotonNetwork.AppVersion, new Photon.Chat.AuthenticationValues(PhotonNetwork.NickName));
-        transcriptController.SendMessageToTranscript("connection to chat server successful", TranscriptMessage.SubsystemType.chat);
+        
+        if (transcriptController != null)
+            transcriptController.SendMessageToTranscript("Connection to chat server successful", TranscriptMessage.SubsystemType.chat);
         UnityEngine.Debug.Log("Connection to chat");
     }
 
@@ -128,10 +135,15 @@ public class ChatController : MonoBehaviour, IChatClientListener
     {
         
         if (privateReceiver == "" && currentChat != "") {
-            transcriptController.SendMessageToTranscript("Sending public chat", TranscriptMessage.SubsystemType.chat);
+            if (transcriptController != null)
+                transcriptController.SendMessageToTranscript("Sending public chat", TranscriptMessage.SubsystemType.chat);
+            
             UnityEngine.Debug.Log("InSubmitPublicChatOnClick " + currentChat);
             UnityEngine.Debug.Log("SubmitPublic:  calling publish message");
-            transcriptController.SendMessageToTranscript(string.Format("Publishing new message to chat: {0}", currentChat), TranscriptMessage.SubsystemType.chat);
+            
+            if (transcriptController != null)
+                transcriptController.SendMessageToTranscript(string.Format("Publishing new message to chat: {0}", currentChat), TranscriptMessage.SubsystemType.chat);
+            
             chatClient.PublishMessage("RegionChannel", currentChat);
             chatBox.text = "";
             currentChat = "";
@@ -161,7 +173,9 @@ public class ChatController : MonoBehaviour, IChatClientListener
         
         UnityEngine.Debug.Log("Receiver value changed to: " + chatDropdown.options[chatDropdown.value].text );
         privateReceiver = chatDropdown.options[chatDropdown.value].text;
-        transcriptController.SendMessageToTranscript("Updating chat recipient to " + privateReceiver, TranscriptMessage.SubsystemType.chat);
+        if (transcriptController != null)
+            transcriptController.SendMessageToTranscript("Updating chat recipient to " + privateReceiver, TranscriptMessage.SubsystemType.chat);
+        
         if (privateReceiver == "public") 
         {
             privateReceiver = "";
@@ -179,13 +193,20 @@ public class ChatController : MonoBehaviour, IChatClientListener
     {
         
         // might need to switch authentication values to Photon.Chat something
+        if (transcriptController == null &&
+            GameObject.Find("TranscriptController") != null)
+        {
+            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        }
+        else
+        {
+            UnityEngine.Debug.Log("Transcript controller is null");
+        }
+
         Application.runInBackground = true; 
-        
         ChatConnect();
-        
-        //username = OldLogin.playerName;
+
         username = PhotonNetwork.NickName;
-        
         setChatDropdown();
     }
 

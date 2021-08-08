@@ -12,14 +12,14 @@ public class DiceController : MonoBehaviour
     public  int rollCounter = RollTries;
     public Scorecard scorecard;
     private GameManager gameManager;
-    public TranscriptController transcriptController;
+    private static TranscriptController transcriptController;
 
     // Start is called before the first frame update
     void Start()
     {
         //gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //grabs the transcript controller and populates the transcript controller
-        /*  if (transcriptController == null &&
+        if (transcriptController == null &&
               GameObject.Find("TranscriptController") != null)
           {
               transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
@@ -27,7 +27,7 @@ public class DiceController : MonoBehaviour
           else
           {
               Debug.Log("Transcript controller is null");
-          }*/
+          }
 
         diceObjects[0] = GameObject.Find("Die0").GetComponent<Die>();
         diceObjects[1] = GameObject.Find("Die1").GetComponent<Die>();
@@ -51,7 +51,8 @@ public class DiceController : MonoBehaviour
 
     public void rollDice()
     {
-        transcriptController.SendMessageToTranscript("Rolled dice. " + rollCounter + " rolls left in turn", TranscriptMessage.SubsystemType.dice);
+        if (transcriptController != null)
+            transcriptController.SendMessageToTranscript("Rolled dice. " + rollCounter + " rolls left in turn", TranscriptMessage.SubsystemType.dice);
         if (rollCounter >= 1)
         {
             for (int i = 0; i < diceObjects.Length; i++)
@@ -64,11 +65,11 @@ public class DiceController : MonoBehaviour
         }
         else
         {
-           /* if (transcriptController != null)
+            if (transcriptController != null)
             {
                 transcriptController.SendMessageToTranscript("No more rerolls! Please select a score to end your turn"
                 , TranscriptMessage.SubsystemType.dice);
-            }*/
+            }
         }
 
 /*        if (transcriptController != null)

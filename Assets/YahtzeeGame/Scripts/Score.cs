@@ -40,7 +40,16 @@ public class Score : MonoBehaviour
         diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
         scorecard = this.transform.parent.gameObject.GetComponent<Scorecard>();
         currentDice = diceController.diceObjects;
-        transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        if (transcriptController == null &&
+            GameObject.Find("TranscriptController") != null)
+        {
+            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        }
+        else
+        {
+            Debug.Log("Transcript controller is null");
+        }
+
     }
     public void selectScore()
     {
@@ -52,10 +61,10 @@ public class Score : MonoBehaviour
             if (!isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
             {
                 isSelected = true;
-/*                transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
+                transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
                     TranscriptMessage.SubsystemType.score);
                 transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
-*/                diceController.resetRollCounter();
+                diceController.resetRollCounter();
                 scorecard.calculateSum();
                 scorecard.calculateTotal();
                 Debug.Log("Score has been selected");
