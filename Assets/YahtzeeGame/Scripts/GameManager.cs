@@ -37,7 +37,7 @@ namespace edu.jhu.co
         //Roll dice button
         [Tooltip("Roll Dice ")]
         [SerializeField]
-        public GameObject RollDiceButton;
+        public Button RollDiceButton;
 
 
         //This is panel where the scoreboard will be placed,
@@ -125,6 +125,11 @@ namespace edu.jhu.co
                 return;
             }
 
+
+            //get handle of RollDiceButton
+            if (RollDiceButton == null)
+                RollDiceButton = GameObject.Find("RollDiceButton").GetComponent<Button>();
+
             //set the welcome and game status messages
             SetWelcomeText();
 
@@ -189,6 +194,7 @@ namespace edu.jhu.co
         /// <summary>
         /// 
         /// Update is called once per frame
+        /// this is what reflects on each client
         /// </summary>
         void Update()
         {
@@ -200,7 +206,10 @@ namespace edu.jhu.co
 
 
             //if more than one player, set turns to play
-            if (PhotonNetwork.CurrentRoom.PlayerCount >= 1 && this.turnManager.Turn != 0)
+            if (PhotonNetwork.CurrentRoom!= null && 
+                PhotonNetwork.CurrentRoom.PlayerCount >= 1 &&
+                this.turnManager != null && 
+                this.turnManager.Turn != 0)
             {
                this.ScoreboardPanel.SetActive(true);
                this.DicePanel.SetActive(true);
@@ -220,13 +229,26 @@ namespace edu.jhu.co
                 }
                 */
 
-                //ToDo: if it is not your turn, you cannot roll the dice
+                //ToDo: have everyone finished their turn?
+                if (this.turnManager.IsCompletedByAll)
+                {
+                    //Checking the status of turn being completed by all players (Round finished!)
+                    LogFeedback("Finished the Round");
+                    this.turnManager.BeginTurn();
+                }
+                else
+                {
+                    LogFeedback("Not Finished the Round");
+                }
 
                 //turn counter keeps incrementing, it does not reset after all players have completed (is this an issue?)
                 LogTurnStatus(turnManager.Turn);
 
                 //LogFeedback(this.turnManager.Turn.ToString());
                 LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
+
+                //SetRollTurnStatus
+                AllowForDiceToRoll();
             }
 
  
@@ -241,6 +263,17 @@ namespace edu.jhu.co
             //updateplayer list (Should not be calling UpdatePlayerList() in the Update function. We really shouldn't
             // be using the Update function.
             //this.UpdatePlayerList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void AllowForDiceToRoll()
+        {
+            if (this.turnManager.IsFinishedByMe) 
+                RollDiceButton.interactable = false;
+            else
+                RollDiceButton.interactable = true;
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
         }
     }
     public void OnConnected() {
-        UnityEngine.Debug.Log("Connection to chat successful");
+        //UnityEngine.Debug.Log("Connection to chat successful");
         if (transcriptController != null)
             transcriptController.SendMessageToTranscript("Subscribing to group chat", TranscriptMessage.SubsystemType.chat);
         chatClient.Subscribe(new string[] {"RegionChannel"});
@@ -56,7 +56,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     {
         if (transcriptController != null)
             transcriptController.SendMessageToTranscript(string.Format("Pulling {0} new message(s) from chat server", messages.Length), TranscriptMessage.SubsystemType.chat);
-        UnityEngine.Debug.Log("Calling OnGetMessages");
+       // UnityEngine.Debug.Log("Calling OnGetMessages");
         string msgs = "";
         for (int i = 0; i < senders.Length; i++)
         {
@@ -79,7 +79,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     public void OnSubscribed(string[] channels, bool[] results)
     {
         chatPanel.SetActive(true);
-        UnityEngine.Debug.Log("Subscribed to new channel");
+      //  UnityEngine.Debug.Log("Subscribed to new channel");
     }
     public void OnUnsubscribed(string[] channels)
     {
