@@ -37,6 +37,11 @@ namespace edu.jhu.co
 		[SerializeField]
 		private const string GameRoomName = "Caffeine Overflow";
 
+
+		[Tooltip("Enter Game Button")]
+		[SerializeField]
+		public Button EnterGameButton;
+
 		#endregion
 
 		#region Private Fields
@@ -60,6 +65,12 @@ namespace edu.jhu.co
 			// this makes sure we can use PhotonNetwork.LoadLevel() on the master client and all clients in the same room sync their level automatically
 			PhotonNetwork.AutomaticallySyncScene = true;
 
+		}
+
+		void Start()
+        {
+			if(EnterGameButton == null)
+				EnterGameButton = GameObject.Find("EnterGameButton").GetComponent<Button>();
 		}
 
 		// Update is called once per frame
@@ -170,6 +181,25 @@ namespace edu.jhu.co
 		public void ExitApplication()
         {
 			Application.Quit();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		public void EnableGameButton(string value)
+        {
+		
+			if (string.IsNullOrEmpty(value))
+			{
+				Debug.LogError("Player Name is null or empty");
+				EnterGameButton.interactable = false;
+			}
+            else
+            {
+				EnterGameButton.interactable = true;
+
+			}
 		}
 
 
