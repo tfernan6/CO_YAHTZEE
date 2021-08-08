@@ -15,7 +15,7 @@ public class Scorecard : MonoBehaviour
     public Score[] lowerScores = new Score[7];
     public Score[] summaryScores = new Score[3];
     public ScoreboardController sbController;
-    private PhotonView photonView;
+    public PhotonView photonView;
 
     /*public YahtzeePlayer yahtzeePlayer;*/
 
@@ -47,11 +47,6 @@ public class Scorecard : MonoBehaviour
         summaryScores[1] = this.transform.Find("Bonus").gameObject.GetComponent<Score>();
         summaryScores[2] = this.transform.Find("Total Score").gameObject.GetComponent<Score>();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     public void calculateScores()
@@ -108,5 +103,34 @@ public class Scorecard : MonoBehaviour
             }
         }
         summaryScores[2].updateScoreText();
+    }
+
+    [PunRPC]
+    public void updateScorecardForOthers(Scorecard scorecard)
+    {
+       
+        // if playerName matches -> overwrite score values
+        if (this.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text ==
+            scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text)
+        {
+            matchUpperScores(scorecard.upperScores);
+        }
+    }
+
+    public void matchUpperScores(Score[] otherUpperScores)
+    {
+        foreach (Score score in upperScores)
+        {
+            foreach (Score otherUpperScore in otherUpperScores)
+            {
+                if (score.gameObject.name == otherUpperScore.gameObject.name)
+                {
+                    score.scoreValue = otherUpperScore.scoreValue;
+                    score.updateScoreText();
+                }
+            }
+
+        }
+        print("Other client's scorecards updated");
     }
 }

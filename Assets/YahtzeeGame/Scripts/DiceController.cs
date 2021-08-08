@@ -10,7 +10,7 @@ public class DiceController : MonoBehaviour
     public Die[] diceObjects = new Die[5];
     private const int RollTries = 4; //for somereason, when you make it 3 turn ends after 2, codes needs check to reset this to 3
     public  int rollCounter = RollTries;
-    public Scorecard scorecard;
+    public ScoreboardController sbController;
     private GameManager gameManager;
     private static TranscriptController transcriptController;
 
@@ -35,9 +35,9 @@ public class DiceController : MonoBehaviour
         diceObjects[3] = GameObject.Find("Die3").GetComponent<Die>();
         diceObjects[4] = GameObject.Find("Die4").GetComponent<Die>();
 
-        if (GameObject.Find("Scorecard") != null)
+        if (GameObject.Find("ScoreboardController") != null)
         {
-            scorecard = GameObject.Find("Scorecard").GetComponent<Scorecard>();
+            sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
         }
     }
 
@@ -77,8 +77,8 @@ public class DiceController : MonoBehaviour
             transcriptController.SendMessageToTranscript("Rerolled Dice -- Rolls Left: " + rollCounter, TranscriptMessage.SubsystemType.dice);
         }*/
 
-        //need to update this logic when we have scoreboard implemented.
-        if (scorecard != null)
+        //calculate scores for all the scorecards in the scoreboard
+        foreach (Scorecard scorecard in sbController.scorecards)
         {
             scorecard.calculateScores();
         }
