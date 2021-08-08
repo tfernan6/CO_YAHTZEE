@@ -12,6 +12,7 @@ public class DiceController : MonoBehaviour
     public  int rollCounter = RollTries;
     public Scorecard scorecard;
     private GameManager gameManager;
+    public TranscriptController transcriptController;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,7 @@ public class DiceController : MonoBehaviour
 
     public void rollDice()
     {
+        transcriptController.SendMessageToTranscript("Rolled dice. " + rollCounter + " rolls left in turn", TranscriptMessage.SubsystemType.dice);
         if (rollCounter >= 1)
         {
             for (int i = 0; i < diceObjects.Length; i++)

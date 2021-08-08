@@ -204,38 +204,6 @@ public class ChatController : MonoBehaviour, IChatClientListener
             SubmitPrivateChatOnClick();
         }
 
-        /*
-        if (chatBox.text != "")
-        {
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                TranscriptController transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-                SendMessageToChat(username + ": " + chatBox.text, Message.MessageType.playerMessage);
-                
-
-                transcriptController.SendMessageToTranscript(username + " sent a message in the chat: " + chatBox.text, TranscriptMessage.SubsystemType.chat);
-                chatBox.text = "";
-            }
-        }
-        else 
-        {
-            if (!chatBox.isFocused && Input.GetKeyDown(KeyCode.Return))
-            {   
-                chatBox.ActivateInputField();
-            }
-        }
-        */
-
-        /*
-        if (!chatBox.isFocused)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-             SendMessageToChat("You pressed the space key!", Message.MessageType.info);
-             Debug.Log("Space");
-            }
-        }
-        */
     }
 
     public void SendMessageToChat(string text, Message.MessageType messageType)

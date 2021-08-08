@@ -67,6 +67,10 @@ namespace edu.jhu.co
 		{
 
 			//if user hits, escape close application
+			if (Input.GetKey(KeyCode.Return) ) {
+				Connect();
+			}
+
 			if (Input.GetKey("escape"))
 			{
 				Application.Quit();

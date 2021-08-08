@@ -780,6 +780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scorecards: []
   gameManager: {fileID: 0}
+  transcriptController: {fileID: 1563405016}
 --- !u!1 &107178020
 GameObject:
   m_ObjectHideFlags: 0
@@ -3267,7 +3268,7 @@ MonoBehaviour:
   username: 
   chatDisplay: {fileID: 450667442}
   chatDropdown: {fileID: 405231337}
-  transcriptController: {fileID: 0}
+  transcriptController: {fileID: 1563405016}
   messageList: []
 --- !u!4 &713858662
 Transform:
@@ -6955,7 +6956,7 @@ MonoBehaviour:
   TurnStatus: {fileID: 122220025}
   sbController: {fileID: 102598764}
   diceController: {fileID: 2012893962}
-  tsController: {fileID: 1563405016}
+  transcriptController: {fileID: 1563405016}
   turnManager: {fileID: 1393094425}
 --- !u!224 &1393094424
 RectTransform:
@@ -9067,6 +9068,7 @@ MonoBehaviour:
   - {fileID: 1860387598}
   rollCounter: 3
   scorecard: {fileID: 0}
+  transcriptController: {fileID: 1563405016}
 --- !u!1 &2020903201
 GameObject:
   m_ObjectHideFlags: 0
