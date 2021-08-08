@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 using TMPro;
+
 using edu.jhu.co;
 
 public class Score : MonoBehaviour
@@ -49,7 +51,6 @@ public class Score : MonoBehaviour
         {
             Debug.Log("Transcript controller is null");
         }
-
     }
     public void selectScore()
     {
@@ -68,6 +69,7 @@ public class Score : MonoBehaviour
                 scorecard.calculateSum();
                 scorecard.calculateTotal();
                 Debug.Log("Score has been selected");
+                scorecard.photonView.RPC("updateScorecardForOthers", RpcTarget.All, scorecard);
             }
         }
     }
