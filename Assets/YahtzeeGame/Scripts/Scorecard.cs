@@ -3,8 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using edu.jhu.co;
+using TMPro;
+using Photon.Pun;
 
+using edu.jhu.co;
 public class Scorecard : MonoBehaviour
 {
     private static TranscriptController transcriptController;
@@ -13,6 +15,8 @@ public class Scorecard : MonoBehaviour
     public Score[] lowerScores = new Score[7];
     public Score[] summaryScores = new Score[3];
     public ScoreboardController sbController;
+    public string playerName;
+    private PhotonView photonView;
 
     /*public YahtzeePlayer yahtzeePlayer;*/
 
@@ -21,6 +25,7 @@ public class Scorecard : MonoBehaviour
     // Start is called before the first frame update         
     void Start()
     {
+        
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
 
@@ -39,10 +44,15 @@ public class Scorecard : MonoBehaviour
         lowerScores[5] = this.transform.Find("Chance").gameObject.GetComponent<Score>();
         lowerScores[6] = this.transform.Find("YAHTZEE").gameObject.GetComponent<Score>();
         
-
         summaryScores[0] = this.transform.Find("Sum").gameObject.GetComponent<Score>();
         summaryScores[1] = this.transform.Find("Bonus").gameObject.GetComponent<Score>();
         summaryScores[2] = this.transform.Find("Total Score").gameObject.GetComponent<Score>();
+
+        photonView = this.GetComponent<PhotonView>();
+
+        playerName =
+        this.GetComponent<TMP_Text>().text = playerName;
+
     }
 
     // Update is called once per frame
@@ -52,15 +62,18 @@ public class Scorecard : MonoBehaviour
 
     public void calculateScores()
     {
-        //transcriptController.SendMessageToTranscript("Calculating Scores", TranscriptMessage.SubsystemType.scorecard);
-        foreach (Score score in upperScores)
+        if (PhotonNetwork.LocalPlayer.NickName == playerName)
         {
-            score.calculateUpperScore();
-        }
-      
-        foreach (Score score in lowerScores)
-        {
-            score.calculateLowerScore();
+            //transcriptController.SendMessageToTranscript("Calculating Scores", TranscriptMessage.SubsystemType.scorecard);
+            foreach (Score score in upperScores)
+            {
+                score.calculateUpperScore();
+            }
+
+            foreach (Score score in lowerScores)
+            {
+                score.calculateLowerScore();
+            }
         }
     }
 

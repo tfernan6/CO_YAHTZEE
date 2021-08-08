@@ -302,6 +302,9 @@ namespace edu.jhu.co
                 this.BeginGame.SetActive(true);
             }
 
+            //To Do: add code to name a scorecard when a player joins a game
+            sbController.scorecards
+
             this.UpdatePlayerList();
         }
         #endregion
