@@ -337,6 +337,10 @@ namespace edu.jhu.co
             PlayerList.text = "";
             Player LocalPlayer = PhotonNetwork.LocalPlayer;
             //PlayerList.text += LocalPlayer.NickName + " (" + LocalPlayer.GetScore() + ")" + System.Environment.NewLine;
+            
+            //update the player list in the scoreboard
+            PlayerNames.text = "";
+            Player LocalPlayer = PhotonNetwork.LocalPlayer;
 
            //update the player list in chat dropdown
             Dropdown chatPlayerList = GameObject.Find("DropdownPlayers").GetComponent<Dropdown>();
