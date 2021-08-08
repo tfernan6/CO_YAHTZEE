@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using Photon.Pun;
 
 using edu.jhu.co;
 
@@ -33,13 +35,31 @@ using edu.jhu.co;
     // Update is called once per frame
     void Update()
     {
-        
     }
 
-    void populateScoreboard()
+    public void assignScorecards()
     {
-        
+        foreach (string playerName in gameManager.playerNameList)
+        {
+            print("playername is " + playerName);
+            foreach (Scorecard scorecard in scorecards)
+            {
+                print(scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
+                if (scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text == playerName)
+                {
+                    break;
+                }
+
+                if (scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text == "N/A")
+                {
+                    print("Scorecard ownership set to " + playerName) ;
+                    scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text = playerName;
+                    break;
+                }
+            }
+        }
+
     }
-    }
+}
 
 

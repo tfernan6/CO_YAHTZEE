@@ -15,7 +15,6 @@ public class Scorecard : MonoBehaviour
     public Score[] lowerScores = new Score[7];
     public Score[] summaryScores = new Score[3];
     public ScoreboardController sbController;
-    public string playerName;
     private PhotonView photonView;
 
     /*public YahtzeePlayer yahtzeePlayer;*/
@@ -48,11 +47,6 @@ public class Scorecard : MonoBehaviour
         summaryScores[1] = this.transform.Find("Bonus").gameObject.GetComponent<Score>();
         summaryScores[2] = this.transform.Find("Total Score").gameObject.GetComponent<Score>();
 
-        photonView = this.GetComponent<PhotonView>();
-
-        playerName =
-        this.GetComponent<TMP_Text>().text = playerName;
-
     }
 
     // Update is called once per frame
@@ -62,7 +56,7 @@ public class Scorecard : MonoBehaviour
 
     public void calculateScores()
     {
-        if (PhotonNetwork.LocalPlayer.NickName == playerName)
+        if (PhotonNetwork.LocalPlayer.NickName == this.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text)
         {
             //transcriptController.SendMessageToTranscript("Calculating Scores", TranscriptMessage.SubsystemType.scorecard);
             foreach (Score score in upperScores)

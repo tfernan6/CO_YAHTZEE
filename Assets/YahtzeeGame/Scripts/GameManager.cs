@@ -21,7 +21,7 @@ namespace edu.jhu.co
 
         [Tooltip("The Ui Text to inform the user PlayerList")]
         [SerializeField]
-        private Text PlayerList;
+        public Text PlayerList;
 
         //Code this as a class to receive dice value(int) and criteria(enum)
         [Tooltip("Score Object")]
@@ -80,7 +80,7 @@ namespace edu.jhu.co
         public DiceController diceController;
         private static TranscriptController transcriptController;
         //public List<YahtzeePlayer> yahtzeePlayers = new List<YahtzeePlayer>();
-        //public Player[] photonPlayerList;
+        public List<string> playerNameList;
 
         //I would need to derive from this class and construct my own
         public PunTurnManager turnManager;
@@ -136,7 +136,7 @@ namespace edu.jhu.co
 
             }
             yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;
-            Debug.Log("Current Player: " + PhotonNetwork.NickName);
+            Debug.Log("Current Player: " + PhotonNetwork.LocalPlayer.NickName);
 
             //update the list of players in the left panel
             CurrentPlayerName.text = PhotonNetwork.NickName;
@@ -238,8 +238,9 @@ namespace edu.jhu.co
                 Application.Quit();
             }
 
-            //updateplayer list
-            this.UpdatePlayerList();
+            //updateplayer list (Should not be calling UpdatePlayerList() in the Update function. We really shouldn't
+            // be using the Update function.
+            //this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -301,11 +302,8 @@ namespace edu.jhu.co
                     transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
                 this.BeginGame.SetActive(true);
             }
-
-            //To Do: add code to name a scorecard when a player joins a game
-            sbController.scorecards
-
             this.UpdatePlayerList();
+            
         }
         #endregion
 
@@ -338,30 +336,33 @@ namespace edu.jhu.co
         public void UpdatePlayerList()
         {
             PlayerList.text = "";
+            
             Player LocalPlayer = PhotonNetwork.LocalPlayer;
             //PlayerList.text += LocalPlayer.NickName + " (" + LocalPlayer.GetScore() + ")" + System.Environment.NewLine;
             
             //update the player list in the scoreboard
             //PlayerNames.text = "";
-            LocalPlayer = PhotonNetwork.LocalPlayer;
 
            //update the player list in chat dropdown
             Dropdown chatPlayerList = GameObject.Find("DropdownPlayers").GetComponent<Dropdown>();
             if (chatPlayerList != null)
-            {
-                
+            { 
             }
             //
 
             //display players in left panel and in chat window
-           // PlayerList.text = PhotonNetwork.LocalPlayer.NickName + System.Environment.NewLine;
             foreach (Player otherone in PhotonNetwork.PlayerList)
             {
                 //no score to show so just show player name
                 // PlayerList.text += otherone.NickName + " (score: " + otherone.GetScore() + ")" + System.Environment.NewLine;
                 PlayerList.text += otherone.NickName + System.Environment.NewLine;
-
+                if (! playerNameList.Contains(otherone.NickName))
+                {
+                    print("adding player " + otherone.NickName + " to playerNameList");
+                    playerNameList.Add(otherone.NickName);
+                }
             }
+            sbController.assignScorecards();
         }
 
 
