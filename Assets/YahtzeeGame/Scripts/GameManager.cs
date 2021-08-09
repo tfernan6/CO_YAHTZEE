@@ -74,7 +74,7 @@ namespace edu.jhu.co
 
         private YahtzeePlayer yahtzeePlayer = null; //Player info of current player ToDo: save state
         private bool gameStarted = false;  //has the game begun? //do we need this? can't turnmanager have this info?
-        private PhotonView photonView;
+        private PhotonView photonView = null;
 
         //creating controller objects
         public ScoreboardController sbController;
@@ -114,7 +114,9 @@ namespace edu.jhu.co
             turnManager.TurnDuration = 5f; // 5seconds
 
             //set the photon view and punturnmanager
-            this.photonView = this.gameObject.AddComponent<PhotonView>();
+            //  this.photonView = this.gameObject.AddComponent<PhotonView>();
+            // this.photonView.InstantiationId = 101;
+            this.photonView = this.gameObject.GetComponent<PhotonView>();
 
             //connect to Photon NEtwork if it's not already been connected
             if (transcriptController == null &&
@@ -349,7 +351,6 @@ namespace edu.jhu.co
             Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
             LogFeedback("Player " + other.NickName + " left the Game");
             this.UpdatePlayerList();
-            //photonView.RPC("UpdatePlayerList", RpcTarget.All, other);
 
 
         }
@@ -641,8 +642,10 @@ namespace edu.jhu.co
 
             //enable dice roll for the next
             Player nextPlayer = player.GetNext();
-            if (photonView == null) { this.gameObject.AddComponent<PhotonView>(); }
-            photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); //pass only to nextPlyer
+            if (photonView != null)
+            {
+                photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); //pass only to nextPlyer
+            }
             //disable for the others
 
 
