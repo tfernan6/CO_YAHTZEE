@@ -271,7 +271,8 @@ namespace edu.jhu.co
         /// </summary>
         private void AllowForDiceToRoll()
         {
-            if (this.turnManager.IsFinishedByMe) 
+            Player LocalPlayer = PhotonNetwork.LocalPlayer; 
+            if (turnManager.GetPlayerFinishedTurn(LocalPlayer)) 
                 RollDiceButton.interactable = false;
             else
                 RollDiceButton.interactable = true;
@@ -313,9 +314,9 @@ namespace edu.jhu.co
         /// <param name="other"></param>
         public override void OnPlayerLeftRoom(Player other)
         {
-            /*Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
+            Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
             LogFeedback("Player " + other.NickName + " left the Game");
-            this.UpdatePlayerList();*/
+            this.UpdatePlayerList();
         }
 
         /// <summary>

@@ -13,6 +13,7 @@ namespace edu.jhu.co
 	/// <summary>
 	/// Launch manager. Connect, join a random room or create one if none or all full.
 	/// </summary>
+
 	public class Login : MonoBehaviourPunCallbacks
 	{
 
@@ -110,11 +111,13 @@ namespace edu.jhu.co
 			// we check if we are connected or not, we join if we are , else we initiate the connection to the server.
 			if (PhotonNetwork.IsConnected)
 			{
-				LogFeedback("Joining Room...");
+				 
+				//LogFeedback("Joining Room...");
 				// #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed() and we'll create one.
 				if (PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer)
 				{
-					PhotonNetwork.JoinRoom(GameRoomName);
+					//PhotonNetwork.JoinRoom(GameRoomName);
+					CreateRoom();
 				}
 				else
 				{
@@ -129,6 +132,7 @@ namespace edu.jhu.co
 				// #Critical, we must first and foremost connect to Photon Online Server.
 				PhotonNetwork.ConnectUsingSettings();
 				PhotonNetwork.GameVersion = GameVersion;
+				
 			}
 		}
 
@@ -140,7 +144,7 @@ namespace edu.jhu.co
 			RoomOptions roomOptions = new RoomOptions();
 			roomOptions.MaxPlayers = MaxPlayersPerRoom;
 			roomOptions.PlayerTtl = 20000; //time in the game
-			PhotonNetwork.CreateRoom(GameRoomName, roomOptions, null);
+			PhotonNetwork.JoinOrCreateRoom(GameRoomName, roomOptions, null);
 		}
 
 		/// <summary>
@@ -227,7 +231,8 @@ namespace edu.jhu.co
 				// #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
 				if (PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer)
 				{
-					PhotonNetwork.JoinRoom(GameRoomName);
+					//PhotonNetwork.JoinRoom(GameRoomName);
+					CreateRoom();
 				}
 				else
 				{
