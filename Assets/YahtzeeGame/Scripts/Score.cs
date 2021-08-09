@@ -69,7 +69,7 @@ public class Score : MonoBehaviour
                 print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
                 print("Score type is " + gameObject.name);
                 print("Score value selected is " + scoreValue);
-                photonView.RPC("updateOtherClients", RpcTarget.All, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
+                photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
                     gameObject.name, scoreValue);
             }
         }
