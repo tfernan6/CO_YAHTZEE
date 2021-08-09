@@ -887,7 +887,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1465799108}
   m_HandleRect: {fileID: 1465799107}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -2193,10 +2193,10 @@ RectTransform:
   m_Father: {fileID: 215158209}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 83, y: -7.7185016}
+  m_SizeDelta: {x: 160, y: 15.437003}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450667442
 MonoBehaviour:
@@ -2878,7 +2878,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1374136409}
   m_HandleRect: {fileID: 1374136408}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -6522,6 +6522,7 @@ GameObject:
   - component: {fileID: 1393094423}
   - component: {fileID: 1393094422}
   - component: {fileID: 1393094425}
+  - component: {fileID: 1393094426}
   m_Layer: 0
   m_Name: GameRoomObject
   m_TagString: Untagged
@@ -6565,7 +6566,7 @@ MonoBehaviour:
   PlayerList: {fileID: 361826248}
   ScoreObject: {fileID: 0}
   BeginGame: {fileID: 1699520811}
-  RollDiceButton: {fileID: 0}
+  RollDiceButton: {fileID: 392275964}
   ScoreboardPanel: {fileID: 1791744528}
   DicePanel: {fileID: 1130598063}
   GameStatus: {fileID: 1909879772}
@@ -6610,6 +6611,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurnDuration: 20
+--- !u!114 &1393094426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1393094421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 102
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1449750499
 GameObject:
   m_ObjectHideFlags: 0
@@ -9408,7 +9431,7 @@ GameObject:
   - component: {fileID: 2089902102}
   - component: {fileID: 2089902101}
   m_Layer: 5
-  m_Name: Quit Game
+  m_Name: QuitGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
