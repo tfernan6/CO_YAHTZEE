@@ -66,9 +66,9 @@ public class Score : MonoBehaviour
                 scorecard.calculateSum();
                 scorecard.calculateTotal();
                 Debug.Log("Score has been selected");
-                /* print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
-                 print("Score type is " + gameObject.name);
-                 print("Score value selected is " + scoreValue);*/
+                print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
+                print("Score type is " + gameObject.name);
+                print("Score value selected is " + scoreValue);
                 photonView.RPC("updateOtherClients", RpcTarget.All, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
                     gameObject.name, scoreValue);
             }
