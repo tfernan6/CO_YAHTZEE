@@ -234,11 +234,13 @@ namespace edu.jhu.co
                 {
                     //Checking the status of turn being completed by all players (Round finished!)
                     LogFeedback("Finished the Round");
+                    Debug.Log("Finished the Round");
                     this.turnManager.BeginTurn();
                 }
                 else
                 {
                     LogFeedback("Not Finished the Round");
+                    Debug.Log("Not Finished the Round");
                 }
 
                 //turn counter keeps incrementing, it does not reset after all players have completed (is this an issue?)
@@ -260,9 +262,8 @@ namespace edu.jhu.co
                 Application.Quit();
             }
 
-            //updateplayer list (Should not be calling UpdatePlayerList() in the Update function. We really shouldn't
-            // be using the Update function.
-            //this.UpdatePlayerList();
+            // update list to all players
+            this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -290,6 +291,10 @@ namespace edu.jhu.co
             {
                 MakeTurn();
                 diceController.resetRollCounter();
+            }
+            else if(diceController.rollCounter == 3) //begin turn
+            {
+                turnManager.BeginTurn(); //set for next turn, here or elsewhere to indicate next turn
             }
 
         }
@@ -541,7 +546,6 @@ namespace edu.jhu.co
             SetScore();
 
             this.turnManager.SendMove(ScoreValue, true); //pass value and say my turn is over
-            turnManager.BeginTurn(); //set for next turn, here or elsewhere to indicate next turn
         }
         #endregion
 
