@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8150088855308544338}
   - component: {fileID: 5148925262810434929}
   - component: {fileID: 3895717267918172703}
+  - component: {fileID: 4108793775099008914}
   m_Layer: 5
   m_Name: Fives
   m_TagString: Untagged
@@ -150,6 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &3895717267918172703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +182,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4108793775099008914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 358923972767799083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &883261143041627174
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +217,7 @@ GameObject:
   - component: {fileID: 5420014078914481196}
   - component: {fileID: 1015762745186138101}
   - component: {fileID: 3978783817465815339}
+  - component: {fileID: 188181396591808422}
   m_Layer: 5
   m_Name: Full House
   m_TagString: Untagged
@@ -329,6 +355,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &3978783817465815339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -358,6 +386,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &188181396591808422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883261143041627174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1276097516075045381
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +421,7 @@ GameObject:
   - component: {fileID: 2769136225384915831}
   - component: {fileID: 2853040870076403499}
   - component: {fileID: 8044143043804491682}
+  - component: {fileID: 1488556902049018434}
   m_Layer: 5
   m_Name: Sum
   m_TagString: Untagged
@@ -508,6 +559,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &8044143043804491682
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,6 +590,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1488556902049018434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276097516075045381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1895011944898770808
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +625,7 @@ GameObject:
   - component: {fileID: 8926868943169768684}
   - component: {fileID: 9003625628063217352}
   - component: {fileID: 6638910806690430960}
+  - component: {fileID: 2675255283343329776}
   m_Layer: 5
   m_Name: Bonus
   m_TagString: Untagged
@@ -687,6 +763,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &6638910806690430960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -716,6 +794,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2675255283343329776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1895011944898770808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2783621192364539991
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +829,7 @@ GameObject:
   - component: {fileID: 4667557011179616709}
   - component: {fileID: 2859292371907497691}
   - component: {fileID: 3152650662294131518}
+  - component: {fileID: 6532430719562692512}
   m_Layer: 5
   m_Name: Fours
   m_TagString: Untagged
@@ -866,6 +967,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &3152650662294131518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -895,6 +998,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &6532430719562692512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2783621192364539991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3260314418588034772
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +1033,7 @@ GameObject:
   - component: {fileID: 7366694755402910396}
   - component: {fileID: 3739153846893972412}
   - component: {fileID: 6641591161092348203}
+  - component: {fileID: 4644299203171148841}
   m_Layer: 5
   m_Name: Chance
   m_TagString: Untagged
@@ -1045,6 +1171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &6641591161092348203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1074,6 +1202,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4644299203171148841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3260314418588034772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3543469298837839166
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,6 +1371,7 @@ GameObject:
   - component: {fileID: 3987313912288931472}
   - component: {fileID: 5359402711745889797}
   - component: {fileID: 6947579854681055586}
+  - component: {fileID: 517501167426216049}
   m_Layer: 5
   m_Name: Total Score
   m_TagString: Untagged
@@ -1358,6 +1509,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &6947579854681055586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1387,6 +1540,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &517501167426216049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3981473208908716723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5034219507274404542
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1575,7 @@ GameObject:
   - component: {fileID: 1171888643163880012}
   - component: {fileID: 5567188368803445131}
   - component: {fileID: 5434468662452045263}
+  - component: {fileID: 3597875334996512042}
   m_Layer: 5
   m_Name: Large Straight
   m_TagString: Untagged
@@ -1537,6 +1713,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &5434468662452045263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,6 +1744,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &3597875334996512042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5034219507274404542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5111455572829758414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1579,6 +1779,7 @@ GameObject:
   - component: {fileID: 992519241987175517}
   - component: {fileID: 7953816599576028521}
   - component: {fileID: 6825401037346448834}
+  - component: {fileID: 850933606685598165}
   m_Layer: 5
   m_Name: YAHTZEE
   m_TagString: Untagged
@@ -1716,6 +1917,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &6825401037346448834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1745,6 +1948,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &850933606685598165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5111455572829758414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6208588799148509119
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,6 +1983,7 @@ GameObject:
   - component: {fileID: 1594822480495331152}
   - component: {fileID: 231740838640033951}
   - component: {fileID: 485180224565535383}
+  - component: {fileID: 7501811012241144443}
   m_Layer: 5
   m_Name: Threes
   m_TagString: Untagged
@@ -1895,6 +2121,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &485180224565535383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,6 +2152,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &7501811012241144443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6208588799148509119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6229855825332857942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,6 +2187,7 @@ GameObject:
   - component: {fileID: 8353539400973647304}
   - component: {fileID: 1780572148667358890}
   - component: {fileID: 7847663167434526074}
+  - component: {fileID: 4090525699033140370}
   m_Layer: 5
   m_Name: Three of a Kind
   m_TagString: Untagged
@@ -2074,6 +2325,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &7847663167434526074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2103,6 +2356,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &4090525699033140370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6229855825332857942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6536431462464214079
 GameObject:
   m_ObjectHideFlags: 0
@@ -2116,6 +2391,7 @@ GameObject:
   - component: {fileID: 2871359153145643839}
   - component: {fileID: 6789777939824175639}
   - component: {fileID: 1178155836990129842}
+  - component: {fileID: 2884120031091203700}
   m_Layer: 5
   m_Name: Sixes
   m_TagString: Untagged
@@ -2253,6 +2529,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &1178155836990129842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2282,6 +2560,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2884120031091203700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6536431462464214079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6547731695766975517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,6 +2595,7 @@ GameObject:
   - component: {fileID: 317515727581012610}
   - component: {fileID: 6332657432141899392}
   - component: {fileID: 3707857000719062098}
+  - component: {fileID: 3769933874788306504}
   m_Layer: 5
   m_Name: Four of a Kind
   m_TagString: Untagged
@@ -2432,6 +2733,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &3707857000719062098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2461,6 +2764,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &3769933874788306504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6547731695766975517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6585212672664065601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,7 +2796,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6585212672664065600}
   - component: {fileID: 6990496028648664103}
-  - component: {fileID: 8052852090505200635}
   m_Layer: 5
   m_Name: Scorecard
   m_TagString: Untagged
@@ -2564,29 +2888,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   sbController: {fileID: 0}
-  playerName: 
---- !u!114 &8052852090505200635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6585212672664065601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
+  photonView: {fileID: 0}
 --- !u!1 &6585212673604908932
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,6 +2902,7 @@ GameObject:
   - component: {fileID: 6585212673604908934}
   - component: {fileID: 8312238229552756246}
   - component: {fileID: 4266393404647140547}
+  - component: {fileID: 2895755053219474952}
   m_Layer: 5
   m_Name: Ones
   m_TagString: Untagged
@@ -2737,6 +3040,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &4266393404647140547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2766,6 +3071,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2895755053219474952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585212673604908932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6585212673941467724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2779,6 +3106,7 @@ GameObject:
   - component: {fileID: 6585212673941467726}
   - component: {fileID: 1378642464571325015}
   - component: {fileID: 5888860553942877883}
+  - component: {fileID: 2015825871883823010}
   m_Layer: 5
   m_Name: Twos
   m_TagString: Untagged
@@ -2916,6 +3244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &5888860553942877883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2945,6 +3275,28 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &2015825871883823010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6585212673941467724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7348418991184616950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,6 +3310,7 @@ GameObject:
   - component: {fileID: 545894533029328907}
   - component: {fileID: 8134875429175619801}
   - component: {fileID: 2656620083718773588}
+  - component: {fileID: 1056323965711779039}
   m_Layer: 5
   m_Name: Small Straight
   m_TagString: Untagged
@@ -3095,6 +3448,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &2656620083718773588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3124,3 +3479,25 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1056323965711779039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7348418991184616950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

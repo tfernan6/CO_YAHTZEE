@@ -37,6 +37,7 @@ using edu.jhu.co;
     {
     }
 
+    //need to update so that it will reflect the current players (currently will just keep adding per player)
     public void assignScorecards()
     {
         foreach (string playerName in gameManager.playerNameList)

@@ -17,7 +17,7 @@ public class Score : MonoBehaviour
     private DiceController diceController;
     private Die[] currentDice = new Die[5];
     private static TranscriptController transcriptController;
-    private Scorecard scorecard;
+    public Scorecard scorecard;
     private Dictionary<int, int> diceValueCount = new Dictionary<int, int>()
         {
                 {1, 0 },
@@ -36,26 +36,22 @@ public class Score : MonoBehaviour
             {"Fives", 5 },
             {"Sixes", 6 }
         };
+    public PhotonView photonView;
 
     void Start()
     {
         diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
         scorecard = this.transform.parent.gameObject.GetComponent<Scorecard>();
         currentDice = diceController.diceObjects;
-        if (transcriptController == null &&
-            GameObject.Find("TranscriptController") != null)
-        {
-            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-        }
-        else
-        {
-            Debug.Log("Transcript controller is null");
-        }
+        transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+
+        photonView = this.GetComponent<PhotonView>();
     }
     public void selectScore()
     {
-        //include logic later that asks user to confirm if they want to hold a score that is empty i.e. 0;
+        //include logic later that asks user to confirm if they want to select a score that is empty i.e. 0;
         //adjust logic to allow selection of 0 scores but add a prompt asking user if they are sure
+
         //include logic where only your Score can be locked by you
         if (gameObject.name != "Sum" && gameObject.name != "Bonus" && gameObject.name != "Total Score")
         {
@@ -66,10 +62,15 @@ public class Score : MonoBehaviour
                     TranscriptMessage.SubsystemType.score);
                 transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
                 diceController.resetRollCounter();
+
                 scorecard.calculateSum();
                 scorecard.calculateTotal();
                 Debug.Log("Score has been selected");
-                scorecard.photonView.RPC("updateScorecardForOthers", RpcTarget.All, scorecard);
+                /* print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
+                 print("Score type is " + gameObject.name);
+                 print("Score value selected is " + scoreValue);*/
+                photonView.RPC("updateOtherClients", RpcTarget.All, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
+                    gameObject.name, scoreValue);
             }
         }
     }
@@ -265,5 +266,15 @@ public class Score : MonoBehaviour
     public void joker()
     {
         //tells turn manager that we have a joker
+    }
+
+    [PunRPC]
+    private void updateOtherClients(string playerName, string scoreType, int scoreValue)
+    {
+        if (this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text == playerName)
+        {
+            this.transform.parent.transform.Find(scoreType).gameObject.GetComponent<Score>().scoreValue = scoreValue;
+        }
+        updateScoreText();
     }
 }

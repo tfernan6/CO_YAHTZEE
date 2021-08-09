@@ -42,6 +42,8 @@ MonoBehaviour:
   - updateDiceforOthers
   - updateDieValueforOthers
   - updateScorecardForOthers
+  - updateUpperScoresForOthers
+  - updateOtherClients
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
