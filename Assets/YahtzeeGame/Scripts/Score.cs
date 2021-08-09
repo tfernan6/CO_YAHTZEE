@@ -66,9 +66,9 @@ public class Score : MonoBehaviour
                 scorecard.calculateSum();
                 scorecard.calculateTotal();
                 Debug.Log("Score has been selected");
-                print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
+/*                print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
                 print("Score type is " + gameObject.name);
-                print("Score value selected is " + scoreValue);
+                print("Score value selected is " + scoreValue);*/
                 photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
                     gameObject.name, scoreValue);
             }
@@ -273,6 +273,9 @@ public class Score : MonoBehaviour
     {
         if (this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text == playerName)
         {
+            print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
+            print("Score type is " + scoreType);
+            print("Score value selected is " + scoreValue);
             this.transform.parent.transform.Find(scoreType).gameObject.GetComponent<Score>().scoreValue = scoreValue;
         }
         updateScoreText();
