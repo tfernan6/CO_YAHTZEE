@@ -268,6 +268,8 @@ public class Score : MonoBehaviour
         //tells turn manager that we have a joker
     }
 
+
+    //add logic to update the entire scorecard. Can we call this 16 times on the Scorecard class?
     [PunRPC]
     private void updateOtherClients(string playerName, string scoreType, int scoreValue)
     {
