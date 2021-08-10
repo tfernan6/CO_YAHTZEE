@@ -58,6 +58,10 @@ public class Score : MonoBehaviour
             if (!isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
             {
                 isSelected = true;
+
+                // code to change image color to reflect that score is chosen
+
+                this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
                 transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
                     TranscriptMessage.SubsystemType.score);
                 transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
