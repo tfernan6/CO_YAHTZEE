@@ -63,7 +63,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
         {
             msgs = string.Format("{0}: {1}", senders[i], messages[i]);
             chatDisplay.text += "\n" + msgs;
-            UnityEngine.Debug.Log(msgs);
+            //UnityEngine.Debug.Log(msgs);
         }
     }
     public void OnPrivateMessage(string sender, object message, string channelName)
@@ -71,7 +71,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
         string msgs = "";
         msgs = string.Format("(Private) {0}: {1}", sender, message);
         chatDisplay.text += "\n " + msgs;
-        UnityEngine.Debug.Log(msgs);
+        //UnityEngine.Debug.Log(msgs);
     }
     public void OnStatusUpdate(string user, int status, bool gotMessage, object message)
     {
@@ -111,7 +111,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
         
         if (transcriptController != null)
             transcriptController.SendMessageToTranscript("Connection to chat server successful", TranscriptMessage.SubsystemType.chat);
-        UnityEngine.Debug.Log("Connection to chat");
+        //UnityEngine.Debug.Log("Connection to chat");
     }
 
     public void setChatDropdown() 
@@ -141,8 +141,8 @@ public class ChatController : MonoBehaviour, IChatClientListener
             if (transcriptController != null)
                 transcriptController.SendMessageToTranscript("Sending public chat", TranscriptMessage.SubsystemType.chat);
             
-            UnityEngine.Debug.Log("InSubmitPublicChatOnClick " + currentChat);
-            UnityEngine.Debug.Log("SubmitPublic:  calling publish message");
+            //UnityEngine.Debug.Log("InSubmitPublicChatOnClick " + currentChat);
+            //UnityEngine.Debug.Log("SubmitPublic:  calling publish message");
             
             if (transcriptController != null)
                 transcriptController.SendMessageToTranscript(string.Format("Publishing new message to chat: {0}", currentChat), TranscriptMessage.SubsystemType.chat);
@@ -157,7 +157,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     {
         if (privateReceiver != "" && currentChat != "") {
             transcriptController.SendMessageToTranscript("Sending private chat to " + privateReceiver, TranscriptMessage.SubsystemType.chat);
-            UnityEngine.Debug.Log("InSubmitPrivateChatOnClick " + currentChat);
+            //UnityEngine.Debug.Log("InSubmitPrivateChatOnClick " + currentChat);
             chatClient.PublishMessage(privateReceiver, currentChat);
             chatBox.text = "";
             currentChat = "";
@@ -174,7 +174,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     public void OnReceiverValueChanged()
     {
         
-        UnityEngine.Debug.Log("Receiver value changed to: " + chatDropdown.options[chatDropdown.value].text );
+        //UnityEngine.Debug.Log("Receiver value changed to: " + chatDropdown.options[chatDropdown.value].text );
         privateReceiver = chatDropdown.options[chatDropdown.value].text;
         dropdownValue.text = privateReceiver;
         if (transcriptController != null)
