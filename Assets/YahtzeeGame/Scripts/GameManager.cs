@@ -275,8 +275,8 @@ namespace edu.jhu.co
             {
                 //test stub
                 LogFeedback(System.Environment.NewLine
-                    + "Current Player: " + PhotonNetwork.LocalPlayer.NickName
-                    + ", Next player is: " + nextPlayer.NickName + System.Environment.NewLine
+                  //  + "Current Player is : " + PhotonNetwork.LocalPlayer.NickName + "," 
+                    + "Your next player is: " + nextPlayer.NickName + System.Environment.NewLine
                     + " Turn:  " + this.turnManager.Turn.ToString()
                     /* + " Roll Counter:  " + diceController.rollCounter.ToString()
                      + ",finished turn= " + turnManager.GetPlayerFinishedTurn(LocalPlayer)*/
