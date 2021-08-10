@@ -45,7 +45,7 @@ namespace edu.jhu.co
             }
 */
 
-            PhotonNetwork.NickName = defaultName;
+           // PhotonNetwork.NickName = defaultName;
         }
 
 

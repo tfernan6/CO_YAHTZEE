@@ -72,7 +72,7 @@ namespace edu.jhu.co
         private int ScoreValue = 0;
 
 
-        private YahtzeePlayer yahtzeePlayer = null; //Player info of current player ToDo: save state
+        //private YahtzeePlayer yahtzeePlayer = null; //Player info of current player ToDo: save state
         private bool gameStarted = false;  //has the game begun? //do we need this? can't turnmanager have this info?
         private PhotonView photonView = null;
 
@@ -148,13 +148,13 @@ namespace edu.jhu.co
                 SetWelcomeText();
 
                 //create player object for current player
-                if (yahtzeePlayer == null)
+               /* if (yahtzeePlayer == null)
                 {
                     yahtzeePlayer = new YahtzeePlayer();
                     //yahtzeePlayers.Add(yahtzeePlayer);
 
                 }
-                yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;
+                yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;*/
                 Debug.Log("Current Player: " + PhotonNetwork.LocalPlayer.NickName);
 
                 //update the list of players in the left panel
@@ -185,7 +185,7 @@ namespace edu.jhu.co
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.Log(ex.Message);
+                Debug.Log(ex.Message);
             }
         }
 
@@ -200,11 +200,11 @@ namespace edu.jhu.co
             try
             {
 
-                if (!PhotonNetwork.IsConnected || !PhotonNetwork.InRoom)
+               /* if (!PhotonNetwork.IsConnected || !PhotonNetwork.InRoom)
                 {
                     SceneManager.LoadScene("Login");
                     return;
-                }
+                } */
 
 
                 //if more than one player, set turns to play
@@ -262,7 +262,7 @@ namespace edu.jhu.co
             }
             catch (System.Exception ex)
             {
-                UnityEngine.Debug.Log(ex.Message);
+                Debug.Log(ex.Message);
             }
         }
 
@@ -336,7 +336,15 @@ namespace edu.jhu.co
         /// </summary>
         public override void OnLeftRoom()
         {
-            SceneManager.LoadScene("Login");
+            try
+            {
+                SceneManager.LoadScene("Login");
+                base.OnLeftRoom();
+            }
+            catch(System.Exception ex)
+            {
+               // Debug.LogException(ex);
+            }
         }
 
         /// <summary>
@@ -345,47 +353,61 @@ namespace edu.jhu.co
         /// <param name="other"></param>
         public override void OnPlayerLeftRoom(Player other)
         {
-            if (PhotonNetwork.PlayerList.Length > 1)
+            try
             {
-                Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
-                LogFeedback("Player " + other.NickName + " left the Game");
+
+                if (PhotonNetwork.PlayerList.Length > 1)
+                {
+                    Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
+                    LogFeedback("Player " + other.NickName + " left the Game");
+                    this.UpdatePlayerList();
+                }
+            }
+            catch (System.Exception ex)
+            {
+               // Debug.LogException(ex);
+            }
+        }
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="other"></param>
+public override void OnPlayerEnteredRoom(Player other)
+        {
+            try
+            {
+               // Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // seen when other connects 
+                LogFeedback("Player " + other.NickName + " joined the Game");
+                if (transcriptController != null)
+                    transcriptController.SendMessageToTranscript(other.NickName + " entered the room", TranscriptMessage.SubsystemType.game);
+
+
+                //enable begin game if you have one player
+                if (PhotonNetwork.IsMasterClient &&
+                    gameStarted == false)
+                //&& PhotonNetwork.PlayerList.Length > 1 ) 
+                {
+                    //game not begun)
+                    if (transcriptController != null)
+                        transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
+                    this.BeginGame.SetActive(true);
+                }
                 this.UpdatePlayerList();
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        public override void OnPlayerEnteredRoom(Player other)
-        {
-            Debug.LogFormat("OnPlayerEnteredRoom() {0}", other.NickName); // seen when other connects 
-            LogFeedback("Player " + other.NickName + " joined the Game");
-            if (transcriptController != null)
-                transcriptController.SendMessageToTranscript(other.NickName + " entered the room", TranscriptMessage.SubsystemType.game);
-
-
-            //enable begin game if you have one player
-            if (PhotonNetwork.IsMasterClient &&
-                gameStarted == false)
-                //&& PhotonNetwork.PlayerList.Length > 1 ) 
+            catch (System.Exception ex)
             {
-                //game not begun)
-                if (transcriptController != null)
-                    transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
-                this.BeginGame.SetActive(true);
+                Debug.LogException(ex);
             }
-            this.UpdatePlayerList();
 
+}
+#endregion
 
-        }
-        #endregion
-
-        #region GameManagerFunctions
-        /// <summary>
-        /// 
-        /// </summary>
-        public void SetScore()
+#region GameManagerFunctions
+/// <summary>
+/// 
+/// </summary>
+public void SetScore()
         {
             //set game player's score
             try
@@ -491,12 +513,13 @@ namespace edu.jhu.co
                 if (transcriptController != null)
                     transcriptController.SendMessageToTranscript("Player left the room", TranscriptMessage.SubsystemType.game);
 
-                PhotonNetwork.LeaveRoom();
-                SceneManager.LoadScene("Login");
+                PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+                PhotonNetwork.LeaveRoom(); //UNLOAD ALL PREFAB CONTROLLERS
+                //SceneManager.LoadScene("Login");
             }
             catch (System.Exception ex)
             {
-                Debug.Log(ex.Message);
+               // Debug.Log(ex.Message);
             }
         }
 
@@ -583,7 +606,7 @@ namespace edu.jhu.co
             else if (PhotonNetwork.PlayerList.Length > 0 && PhotonNetwork.IsMasterClient) //multi player
             {
                 Player nextPlayer = PhotonNetwork.LocalPlayer;
-                if (photonView != null) { photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); } 
+               // if (photonView != null) { photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); } 
             }
 
         }
