@@ -27,11 +27,13 @@ public class Die : MonoBehaviour
 
         if (isHold)
         {
+            this.transform.Find("Toggle").gameObject.GetComponent<Toggle>().isOn = true;
             transcriptController.SendMessageToTranscript("Holding Die", TranscriptMessage.SubsystemType.dice);
 
         }
         if(!isHold)
         {
+            this.transform.Find("Toggle").gameObject.GetComponent<Toggle>().isOn = false;
             transcriptController.SendMessageToTranscript("Releasing Die", TranscriptMessage.SubsystemType.dice);
         }
     }
