@@ -107,86 +107,86 @@ namespace edu.jhu.co
         /// </summary>
         void Start()
         {
-            //FIRST CALLS to instantiate the turnmanager and photonview
-            //define the turn manager
-            this.turnManager = this.gameObject.AddComponent<PunTurnManager>();
-            this.turnManager.TurnManagerListener = this;
-            turnManager.TurnDuration = 5f; // 5seconds
-
-            //set the photon view and punturnmanager
-            //  this.photonView = this.gameObject.AddComponent<PhotonView>();
-            // this.photonView.InstantiationId = 101;
-            this.photonView = this.gameObject.GetComponent<PhotonView>();
-
-            
-            if (transcriptController == null &&
-                GameObject.Find("TranscriptController") != null)
+            try
             {
-                transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-            }
-            else
-            {
-                Debug.Log("Transcript controller is null");
-            }
+                //FIRST CALLS to instantiate the turnmanager and photonview
+                //define the turn manager
+                this.turnManager = this.gameObject.AddComponent<PunTurnManager>();
+                this.turnManager.TurnManagerListener = this;
+                turnManager.TurnDuration = 5f; // 5seconds
 
-            //connect to Photon NEtwork if it's not already been connected
-            if (!PhotonNetwork.IsConnected)
-            {
+                //set the photon view and punturnmanager
+                //  this.photonView = this.gameObject.AddComponent<PhotonView>();
+                // this.photonView.InstantiationId = 101;
+                this.photonView = this.gameObject.GetComponent<PhotonView>();
+
+
+                if (transcriptController == null &&
+                    GameObject.Find("TranscriptController") != null)
+                {
+                    transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+                }
+                else
+                {
+                    Debug.Log("Transcript controller is null");
+                }
+
+                //connect to Photon NEtwork if it's not already been connected
+                if (!PhotonNetwork.IsConnected)
+                {
+                    if (transcriptController != null)
+                        transcriptController.SendMessageToTranscript("Loaded login scene", TranscriptMessage.SubsystemType.game);
+                    SceneManager.LoadScene("Login");
+                    return;
+                }
+
+                //get handle of RollDiceButton
+                if (RollDiceButton == null)
+                    RollDiceButton = GameObject.Find("RollDiceButton").GetComponent<Button>();
+
+                //set the welcome and game status messages
+                SetWelcomeText();
+
+                //create player object for current player
+                if (yahtzeePlayer == null)
+                {
+                    yahtzeePlayer = new YahtzeePlayer();
+                    //yahtzeePlayers.Add(yahtzeePlayer);
+
+                }
+                yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;
+                Debug.Log("Current Player: " + PhotonNetwork.LocalPlayer.NickName);
+
+                //update the list of players in the left panel
+                CurrentPlayerName.text = PhotonNetwork.NickName;
+                this.UpdatePlayerList();
+
                 if (transcriptController != null)
-                    transcriptController.SendMessageToTranscript("Loaded login scene", TranscriptMessage.SubsystemType.game);
-                SceneManager.LoadScene("Login");
-                return;
+                    transcriptController.SendMessageToTranscript("Added player " + CurrentPlayerName.text + " to player list", TranscriptMessage.SubsystemType.game);
+
+
+                //enable begin game cntrol only for the first person
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    if (transcriptController != null)
+                        transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
+                    this.BeginGame.SetActive(true);
+
+                }
+                else
+                {
+                    //display that the first person has to press start
+                    this.BeginGame.SetActive(false);
+                }
+
+                //Panel for dice and scoreboard turn disable till game clicked
+                this.ScoreboardPanel.SetActive(false);
+                this.DicePanel.SetActive(false);
             }
-
-            //get handle of RollDiceButton
-            if (RollDiceButton == null)
-                RollDiceButton = GameObject.Find("RollDiceButton").GetComponent<Button>();
-
-            //set the welcome and game status messages
-            SetWelcomeText();
-
-            //create player object for current player
-            if(yahtzeePlayer == null)
+            catch (System.Exception ex)
             {
-                yahtzeePlayer = new YahtzeePlayer();
-                //yahtzeePlayers.Add(yahtzeePlayer);
-
+                UnityEngine.Debug.Log(ex.Message);
             }
-            yahtzeePlayer.CurrentPlayerName = PhotonNetwork.NickName;
-            Debug.Log("Current Player: " + PhotonNetwork.LocalPlayer.NickName);
-
-            //update the list of players in the left panel
-            CurrentPlayerName.text = PhotonNetwork.NickName;
-            this.UpdatePlayerList();
-
-            if (transcriptController != null)
-                transcriptController.SendMessageToTranscript("Added player " + CurrentPlayerName.text +  " to player list", TranscriptMessage.SubsystemType.game);
-
-
-            //enable begin game cntrol only for the first person
-            if (PhotonNetwork.IsMasterClient)
-            {
-                if (transcriptController != null)
-                    transcriptController.SendMessageToTranscript("Begin Game enabled", TranscriptMessage.SubsystemType.game);
-                this.BeginGame.SetActive(true);
-
-            }
-            else
-            {
-                //display that the first person has to press start
-                this.BeginGame.SetActive(false);
-            }
-
-            //Panel for dice and scoreboard turn disable till game clicked
-            this.ScoreboardPanel.SetActive(false);
-            this.DicePanel.SetActive(false);
-
-            //initiates controller objects
-
-            /*sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
-            tsController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-            diceController = GameObject.Find("DiceController").GetComponent<DiceController>();*/
-            //photonPlayerList = PhotonNetwork.PlayerList;
         }
 
 
@@ -197,69 +197,77 @@ namespace edu.jhu.co
         /// </summary>
         void Update()
         {
-            if (!PhotonNetwork.IsConnected || !PhotonNetwork.InRoom)
+            try
             {
-                SceneManager.LoadScene("Login");
-                return;
-            }
 
-
-            //if more than one player, set turns to play
-            if (PhotonNetwork.CurrentRoom!= null && 
-                PhotonNetwork.CurrentRoom.PlayerCount >= 1 &&
-                this.turnManager != null && 
-                this.turnManager.Turn != 0)
-            {
-               this.ScoreboardPanel.SetActive(true);
-               this.DicePanel.SetActive(true);
-
-               if (this.turnManager.IsOver)
+                if (!PhotonNetwork.IsConnected || !PhotonNetwork.InRoom)
                 {
+                    SceneManager.LoadScene("Login");
                     return;
                 }
 
-                /*
-                // check if we ran out of time, in which case we loose
-                if (turnEnd<0f && !IsShowingResults)
+
+                //if more than one player, set turns to play
+                if (PhotonNetwork.CurrentRoom != null &&
+                    PhotonNetwork.CurrentRoom.PlayerCount >= 1 &&
+                    this.turnManager != null &&
+                    this.turnManager.Turn != 0)
                 {
-                        Debug.Log("Calling OnTurnCompleted with turnEnd ="+turnEnd);
-                        OnTurnCompleted(-1);
+                    this.ScoreboardPanel.SetActive(true);
+                    this.DicePanel.SetActive(true);
+
+                    if (this.turnManager.IsOver)
+                    {
                         return;
-                }
-                */
+                    }
 
-                //ToDo: have everyone finished their turn?
-                if (this.turnManager.IsCompletedByAll) //never hits true!!!????
+                    /*
+                    // check if we ran out of time, in which case we loose
+                    if (turnEnd<0f && !IsShowingResults)
+                    {
+                            Debug.Log("Calling OnTurnCompleted with turnEnd ="+turnEnd);
+                            OnTurnCompleted(-1);
+                            return;
+                    }
+                    */
+
+                    //ToDo: have everyone finished their turn?
+                    if (this.turnManager.IsCompletedByAll) //never hits true!!!????
+                    {
+                        //Checking the status of turn being completed by all players (Round finished!)
+                        LogFeedback("Finished the Round");
+                        Debug.Log("Finished the Round");
+                        this.turnManager.BeginTurn();
+                    }
+                    else if (this.turnManager.Turn > 0 && !this.turnManager.IsCompletedByAll)
+                    {
+                        Debug.Log("Not Finished the Round");
+                    }
+
+
+                    //LogFeedback(this.turnManager.Turn.ToString());
+                    LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
+
+                    //SetRollTurnStatus
+                    LogTurnDiceRollStatus(); 
+                }
+
+
+                //if user hits, escape close application
+                if (Input.GetKey("escape"))
                 {
-                    //Checking the status of turn being completed by all players (Round finished!)
-                    LogFeedback("Finished the Round");
-                    Debug.Log("Finished the Round");
-                    this.turnManager.BeginTurn();
-                }
-                else if (this.turnManager.Turn > 0 && !this.turnManager.IsCompletedByAll)
-                {
-                    Debug.Log("Not Finished the Round");
+                    if (transcriptController != null)
+                        transcriptController.SendMessageToTranscript("Exiting the application", TranscriptMessage.SubsystemType.game);
+                    Application.Quit();
                 }
 
-
-                //LogFeedback(this.turnManager.Turn.ToString());
-                LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
-
-                //SetRollTurnStatus
-                LogTurnDiceRollStatus(); //Omar comment this when u release
+                // update list to all players
+                this.UpdatePlayerList();
             }
-
- 
-            //if user hits, escape close application
-            if (Input.GetKey("escape"))
+            catch (System.Exception ex)
             {
-                if (transcriptController != null)
-                    transcriptController.SendMessageToTranscript("Exiting the application", TranscriptMessage.SubsystemType.game);
-                Application.Quit();
+                UnityEngine.Debug.Log(ex.Message);
             }
-
-            // update list to all players
-            this.UpdatePlayerList();
         }
 
         /// <summary>
@@ -275,7 +283,6 @@ namespace edu.jhu.co
             {
                 //test stub
                 LogFeedback(System.Environment.NewLine
-                  //  + "Current Player is : " + PhotonNetwork.LocalPlayer.NickName + "," 
                     + "Your next player is: " + nextPlayer.NickName + System.Environment.NewLine
                     + " Turn:  " + this.turnManager.Turn.ToString()
                     /* + " Roll Counter:  " + diceController.rollCounter.ToString()
@@ -288,7 +295,7 @@ namespace edu.jhu.co
         [PunRPC]
         private void selectDiceForPlayer(Player playerToPlay)
         {
-            bool enable = (PhotonNetwork.LocalPlayer == playerToPlay) ? true : false;
+           bool enable = (PhotonNetwork.LocalPlayer == playerToPlay) ? true : false;
             if(RollDiceButton != null)
             {
                 RollDiceButton.interactable = enable;
@@ -544,6 +551,7 @@ namespace edu.jhu.co
 
                 //begun so don't let anyone to click begin anymore
                 this.BeginGame.SetActive(false);
+                RollDiceButton.interactable = true;
             }
             else
             {
@@ -585,19 +593,19 @@ namespace edu.jhu.co
         public void OnTurnBegins(int turn)
         {
             // LogTurnStatus(turn);
-            RollDiceButton.interactable = true;
+            if(PhotonNetwork.PlayerList.Length == 1)
+                RollDiceButton.interactable = true; //always true
             //set the play to next person
 
-            //ToDo: if it is not your turn you cannot roll the dice
         }
 
         /// <summary>
-        /// Called when a turn is completed (finished by all players)
+        /// Called when finished by all players - completed one turn
         /// </summary>
         /// <param name="turn">Turn Index</param>
         public void OnTurnCompleted(int turn)
         {
-            LogFeedback("Turn Completed..." + turn);
+            LogFeedback("Turn Completed - " + turn);
             Debug.Log("Turn " + turn);
             this.SetScore();
 
@@ -609,9 +617,11 @@ namespace edu.jhu.co
             }
             if (photonView != null)
             {
-                photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); //pass only to nextPlyer
+                photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); //pass control only to nextPlyer
             }
-            this.turnManager.BeginTurn(); // next turn
+
+            //set next turn
+            this.turnManager.BeginTurn(); 
         }
 
         /// <summary>
