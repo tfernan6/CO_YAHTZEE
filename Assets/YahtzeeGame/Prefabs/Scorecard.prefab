@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5208818650539103346}
   - component: {fileID: 6371495879279203819}
   m_Layer: 5
-  m_Name: Borderline (2)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 3620519882818222067}
   - component: {fileID: 337677879698367638}
   m_Layer: 5
-  m_Name: Borderline (12)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -647,7 +647,7 @@ GameObject:
   - component: {fileID: 341374108108199980}
   - component: {fileID: 2969500411817209190}
   m_Layer: 5
-  m_Name: Borderline (14)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -927,7 +927,7 @@ GameObject:
   - component: {fileID: 995961911457816504}
   - component: {fileID: 6609805970067117124}
   m_Layer: 5
-  m_Name: Borderline (6)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1412,7 +1412,7 @@ GameObject:
   - component: {fileID: 1428465164205520861}
   - component: {fileID: 7420325707769197509}
   m_Layer: 5
-  m_Name: Borderline (11)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1692,7 +1692,7 @@ GameObject:
   - component: {fileID: 6759812923149992030}
   - component: {fileID: 2802148510158784585}
   m_Layer: 5
-  m_Name: Borderline (7)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2106,7 +2106,7 @@ GameObject:
   - component: {fileID: 1356236717240485170}
   - component: {fileID: 982606794858723828}
   m_Layer: 5
-  m_Name: Borderline (13)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2181,7 +2181,7 @@ GameObject:
   - component: {fileID: 3961125735256105471}
   - component: {fileID: 3733865886714442549}
   m_Layer: 5
-  m_Name: Borderline (9)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2666,7 +2666,7 @@ GameObject:
   - component: {fileID: 5210834640830678882}
   - component: {fileID: 3621853102314379761}
   m_Layer: 5
-  m_Name: Borderline (8)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2741,7 +2741,7 @@ GameObject:
   - component: {fileID: 1347521131310806416}
   - component: {fileID: 7546465442648565114}
   m_Layer: 5
-  m_Name: Borderline (5)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4148,7 +4148,7 @@ GameObject:
   - component: {fileID: 6636806085976989724}
   - component: {fileID: 6144079939948600462}
   m_Layer: 5
-  m_Name: Borderline (10)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4503,7 +4503,7 @@ GameObject:
   - component: {fileID: 4460188082324796155}
   - component: {fileID: 6486110101826614122}
   m_Layer: 5
-  m_Name: Borderline (4)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4578,7 +4578,7 @@ GameObject:
   - component: {fileID: 4230657243370112546}
   - component: {fileID: 4456342640086582393}
   m_Layer: 5
-  m_Name: Borderline (3)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4653,7 +4653,7 @@ GameObject:
   - component: {fileID: 5814528729252742380}
   - component: {fileID: 1246518992000755126}
   m_Layer: 5
-  m_Name: Borderline (1)
+  m_Name: Borderline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
