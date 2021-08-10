@@ -235,7 +235,6 @@ namespace edu.jhu.co
                     if (this.turnManager.IsCompletedByAll) //never hits true!!!????
                     {
                         //Checking the status of turn being completed by all players (Round finished!)
-                        LogFeedback("Finished the Round");
                         Debug.Log("Finished the Round");
                         this.turnManager.BeginTurn();
                     }
@@ -245,12 +244,12 @@ namespace edu.jhu.co
                     }
 
 
-                    //LogFeedback(this.turnManager.Turn.ToString());
                     LogTurnTime(this.turnManager.RemainingSecondsInTurn.ToString("F1"));
-
-                    //SetRollTurnStatus
                     LogTurnDiceRollStatus(); 
-                }
+ 
+                    // update list to all players
+                    this.UpdatePlayerList();
+               }
 
 
                 //if user hits, escape close application
@@ -260,9 +259,6 @@ namespace edu.jhu.co
                         transcriptController.SendMessageToTranscript("Exiting the application", TranscriptMessage.SubsystemType.game);
                     Application.Quit();
                 }
-
-                // update list to all players
-                this.UpdatePlayerList();
             }
             catch (System.Exception ex)
             {
@@ -276,18 +272,17 @@ namespace edu.jhu.co
         private void LogTurnDiceRollStatus()
         {
             Player LocalPlayer = PhotonNetwork.LocalPlayer;
-            Player nextPlayer = PhotonNetwork.LocalPlayer.GetNext();
-
-
-            if (nextPlayer != null)
+            if (PhotonNetwork.PlayerList.Length > 1)
             {
-                //test stub
-                LogFeedback(System.Environment.NewLine
-                    + "Your next player is: " + nextPlayer.NickName + System.Environment.NewLine
-                    + " Turn:  " + this.turnManager.Turn.ToString()
-                    /* + " Roll Counter:  " + diceController.rollCounter.ToString()
-                     + ",finished turn= " + turnManager.GetPlayerFinishedTurn(LocalPlayer)*/
-                    );
+                Player nextPlayer = PhotonNetwork.LocalPlayer.GetNext();
+                if (nextPlayer != null)
+                {
+                    //test stub
+                    LogFeedback(System.Environment.NewLine
+                        + "You have 3 rolls. Select the value to end your turn" + System.Environment.NewLine
+                        + "Your next player is: " + nextPlayer.NickName
+                        + " [Turn:  " + this.turnManager.Turn.ToString() + "]");
+                }
             }
 
         }
@@ -306,7 +301,7 @@ namespace edu.jhu.co
         /// </summary>
         public void OnDiceRoll()
         {
-            Debug.Log("My roll counter value" + diceController.rollCounter.ToString());
+            Debug.Log("My roll counter value" + diceController.rollCounter.ToString()); //teena
             diceController.rollDice(); // or get value you want
 
 
@@ -337,16 +332,25 @@ namespace edu.jhu.co
         #region MultiPlayerCalls
 
         /// <summary>
-        /// 
+        /// caled when local user leaves room
+        /// </summary>
+        public override void OnLeftRoom()
+        {
+            SceneManager.LoadScene("Login");
+        }
+
+        /// <summary>
+        /// called when remote player leaves room
         /// </summary>
         /// <param name="other"></param>
         public override void OnPlayerLeftRoom(Player other)
         {
-            Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
-            LogFeedback("Player " + other.NickName + " left the Game");
-            this.UpdatePlayerList();
-
-
+            if (PhotonNetwork.PlayerList.Length > 1)
+            {
+                Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
+                LogFeedback("Player " + other.NickName + " left the Game");
+                this.UpdatePlayerList();
+            }
         }
 
         /// <summary>
@@ -390,11 +394,10 @@ namespace edu.jhu.co
 
                 //also set tht his turn for this round is complete
 
-
             }
             catch (Exception ex)
             {
-                PhotonNetwork.LocalPlayer.SetScore(0);
+                //PhotonNetwork.LocalPlayer.SetScore(0);
             }
         }
 
@@ -474,28 +477,7 @@ namespace edu.jhu.co
             TurnStatus.text = "[Turn Time: " + message + "secs]";
         }
 
-        /// <summary>
-        /// Log the turn feedback for testing (not being used)
-        /// </summary>
-        /// <param name="turn"></param>
-        private void LogTurnStatus(int turn)
-        {
-            //turn counter keeps incrementing, it does not reset after all players have completed (is this an issue or the way turnmanager is set?)
-            int playerOrderInTurn = (turn % PhotonNetwork.PlayerList.Length == 0) ?
-                        PhotonNetwork.PlayerList.Length : (turn % PhotonNetwork.PlayerList.Length);
-            string playerWhoseTurnItIs = string.Empty;
-            if ((playerOrderInTurn - 1 >= 0) || (playerOrderInTurn <= PhotonNetwork.PlayerList.Length)) //error check
-            {
-                playerWhoseTurnItIs = PhotonNetwork.PlayerList[playerOrderInTurn - 1].NickName;
-            }
 
-            //actual round is turn / PhotonNetwork.PlayerList.Length
-            int round = (PhotonNetwork.PlayerList.Length == 1) ? turn : ((turn / PhotonNetwork.PlayerList.Length) + 1);
-
-            //log whose turn it is
-            LogFeedback("Round: " + round + " Turn: " + turn + " of " + playerWhoseTurnItIs);
-
-        }
         #endregion
 
         #region PageEventHandlers
@@ -509,13 +491,13 @@ namespace edu.jhu.co
                 if (transcriptController != null)
                     transcriptController.SendMessageToTranscript("Player left the room", TranscriptMessage.SubsystemType.game);
 
-                PhotonNetwork.LeaveRoom(); //check if not already left
+                PhotonNetwork.LeaveRoom();
+                SceneManager.LoadScene("Login");
             }
-            catch(System.Exception ex)
+            catch (System.Exception ex)
             {
                 Debug.Log(ex.Message);
             }
-            SceneManager.LoadScene("Login");
         }
 
         /// <summary>
@@ -572,7 +554,7 @@ namespace edu.jhu.co
             SetScore();
 
             if (diceController != null) { diceController.resetRollCounter(); } 
-            this.turnManager.SendMove(ScoreValue, true); //pass value and say my turn is over
+            this.turnManager.SendMove(ScoreValue, true); //pass value and say my turn is over (need to be called by score)
             if (RollDiceButton != null) { RollDiceButton.interactable = false; }
         }
         #endregion
@@ -583,6 +565,7 @@ namespace edu.jhu.co
         /// </summary>
         public void OnEndTurn()
         {
+            LogFeedback("On End Turn");
 
         }
 
@@ -592,10 +575,16 @@ namespace edu.jhu.co
         /// <param name="turn">Turn Index</param>
         public void OnTurnBegins(int turn)
         {
-            // LogTurnStatus(turn);
-            if(PhotonNetwork.PlayerList.Length == 1)
+            //LogFeedback("Your turn has begun");
+            if (PhotonNetwork.PlayerList.Length == 1)
+            {
                 RollDiceButton.interactable = true; //always true
-            //set the play to next person
+            }
+            else if (PhotonNetwork.PlayerList.Length > 0 && PhotonNetwork.IsMasterClient) //multi player
+            {
+                Player nextPlayer = PhotonNetwork.LocalPlayer;
+                if (photonView != null) { photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); } 
+            }
 
         }
 
@@ -605,20 +594,10 @@ namespace edu.jhu.co
         /// <param name="turn">Turn Index</param>
         public void OnTurnCompleted(int turn)
         {
-            LogFeedback("Turn Completed - " + turn);
+            LogFeedback("Turn " + turn + " completed");
             Debug.Log("Turn " + turn);
             this.SetScore();
 
-            //enable dice roll for the next
-            Player nextPlayer = PhotonNetwork.LocalPlayer.GetNext();
-            if(PhotonNetwork.PlayerList.Length == 1) //single player
-            {
-                nextPlayer = PhotonNetwork.LocalPlayer;
-            }
-            if (photonView != null)
-            {
-                photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); //pass control only to nextPlyer
-            }
 
             //set next turn
             this.turnManager.BeginTurn(); 
@@ -645,21 +624,15 @@ namespace edu.jhu.co
         /// <param name="move">Move Object data</param>
         public void OnPlayerFinished(Player player, int turn, object move)
         {
-            Debug.Log("PlayerFinished: " + player + " turn: " + turn + " action: " + move);
-          //  LogFeedback("PlayerFinished: " + player.NickName + " turn: " + turn + "Played by all: " + this.turnManager.IsCompletedByAll);
+           // LogFeedback("PlayerFinished: " + player.NickName + " turn: " + turn + ". turn completed by all?: " + this.turnManager.IsCompletedByAll);
 
             //enable dice roll for the next
-            Player nextPlayer = player.GetNext();
-            if (PhotonNetwork.PlayerList.Length == 1) //single player
+            if (PhotonNetwork.PlayerList.Length > 1 &&
+                photonView != null) //multi player
             {
-                nextPlayer = PhotonNetwork.LocalPlayer;
+                Player nextPlayer = player.GetNext();
+                photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); 
             }
-            if (photonView != null)
-            {
-                photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); //pass only to nextPlyer
-            }
-            //disable for the others
-
 
             this.SetScore();
         }
