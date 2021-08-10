@@ -279,9 +279,10 @@ namespace edu.jhu.co
                 {
                     //test stub
                     LogFeedback(System.Environment.NewLine
+                        + " [Turn:  " + this.turnManager.Turn.ToString() + "] " 
                         + "You have 3 rolls. Select the value to end your turn" + System.Environment.NewLine
                         + "Your next player is: " + nextPlayer.NickName
-                        + " [Turn:  " + this.turnManager.Turn.ToString() + "]");
+                        );
                 }
             }
 
