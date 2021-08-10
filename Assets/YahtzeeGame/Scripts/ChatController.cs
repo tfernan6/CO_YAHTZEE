@@ -195,54 +195,40 @@ public class ChatController : MonoBehaviour, IChatClientListener
     // Start is called before the first frame update
     void Start()
     {
-        try
+        
+        // might need to switch authentication values to Photon.Chat something
+        if (transcriptController == null &&
+            GameObject.Find("TranscriptController") != null)
         {
-
-            // might need to switch authentication values to Photon.Chat something
-            if (transcriptController == null &&
-                GameObject.Find("TranscriptController") != null)
-            {
-                transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-            }
-            else
-            {
-                UnityEngine.Debug.Log("Transcript controller is null");
-            }
-
-            dropdownValue.text = "public";
-
-            Application.runInBackground = true;
-            ChatConnect();
-
-            username = PhotonNetwork.NickName;
-            setChatDropdown();
+            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         }
-        catch(System.Exception ex)
+        else
         {
-            UnityEngine.Debug.Log(ex.Message);
+            UnityEngine.Debug.Log("Transcript controller is null");
         }
+
+        dropdownValue.text = "public";
+
+        Application.runInBackground = true; 
+        ChatConnect();
+
+        username = PhotonNetwork.NickName;
+        setChatDropdown();
     }
 
     // Update is called once per frame
     void Update()
     {
-        try
+        if (isConnected)
         {
-            if (isConnected)
-            {
-                chatClient.Service();
-            }
-            setChatDropdown();
-
-            if (chatBox.text != "" && Input.GetKey(KeyCode.Return))
-            {
-                SubmitPublicChatOnClick();
-                SubmitPrivateChatOnClick();
-            }
+            chatClient.Service();
         }
-        catch (System.Exception ex)
+        setChatDropdown();
+
+        if (chatBox.text != "" && Input.GetKey(KeyCode.Return))
         {
-            UnityEngine.Debug.Log(ex.Message);
+            SubmitPublicChatOnClick();
+            SubmitPrivateChatOnClick();
         }
 
     }

@@ -2781,7 +2781,7 @@ MonoBehaviour:
   username: 
   chatDisplay: {fileID: 450667442}
   chatDropdown: {fileID: 405231337}
-  dropdownValue: {fileID: 0}
+  dropdownValue: {fileID: 993370873}
   messageList: []
 --- !u!4 &713858662
 Transform:
@@ -2879,7 +2879,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1374136409}
   m_HandleRect: {fileID: 1374136408}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
