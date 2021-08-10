@@ -23,7 +23,7 @@ public class Die : MonoBehaviour
     {
         isHold = !isHold;
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-        
+        this.transform.Find("Toggle").gameObject.GetComponent<Toggle>().isOn = isHold;
 
         if (isHold)
         {
