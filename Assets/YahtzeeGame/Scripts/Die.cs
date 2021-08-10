@@ -12,6 +12,7 @@ public class Die : MonoBehaviour
     public int dieValue = 1;
     public Sprite[] diceImages = new Sprite[6];
     private PhotonView photonView;
+    private static TranscriptController transcriptController;
 
     void Start()
     {
@@ -21,7 +22,7 @@ public class Die : MonoBehaviour
     public void toggleDie()
     {
         isHold = !isHold;
-      /*  TranscriptController transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         
 
         if (isHold)
@@ -32,7 +33,7 @@ public class Die : MonoBehaviour
         if(!isHold)
         {
             transcriptController.SendMessageToTranscript("Releasing Die", TranscriptMessage.SubsystemType.dice);
-        }*/
+        }
     }
     public void rollDie()
     {

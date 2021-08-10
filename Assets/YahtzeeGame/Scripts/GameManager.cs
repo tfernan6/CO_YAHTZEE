@@ -118,7 +118,7 @@ namespace edu.jhu.co
             // this.photonView.InstantiationId = 101;
             this.photonView = this.gameObject.GetComponent<PhotonView>();
 
-            //connect to Photon NEtwork if it's not already been connected
+            
             if (transcriptController == null &&
                 GameObject.Find("TranscriptController") != null)
             {
@@ -129,7 +129,7 @@ namespace edu.jhu.co
                 Debug.Log("Transcript controller is null");
             }
 
-            //
+            //connect to Photon NEtwork if it's not already been connected
             if (!PhotonNetwork.IsConnected)
             {
                 if (transcriptController != null)

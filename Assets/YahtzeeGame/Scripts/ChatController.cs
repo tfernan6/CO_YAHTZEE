@@ -24,6 +24,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
     string privateReceiver = "";
     public Dropdown chatDropdown;
     private static TranscriptController transcriptController;
+    public Text dropdownValue;
 
 
     // callbacks
@@ -116,7 +117,9 @@ public class ChatController : MonoBehaviour, IChatClientListener
     public void setChatDropdown() 
     {
         chatDropdown.options.Clear();
+
         chatDropdown.options.Add(new Dropdown.OptionData("public"));
+
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++ )
         {
             if (PhotonNetwork.PlayerList[i].NickName != PhotonNetwork.NickName)
@@ -173,6 +176,7 @@ public class ChatController : MonoBehaviour, IChatClientListener
         
         UnityEngine.Debug.Log("Receiver value changed to: " + chatDropdown.options[chatDropdown.value].text );
         privateReceiver = chatDropdown.options[chatDropdown.value].text;
+        dropdownValue.text = privateReceiver;
         if (transcriptController != null)
             transcriptController.SendMessageToTranscript("Updating chat recipient to " + privateReceiver, TranscriptMessage.SubsystemType.chat);
         
@@ -202,6 +206,8 @@ public class ChatController : MonoBehaviour, IChatClientListener
         {
             UnityEngine.Debug.Log("Transcript controller is null");
         }
+
+        dropdownValue.text = "public";
 
         Application.runInBackground = true; 
         ChatConnect();
