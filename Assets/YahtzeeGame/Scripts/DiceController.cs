@@ -8,8 +8,7 @@ using edu.jhu.co;
 public class DiceController : MonoBehaviour
 {
     public Die[] diceObjects = new Die[5];
-    private const int RollTries = 4; //for somereason, when you make it 3 turn ends after 2, codes needs check to reset this to 3
-    public  int rollCounter = RollTries;
+    public  int rollCounter = 3;
     public ScoreboardController sbController;
     private GameManager gameManager;
     private static TranscriptController transcriptController;
@@ -104,7 +103,7 @@ public class DiceController : MonoBehaviour
 
     public void resetRollCounter()
     {
-        rollCounter = RollTries;
+        rollCounter = 3;
     }
     //include UI to show number of rolls left
 
