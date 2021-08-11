@@ -74,17 +74,18 @@ namespace edu.jhu.co
 
         //private YahtzeePlayer yahtzeePlayer = null; //Player info of current player ToDo: save state
         private bool gameStarted = false;  //has the game begun? //do we need this? can't turnmanager have this info?
-        private PhotonView photonView = null;
 
         //creating controller objects
         public ScoreboardController sbController;
         public DiceController diceController;
         private static TranscriptController transcriptController;
+
         //public List<YahtzeePlayer> yahtzeePlayers = new List<YahtzeePlayer>();
         public List<string> playerNameList;
 
         //I would need to derive from this class and construct my own
         public PunTurnManager turnManager;
+        private PhotonView photonView = null;
 
         #region MonoBehaviour CallBacks
 
@@ -99,7 +100,6 @@ namespace edu.jhu.co
 
         }
 
-        #endregion
 
         /// <summary>
         /// 
@@ -130,6 +130,13 @@ namespace edu.jhu.co
                 {
                     Debug.Log("Transcript controller is null");
                 }
+
+                if (diceController == null &&
+                   GameObject.Find("DiceController") != null)
+                {
+                    diceController = GameObject.Find("DiceController").GetComponent<DiceController>();
+                }
+
 
                 //connect to Photon NEtwork if it's not already been connected
                 if (!PhotonNetwork.IsConnected)
@@ -265,6 +272,7 @@ namespace edu.jhu.co
                 Debug.Log(ex.Message);
             }
         }
+     #endregion
 
         /// <summary>
         /// 
@@ -272,16 +280,19 @@ namespace edu.jhu.co
         private void LogTurnDiceRollStatus()
         {
             Player LocalPlayer = PhotonNetwork.LocalPlayer;
+            DiceController localDiceController = GameObject.Find("DiceController").GetComponent<DiceController>();
+
+            string rollsLeft =  "You have " + localDiceController.rollCounter + " rolls. "; 
+
             if (PhotonNetwork.PlayerList.Length > 1)
             {
                 Player nextPlayer = PhotonNetwork.LocalPlayer.GetNext();
                 if (nextPlayer != null)
                 {
-                    //test stub
                     LogFeedback(System.Environment.NewLine
-                        + " [Turn:  " + this.turnManager.Turn.ToString() + "] " 
-                        + "You have 3 rolls. Select the value to end your turn" + System.Environment.NewLine
-                        + "Your next player is: " + nextPlayer.NickName
+                        + "<i><color=orange>You have 3 rolls in a turn. Select a value to end your turn</color> </i>" + System.Environment.NewLine
+                        + " [Turn:  " + this.turnManager.Turn.ToString() + "] "
+                        + "Your next player is: <b>" + nextPlayer.NickName + "</b>"
                         );
                 }
             }
@@ -302,15 +313,15 @@ namespace edu.jhu.co
         /// </summary>
         public void OnDiceRoll()
         {
-            Debug.Log("My roll counter value" + diceController.rollCounter.ToString()); 
-            diceController.rollDice(); // or get value you want
+            Debug.Log("My roll counter value" + diceController.rollCounter.ToString());
+            LogTurnDiceRollStatus();
+            diceController.rollDice(); 
 
 
             //your 3 rolls are complete
             if (diceController.rollCounter <= 0) 
             {
-                // CompleteTurn(); //Miles this needs to be called from your Score class
-
+                 CompleteTurn(); 
             }
             else if(diceController.rollCounter == 3) //begin turn for next player(check if ur turn is complete)
             {
@@ -574,11 +585,10 @@ public void SetScore()
         public void CompleteTurn()
         {
             //inform the turnmanager (ToDo: pass score value)
-            ScoreValue = 10;//dummy value
-            SetScore();
+            ScoreValue = 10;//dummy value, pass actual value for that roll from Score class
 
-            if (diceController != null) { diceController.resetRollCounter(); } 
-            this.turnManager.SendMove(ScoreValue, true); //pass value and say my turn is over (need to be called by score)
+            if (diceController != null) { diceController.resetRollCounter(); }
+            this.turnManager.SendMove(ScoreValue, true);  //pass value and say my turn is over (need to be called by score)
             if (RollDiceButton != null) { RollDiceButton.interactable = false; }
         }
         #endregion
@@ -594,26 +604,20 @@ public void SetScore()
         }
 
         /// <summary>
-        /// Called when the player's turn begins
+        /// Called when the next turn begins
         /// </summary>
         /// <param name="turn">Turn Index</param>
         public void OnTurnBegins(int turn)
         {
-            //LogFeedback("Your turn has begun");
             if (PhotonNetwork.PlayerList.Length == 1)
             {
                 RollDiceButton.interactable = true; //always true
             }
-            else if (PhotonNetwork.PlayerList.Length > 0 && PhotonNetwork.IsMasterClient) //multi player
-            {
-                Player nextPlayer = PhotonNetwork.LocalPlayer;
-               // if (photonView != null) { photonView.RPC("selectDiceForPlayer", RpcTarget.All, nextPlayer); } 
-            }
-
+   
         }
 
         /// <summary>
-        /// Called when finished by all players - completed one turn
+        /// Called when  turn is complete -  finished by all players 
         /// </summary>
         /// <param name="turn">Turn Index</param>
         public void OnTurnCompleted(int turn)
