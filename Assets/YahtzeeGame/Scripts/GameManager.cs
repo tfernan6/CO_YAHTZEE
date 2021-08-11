@@ -82,10 +82,13 @@ namespace edu.jhu.co
 
         //public List<YahtzeePlayer> yahtzeePlayers = new List<YahtzeePlayer>();
         public List<string> playerNameList;
+        private static Player YtzPlayer;
 
         //I would need to derive from this class and construct my own
         public PunTurnManager turnManager;
         private PhotonView photonView = null;
+
+
 
         #region MonoBehaviour CallBacks
 
@@ -307,6 +310,8 @@ namespace edu.jhu.co
             {
                 RollDiceButton.interactable = enable;
             }
+            YtzPlayer = playerToPlay;
+            IndicatePlayingPlayer(YtzPlayer);
         }
         /// <summary>
         /// called whenever the dice are rolled
@@ -450,14 +455,23 @@ public void SetScore()
             foreach (Player otherone in PhotonNetwork.PlayerList)
             {
                 //no score to show so just show player name
-                PlayerList.text += otherone.NickName + System.Environment.NewLine;
+                if (otherone == YtzPlayer) //indicator
+                {
+                    PlayerList.text = PlayerList.text + "<color=orange>" + otherone.NickName + "</color>" + System.Environment.NewLine;
+                }
+                else
+                {
+                    PlayerList.text += otherone.NickName + System.Environment.NewLine;
+                }
+
+                //list maintained by scoreboard
                 if (! playerNameList.Contains(otherone.NickName))
                 {
                     print("adding player " + otherone.NickName + " to playerNameList");
                     playerNameList.Add(otherone.NickName);
                 }
             }
-            sbController.assignScorecards();
+            sbController.assignScorecards(); //free any allocated memory since this method is caleld on update of this page
         }
 
 
@@ -525,9 +539,8 @@ public void SetScore()
                 if (transcriptController != null)
                     transcriptController.SendMessageToTranscript("Player left the room", TranscriptMessage.SubsystemType.game);
 
-                PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
-                PhotonNetwork.LeaveRoom(); //UNLOAD ALL PREFAB CONTROLLERS
-                //SceneManager.LoadScene("Login");
+                PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer); //UNLOAD ALL PREFAB CONTROLLERS
+                PhotonNetwork.LeaveRoom(); 
             }
             catch (System.Exception ex)
             {
@@ -559,7 +572,11 @@ public void SetScore()
 
             if (PhotonNetwork.IsMasterClient)
             {
-                 gameStarted = true;
+                YtzPlayer = PhotonNetwork.LocalPlayer;
+                photonView.RPC("selectDiceForPlayer", RpcTarget.All, PhotonNetwork.LocalPlayer);
+
+
+                gameStarted = true;
                  turnManager.BeginTurn(); //set your turn
 
 
@@ -568,7 +585,6 @@ public void SetScore()
 
                 //begun so don't let anyone to click begin anymore
                 this.BeginGame.SetActive(false);
-                RollDiceButton.interactable = true;
             }
             else
             {
@@ -577,7 +593,29 @@ public void SetScore()
             }
         }
 
-      
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="player"></param>
+        public void IndicatePlayingPlayer(Player YtzPlayer)
+        {
+            //display players in left panel and in chat window
+            PlayerList.text = "";
+            foreach (Player otherone in PhotonNetwork.PlayerList)
+            {
+                //no score to show so just show player name
+                //no score to show so just show player name
+                if (otherone == YtzPlayer) //indicator
+                {
+                    PlayerList.text = PlayerList.text + "<color=orange>" + otherone.NickName + "</color>" + System.Environment.NewLine;
+                }
+                else
+                {
+                    PlayerList.text += otherone.NickName + System.Environment.NewLine;
+                }
+            }
+
+        }
 
         /// <summary>
         /// player commited his/her turn
@@ -586,7 +624,7 @@ public void SetScore()
         {
             //inform the turnmanager (ToDo: pass score value)
             ScoreValue = 10;//dummy value, pass actual value for that roll from Score class
-
+            
             if (diceController != null) { diceController.resetRollCounter(); }
             this.turnManager.SendMove(ScoreValue, true);  //pass value and say my turn is over (need to be called by score)
             if (RollDiceButton != null) { RollDiceButton.interactable = false; }
@@ -611,8 +649,9 @@ public void SetScore()
         {
             if (PhotonNetwork.PlayerList.Length == 1)
             {
-                RollDiceButton.interactable = true; //always true
+                RollDiceButton.interactable = true; //its just me, so keep it enabled
             }
+            
    
         }
 
@@ -640,18 +679,20 @@ public void SetScore()
         public void OnPlayerMove(Player player, int turn, object move)
         {
             Debug.Log("OnPlayerMove: " + player + " turn: " + turn + " action: " + move);
-         //   LogFeedback("OnPlayerMove: " + player.NickName + " turn: " + turn + " action: " + move);
+            //   LogFeedback("OnPlayerMove: " + player.NickName + " turn: " + turn + " action: " + move);
+            YtzPlayer = player;
             this.SetScore();
         }
 
-        /// <summary>
-        /// When a player finishes a turn (includes the action/move of that player)
-        /// </summary>
-        /// <param name="player">Player reference</param>
-        /// <param name="turn">Turn index</param>
-        /// <param name="move">Move Object data</param>
-        public void OnPlayerFinished(Player player, int turn, object move)
-        {
+
+            /// <summary>
+            /// When a player finishes a turn (includes the action/move of that player)
+            /// </summary>
+            /// <param name="player">Player reference</param>
+            /// <param name="turn">Turn index</param>
+            /// <param name="move">Move Object data</param>
+            public void OnPlayerFinished(Player player, int turn, object move)
+            {
            // LogFeedback("PlayerFinished: " + player.NickName + " turn: " + turn + ". turn completed by all?: " + this.turnManager.IsCompletedByAll);
 
             //enable dice roll for the next
