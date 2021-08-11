@@ -65,17 +65,30 @@ public class Score : MonoBehaviour
                 transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
                     TranscriptMessage.SubsystemType.score);
                 transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
+
+                SetTurnIsDone();
                 diceController.resetRollCounter();
 
                 scorecard.calculateSum();
                 scorecard.calculateTotal();
                 Debug.Log("Score has been selected");
+
+
 /*                print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
                 print("Score type is " + gameObject.name);
                 print("Score value selected is " + scoreValue);*/
                 photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
                     gameObject.name, scoreValue);
             }
+        }
+    }
+
+    private void SetTurnIsDone()
+    {
+        GameManager gameManager = GameObject.Find("GameRoomObject").GetComponent<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.CompleteTurn();
         }
     }
 

@@ -302,14 +302,14 @@ namespace edu.jhu.co
         /// </summary>
         public void OnDiceRoll()
         {
-            Debug.Log("My roll counter value" + diceController.rollCounter.ToString()); //teena
+            Debug.Log("My roll counter value" + diceController.rollCounter.ToString()); 
             diceController.rollDice(); // or get value you want
 
 
             //your 3 rolls are complete
             if (diceController.rollCounter <= 0) 
             {
-                 CompleteTurn(diceController.rollCounter);
+                // CompleteTurn(); //Miles this needs to be called from your Score class
 
             }
             else if(diceController.rollCounter == 3) //begin turn for next player(check if ur turn is complete)
@@ -571,7 +571,7 @@ public void SetScore()
         /// <summary>
         /// player commited his/her turn
         /// </summary>
-        public void CompleteTurn(int rollCounter)
+        public void CompleteTurn()
         {
             //inform the turnmanager (ToDo: pass score value)
             ScoreValue = 10;//dummy value
