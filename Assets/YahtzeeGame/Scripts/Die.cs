@@ -10,7 +10,7 @@ public class Die : MonoBehaviour
 {
     public bool isHold = false;
     public int dieValue = 1;
-    public Sprite[] diceImages = new Sprite[6];
+    public Sprite[] diceImages = new Sprite[7];
     private PhotonView photonView;
     private static TranscriptController transcriptController;
 
@@ -24,6 +24,7 @@ public class Die : MonoBehaviour
         isHold = !isHold;
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         this.transform.Find("Toggle").gameObject.GetComponent<Toggle>().isOn = isHold;
+        photonView.RPC("updateToggleUIforOthers", RpcTarget.All, isHold);
 
         if (isHold)
         {
@@ -50,12 +51,39 @@ public class Die : MonoBehaviour
         this.GetComponent<Image>().sprite = diceImages[dieValue - 1];
     }
 
+
+    public void resetDie()
+    {
+        //dieValue of 7 represents blank die
+        dieValue = 7;
+        isHold = false;
+        updateDiceSprite();
+        updateToggleUI();
+    }
+
+    public void updateToggleUI()
+    {
+        this.transform.Find("Toggle").gameObject.GetComponent<Toggle>().isOn = isHold;
+    }
+
     //allows other clients to update the local client's dice when they roll
     [PunRPC]
     private void updateDieValueforOthers(int newDieValue)
     {
         dieValue = newDieValue;
         updateDiceSprite();
+    }
+
+    [PunRPC]
+    private void updateToggleUIforOthers(bool isOn)
+    {
+        isHold = isOn;
+        updateToggleUI();
+    }
+
+    public void callPunRPCUpdateUI()
+    {
+        photonView.RPC("updateDieValueforOthers", RpcTarget.All, dieValue);
     }
 
 }

@@ -16,6 +16,7 @@ public class Score : MonoBehaviour
 
     private DiceController diceController;
     private Die[] currentDice = new Die[5];
+    private GameManager gameManager;
     private static TranscriptController transcriptController;
     public Scorecard scorecard;
     private Dictionary<int, int> diceValueCount = new Dictionary<int, int>()
@@ -44,7 +45,7 @@ public class Score : MonoBehaviour
         scorecard = this.transform.parent.gameObject.GetComponent<Scorecard>();
         currentDice = diceController.diceObjects;
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-
+        gameManager = GameObject.Find("GameRoomObject").GetComponent<GameManager>();
         photonView = this.GetComponent<PhotonView>();
     }
     public void selectScore()
@@ -72,20 +73,17 @@ public class Score : MonoBehaviour
                 scorecard.calculateSum();
                 scorecard.calculateTotal();
                 Debug.Log("Score has been selected");
+                diceController.resetDice();
 
-
-/*                print("Player name is " + this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
-                print("Score type is " + gameObject.name);
-                print("Score value selected is " + scoreValue);*/
                 photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
                     gameObject.name, scoreValue);
+                SetTurnIsDone();
             }
         }
     }
 
     private void SetTurnIsDone()
     {
-        GameManager gameManager = GameObject.Find("GameRoomObject").GetComponent<GameManager>();
         if (gameManager != null)
         {
             gameManager.CompleteTurn();
@@ -102,6 +100,10 @@ public class Score : MonoBehaviour
             {
                 foreach (Die die in currentDice)
                 {
+                    if (die.dieValue == 7)
+                    {
+                        continue;
+                    }
                     if (die.dieValue == UpperScoreKey[gameObject.name])
                     {
                         tempScore += + die.dieValue;

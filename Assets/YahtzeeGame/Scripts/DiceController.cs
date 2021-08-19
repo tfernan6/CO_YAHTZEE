@@ -107,4 +107,12 @@ public class DiceController : MonoBehaviour
     }
     //include UI to show number of rolls left
 
+    public void resetDice()
+    {
+        for (int i = 0; i < diceObjects.Length; i++)
+        {
+            diceObjects[i].resetDie();
+            diceObjects[i].callPunRPCUpdateUI();
+        }
+    }
 }

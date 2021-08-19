@@ -326,7 +326,8 @@ namespace edu.jhu.co
             //your 3 rolls are complete
             if (diceController.rollCounter <= 0) 
             {
-                 CompleteTurn(); 
+                RollDiceButton.interactable = false;
+                //CompleteTurn();
             }
             else if(diceController.rollCounter == 3) //begin turn for next player(check if ur turn is complete)
             {
