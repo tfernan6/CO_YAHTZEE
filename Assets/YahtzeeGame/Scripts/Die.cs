@@ -9,7 +9,7 @@ using edu.jhu.co;
 public class Die : MonoBehaviour
 {
     public bool isHold = false;
-    public int dieValue = 1;
+    public int dieValue = 7;
     public Sprite[] diceImages = new Sprite[7];
     private PhotonView photonView;
     private static TranscriptController transcriptController;
@@ -21,19 +21,22 @@ public class Die : MonoBehaviour
 
     public void toggleDie()
     {
-        isHold = !isHold;
-        transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
-        this.transform.Find("Toggle").gameObject.GetComponent<Toggle>().isOn = isHold;
-        photonView.RPC("updateToggleUIforOthers", RpcTarget.All, isHold);
+        if (dieValue != 7) 
+        { 
+            isHold = !isHold;
+            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+            this.transform.Find("Toggle").gameObject.GetComponent<Toggle>().isOn = isHold;
+            photonView.RPC("updateToggleUIforOthers", RpcTarget.All, isHold);
 
-        if (isHold)
-        {
-            transcriptController.SendMessageToTranscript("Holding Die", TranscriptMessage.SubsystemType.dice);
+            if (isHold)
+            {
+                transcriptController.SendMessageToTranscript("Holding Die", TranscriptMessage.SubsystemType.dice);
 
-        }
-        if(!isHold)
-        {
-            transcriptController.SendMessageToTranscript("Releasing Die", TranscriptMessage.SubsystemType.dice);
+            }
+            if(!isHold)
+            {
+                transcriptController.SendMessageToTranscript("Releasing Die", TranscriptMessage.SubsystemType.dice);
+            }
         }
     }
     public void rollDie()
