@@ -68,8 +68,10 @@ public class ChatController : MonoBehaviour, IChatClientListener
     }
     public void OnPrivateMessage(string sender, object message, string channelName)
     {
+        if (transcriptController != null)
+            transcriptController.SendMessageToTranscript(string.Format("Pulling new private message(s) from chat server"), TranscriptMessage.SubsystemType.chat);
         string msgs = "";
-        msgs = string.Format("(Private) {0}: {1}", sender, message);
+        msgs = string.Format("**{0}: {1}", sender, message);
         chatDisplay.text += "\n " + msgs;
         //UnityEngine.Debug.Log(msgs);
     }
@@ -136,8 +138,8 @@ public class ChatController : MonoBehaviour, IChatClientListener
 
     public void SubmitPublicChatOnClick()
     {
-        
-        if (privateReceiver == "" && currentChat != "") {
+        print("Entering submit private chat. recipient: " + privateReceiver);
+        if (privateReceiver == "public" && currentChat != "") {
             if (transcriptController != null)
                 transcriptController.SendMessageToTranscript("Sending public chat", TranscriptMessage.SubsystemType.chat);
             
@@ -155,10 +157,11 @@ public class ChatController : MonoBehaviour, IChatClientListener
     }
     public void SubmitPrivateChatOnClick()
     {
-        if (privateReceiver != "" && currentChat != "") {
+        print("Entering submit private chat. recipient: " + privateReceiver);
+        if (privateReceiver != "public" && currentChat != "") {
             transcriptController.SendMessageToTranscript("Sending private chat to " + privateReceiver, TranscriptMessage.SubsystemType.chat);
             //UnityEngine.Debug.Log("InSubmitPrivateChatOnClick " + currentChat);
-            chatClient.PublishMessage(privateReceiver, currentChat);
+            chatClient.SendPrivateMessage(privateReceiver, currentChat);
             chatBox.text = "";
             currentChat = "";
         }
@@ -173,17 +176,18 @@ public class ChatController : MonoBehaviour, IChatClientListener
 
     public void OnReceiverValueChanged()
     {
-        
+        print("calling OnReceiverValueChanged");
         //UnityEngine.Debug.Log("Receiver value changed to: " + chatDropdown.options[chatDropdown.value].text );
         privateReceiver = chatDropdown.options[chatDropdown.value].text;
+        print("current recipient: " + privateReceiver + " selected");
         dropdownValue.text = privateReceiver;
         if (transcriptController != null)
             transcriptController.SendMessageToTranscript("Updating chat recipient to " + privateReceiver, TranscriptMessage.SubsystemType.chat);
         
-        if (privateReceiver == "public") 
-        {
-            privateReceiver = "";
-        }
+        //if (privateReceiver == "public") 
+        //{
+        //    privateReceiver = "";
+        //}
     }
   
 
@@ -196,39 +200,50 @@ public class ChatController : MonoBehaviour, IChatClientListener
     void Start()
     {
         
-        // might need to switch authentication values to Photon.Chat something
-        if (transcriptController == null &&
-            GameObject.Find("TranscriptController") != null)
-        {
-            transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+        try {
+            if (transcriptController == null &&
+                GameObject.Find("TranscriptController") != null)
+            {
+                transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Transcript controller is null");
+            }
+
+            dropdownValue.text = "public";
+            Application.runInBackground = true; 
+            ChatConnect();
+            username = PhotonNetwork.NickName;
+            setChatDropdown();
+            privateReceiver = "public";
         }
-        else
-        {
-            UnityEngine.Debug.Log("Transcript controller is null");
+        catch(System.Exception ex) {
+            UnityEngine.Debug.Log(ex.Message);
         }
 
-        dropdownValue.text = "public";
-
-        Application.runInBackground = true; 
-        ChatConnect();
-
-        username = PhotonNetwork.NickName;
-        setChatDropdown();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isConnected)
-        {
-            chatClient.Service();
-        }
-        setChatDropdown();
+        try {
+            if (isConnected)
+            {
+                chatClient.Service();
+            }
+            setChatDropdown();
 
-        if (chatBox.text != "" && Input.GetKey(KeyCode.Return))
+            if (chatBox.text != "" && Input.GetKey(KeyCode.Return))
+            {
+                SubmitPublicChatOnClick();
+                SubmitPrivateChatOnClick();
+            }
+        }
+        catch(System.Exception ex)
         {
-            SubmitPublicChatOnClick();
-            SubmitPrivateChatOnClick();
+            UnityEngine.Debug.Log(ex.Message);
         }
 
     }

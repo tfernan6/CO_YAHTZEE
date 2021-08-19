@@ -535,8 +535,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.301, y: 14.351}
-  m_SizeDelta: {x: 460.6019, y: 290.7049}
+  m_AnchoredPosition: {x: -0.09999, y: 14.804}
+  m_SizeDelta: {x: 451.8, y: 289.799}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &102598761
 MonoBehaviour:
@@ -1125,7 +1125,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 89.01, y: 85.715}
+  m_AnchoredPosition: {x: 86.929, y: 87}
   m_SizeDelta: {x: 158.46, y: 90.5184}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &231047169
@@ -1796,7 +1796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 5, y: -2.3473053}
+  m_AnchoredPosition: {x: 1.4880981, y: -2.3473}
   m_SizeDelta: {x: -10, y: 36.45862}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &405231337
@@ -1854,7 +1854,7 @@ MonoBehaviour:
       - m_Target: {fileID: 713858661}
         m_TargetAssemblyTypeName: ChatController, Assembly-CSharp
         m_MethodName: OnReceiverValueChanged
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2277,7 +2277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 5.225342, y: 82.648}
+  m_AnchoredPosition: {x: 1.7086182, y: 82.647}
   m_SizeDelta: {x: -10.441, y: 133.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &478747877
@@ -4584,7 +4584,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -24.417, y: -53.852997}
+  m_AnchoredPosition: {x: -27.936, y: -53.852}
   m_SizeDelta: {x: 100.71, y: 66.550995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &995840661
@@ -5963,7 +5963,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 55.582, y: -53.852997}
+  m_AnchoredPosition: {x: 52.066, y: -53.852}
   m_SizeDelta: {x: 59.285004, y: 66.550995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1316816242
