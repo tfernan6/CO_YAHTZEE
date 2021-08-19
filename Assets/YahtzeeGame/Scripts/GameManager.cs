@@ -717,6 +717,8 @@ public void SetScore()
             Debug.Log("Turn " + turn);
             this.SetScore();
         }
+
+        
         #endregion
     }
 }
