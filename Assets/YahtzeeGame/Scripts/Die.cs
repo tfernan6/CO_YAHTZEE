@@ -13,10 +13,12 @@ public class Die : MonoBehaviour
     public Sprite[] diceImages = new Sprite[7];
     private PhotonView photonView;
     private static TranscriptController transcriptController;
+    private Toggle toggle;
 
     void Start()
     {
         photonView = this.GetComponent<PhotonView>();
+        toggle = GetComponent<Toggle>();
     }
 
     public void toggleDie()
@@ -62,6 +64,7 @@ public class Die : MonoBehaviour
         isHold = false;
         updateDiceSprite();
         updateToggleUI();
+        photonView.RPC("updateToggleUIforOthers", RpcTarget.All, isHold);
     }
 
     public void updateToggleUI()
