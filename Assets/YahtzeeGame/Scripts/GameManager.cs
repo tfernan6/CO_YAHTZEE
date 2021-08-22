@@ -16,7 +16,7 @@ namespace edu.jhu.co
     {
         [Tooltip("The Ui Text to inform the user about the connection progress")]
         [SerializeField]
-        private Text CurrentPlayerName;
+        public Text CurrentPlayerName;
 
 
         [Tooltip("The Ui Text to inform the user PlayerList")]
@@ -87,6 +87,7 @@ namespace edu.jhu.co
         //I would need to derive from this class and construct my own
         public PunTurnManager turnManager;
         private PhotonView photonView = null;
+        public string currentTurnPlayer;
 
 
 
@@ -305,11 +306,12 @@ namespace edu.jhu.co
         [PunRPC]
         private void selectDiceForPlayer(Player playerToPlay)
         {
-           bool enable = (PhotonNetwork.LocalPlayer == playerToPlay) ? true : false;
+            bool enable = (PhotonNetwork.LocalPlayer == playerToPlay) ? true : false;
             if(RollDiceButton != null)
             {
                 RollDiceButton.interactable = enable;
             }
+            currentTurnPlayer = playerToPlay.NickName;
             YtzPlayer = playerToPlay;
             IndicatePlayingPlayer(YtzPlayer);
         }

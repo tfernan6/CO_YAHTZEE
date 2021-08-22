@@ -57,33 +57,38 @@ public class Score : MonoBehaviour
         //adjust logic to allow selection of 0 scores but add a prompt asking user if they are sure
 
         //include logic where only your Score can be locked by you
-        if (gameObject.name != "Sum" && gameObject.name != "Bonus" && gameObject.name != "Total Score")
-        {
-            if (!isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+        if (gameManager.currentTurnPlayer == scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text) {
+            if (PhotonNetwork.LocalPlayer.NickName == scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text)
             {
-                isSelected = true;
+                if (gameObject.name != "Sum" && gameObject.name != "Bonus" && gameObject.name != "Total Score")
+                {
+                    if (!isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+                    {
+                        isSelected = true;
 
-                // code to change image color to reflect that score is chosen
+                        // code to change image color to reflect that score is chosen
 
-                this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
-                transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
-                    TranscriptMessage.SubsystemType.score);
-                transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
-                
-                SetTurnIsDone();
-                diceController.resetRollCounter();
+                        this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
+                        transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
+                            TranscriptMessage.SubsystemType.score);
+                        transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
 
-                scorecard.calculateSum();
-                scorecard.calculateTotal();
-                Debug.Log("Score has been selected");
-                diceController.resetDice();
+                        diceController.resetRollCounter();
 
-                photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
-                    gameObject.name, scoreValue);
-                SetTurnIsDone();
-            }
-            else if (!isSelected && string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text)){
-                OpenPopupWindow("Are you sure you want to score 0 in this category?");
+                        scorecard.calculateSum();
+                        scorecard.calculateTotal();
+                        Debug.Log("Score has been selected");
+                        diceController.resetDice();
+
+                        photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
+                            gameObject.name, scoreValue);
+                        SetTurnIsDone();
+                    }
+                    else if (!isSelected && string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+                    {
+                        OpenPopupWindow("Are you sure you want to score 0 in this category?");
+                    }
+                }
             }
         }
     }
