@@ -14,6 +14,8 @@ public class Score : MonoBehaviour
     public bool isSelected = false;
     public int scoreValue = 0;
 
+    [SerializeField] private popupWindow mypopupWindow;
+
     private DiceController diceController;
     private Die[] currentDice = new Die[5];
     private GameManager gameManager;
@@ -47,6 +49,7 @@ public class Score : MonoBehaviour
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         gameManager = GameObject.Find("GameRoomObject").GetComponent<GameManager>();
         photonView = this.GetComponent<PhotonView>();
+    
     }
     public void selectScore()
     {
@@ -66,7 +69,7 @@ public class Score : MonoBehaviour
                 transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
                     TranscriptMessage.SubsystemType.score);
                 transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
-
+                
                 SetTurnIsDone();
                 diceController.resetRollCounter();
 
@@ -79,7 +82,28 @@ public class Score : MonoBehaviour
                     gameObject.name, scoreValue);
                 SetTurnIsDone();
             }
+            else if (!isSelected && string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text)){
+                OpenPopupWindow("Are you sure you want to score 0 in this category?");
+            }
         }
+    }
+
+    private void OpenPopupWindow(string message){
+        mypopupWindow.gameObject.SetActive(true);
+        mypopupWindow.yesButton.onClick.AddListener(YesClicked);
+        mypopupWindow.noButton.onClick.AddListener(noClicked);
+        mypopupWindow.popupMessage.text = message;
+    }
+
+    //include all logic to set score to 0 and reset counter and endturn
+    private void YesClicked(){
+        mypopupWindow.gameObject.SetActive(false);
+        Debug.Log("Yes Clicked");
+    }
+
+    private void noClicked(){
+        mypopupWindow.gameObject.SetActive(false);
+        Debug.Log("No Clicked");
     }
 
     private void SetTurnIsDone()
