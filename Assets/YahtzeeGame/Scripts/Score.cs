@@ -82,6 +82,9 @@ public class Score : MonoBehaviour
 
                         photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
                             gameObject.name, scoreValue);
+
+                        scorecard.clearUnselectedScores();
+
                         SetTurnIsDone();
                     }
                     else if (!isSelected && string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))

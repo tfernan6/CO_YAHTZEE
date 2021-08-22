@@ -103,6 +103,24 @@ public class Scorecard : MonoBehaviour
         summaryScores[2].updateScoreText();
     }
 
+
+    public void clearUnselectedScores()
+    {
+        foreach (Score score in lowerScores)
+        {
+            if (!score.isSelected)
+            {
+                score.blankOutScore();
+            }
+        }
+        foreach (Score score in upperScores)
+        {
+            if (!score.isSelected)
+            {
+                score.blankOutScore();
+            }
+        }
+    }
     /*public void updateUpperScores()
     {
         int[] dataToSend = new int[3];
