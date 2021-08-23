@@ -14,7 +14,11 @@ public class Score : MonoBehaviour
     public bool isSelected = false;
     public int scoreValue = 0;
 
-    [SerializeField] public popupWindow mypopupWindow;
+    public GameObject popupWindowObject;
+
+    public Button yesButton;
+    public Button noButton;
+    public Text popupMessage;
 
     private DiceController diceController;
     private Die[] currentDice = new Die[5];
@@ -90,7 +94,7 @@ public class Score : MonoBehaviour
                     else if (!isSelected && string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
                     {
                         isSelected = true;
-                        //OpenPopupWindow("Are you sure you want to score 0 in this category?");
+                        OpenPopupWindow("Are you sure you want to score 0 in this category?");
                         Debug.Log("Empty box is clicked");
                     }
                 }
@@ -99,20 +103,25 @@ public class Score : MonoBehaviour
     }
 
     public void OpenPopupWindow(string message){
-        mypopupWindow.gameObject.SetActive(true);
-        mypopupWindow.yesButton.onClick.AddListener(YesClicked);
-        mypopupWindow.noButton.onClick.AddListener(noClicked);
-        mypopupWindow.popupMessage.text = message;
+        popupWindowObject.SetActive(true);
+        yesButton.onClick.AddListener(YesClicked);
+        noButton.onClick.AddListener(noClicked);
+        popupMessage.text = message;
     }
 
     //include all logic to set score to 0 and reset counter and endturn
     public void YesClicked(){
-        mypopupWindow.gameObject.SetActive(false);
+        popupWindowObject.SetActive(false);
         Debug.Log("Yes Clicked");
+
+        this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
+                        transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
+                            TranscriptMessage.SubsystemType.score);
+                        transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
     }
 
     public void noClicked(){
-        mypopupWindow.gameObject.SetActive(false);
+        popupWindowObject.SetActive(false);
         Debug.Log("No Clicked");
     }
 
