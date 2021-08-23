@@ -14,7 +14,7 @@ public class Score : MonoBehaviour
     public bool isSelected = false;
     public int scoreValue = 0;
 
-    [SerializeField] private popupWindow mypopupWindow;
+    [SerializeField] public popupWindow mypopupWindow;
 
     private DiceController diceController;
     private Die[] currentDice = new Die[5];
@@ -89,14 +89,16 @@ public class Score : MonoBehaviour
                     }
                     else if (!isSelected && string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
                     {
-                        OpenPopupWindow("Are you sure you want to score 0 in this category?");
+                        isSelected = true;
+                        //OpenPopupWindow("Are you sure you want to score 0 in this category?");
+                        Debug.Log("Empty box is clicked");
                     }
                 }
             }
         }
     }
 
-    private void OpenPopupWindow(string message){
+    public void OpenPopupWindow(string message){
         mypopupWindow.gameObject.SetActive(true);
         mypopupWindow.yesButton.onClick.AddListener(YesClicked);
         mypopupWindow.noButton.onClick.AddListener(noClicked);
@@ -104,12 +106,12 @@ public class Score : MonoBehaviour
     }
 
     //include all logic to set score to 0 and reset counter and endturn
-    private void YesClicked(){
+    public void YesClicked(){
         mypopupWindow.gameObject.SetActive(false);
         Debug.Log("Yes Clicked");
     }
 
-    private void noClicked(){
+    public void noClicked(){
         mypopupWindow.gameObject.SetActive(false);
         Debug.Log("No Clicked");
     }
