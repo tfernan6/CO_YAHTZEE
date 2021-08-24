@@ -14,13 +14,12 @@ public class Score : MonoBehaviour
     public bool isSelected = false;
     public int scoreValue = 0;
 
-    public PopupWindow popupWindow;
-
     private DiceController diceController;
     private Die[] currentDice = new Die[5];
     private GameManager gameManager;
     private static TranscriptController transcriptController;
     public Scorecard scorecard;
+
     private Dictionary<int, int> diceValueCount = new Dictionary<int, int>()
         {
                 {1, 0 },
@@ -98,42 +97,7 @@ public class Score : MonoBehaviour
             }
         }
     }
-    //include all logic to set score to 0 and reset counter and endturn
-    /*public void YesClicked()
-    {
-        popupWindowObject.SetActive(false);
-        Debug.Log("Yes Clicked");
-
-        isSelected = true;
-        scoreValue = 0;
-        updateScoreText();
-        // code to change image color to reflect that score is chosen
-
-        this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
-        transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
-        TranscriptMessage.SubsystemType.score);
-        transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
-
-        diceController.resetRollCounter();
-
-        scorecard.calculateSum();
-        scorecard.calculateTotal();
-        Debug.Log("Score has been selected");
-        diceController.resetDice();
-
-        photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
-           gameObject.name, scoreValue);
-
-        scorecard.clearUnselectedScores();
-
-        SetTurnIsDone();
-    }
-
-    public void noClicked(){
-        popupWindowObject.SetActive(false);
-        Debug.Log("No Clicked");
-    }
-*/
+    
     public void SetTurnIsDone()
     {
         if (gameManager != null)
@@ -298,12 +262,14 @@ public class Score : MonoBehaviour
                 if(this.scoreValue > 0)
                 {
                     isSelected = true;
-                } else
+                } 
+                if (!isSelected)
                 {
                     blankOutScore();
                 }
-               
+
             }
+               
         }
     }
 

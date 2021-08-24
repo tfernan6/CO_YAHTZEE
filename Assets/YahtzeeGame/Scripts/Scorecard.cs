@@ -127,16 +127,20 @@ public class Scorecard : MonoBehaviour
     {
         foreach (Score score in lowerScores)
         {
-            if (!score.isSelected)
-            {
-                score.blankOutScore();
-            }
+
+                if (!score.isSelected)
+                {
+                    score.blankOutScore();
+                }
         }
         foreach (Score score in upperScores)
         {
-            if (!score.isSelected)
+            if (score.gameObject.name != "Yahtzee")
             {
-                score.blankOutScore();
+                if (!score.isSelected)
+                {
+                    score.blankOutScore();
+                }
             }
         }
     }
