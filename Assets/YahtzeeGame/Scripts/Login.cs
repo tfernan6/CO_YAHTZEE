@@ -249,11 +249,15 @@ namespace edu.jhu.co
 		/// </remarks>
 		public override void OnJoinRoomFailed(short returnCode, string message)
 		{
-			LogFeedback("Next -> Create a new Room");
+			LogFeedback("Join room failed because " + message); // " return code: " + returnCode.ToString()); //32765, game full
 			Debug.Log("YazteeGame Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
 
 			// #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-			CreateRoom();
+			if (returnCode != 32765) // game full
+			{
+				CreateRoom();
+			}
+ 
 		}
 
 
