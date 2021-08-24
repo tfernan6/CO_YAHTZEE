@@ -2817,12 +2817,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 661289856}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f212a9af045ef41f6a6fe7f9a4cce721, type: 3}
+  m_Script: {fileID: 11500000, guid: fc27cfbcb10bde94f9644b3710195134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isSelected: 0
+  scoreValue: 0
+  popupWindowObject: {fileID: 661289856}
   yesButton: {fileID: 892775116}
   noButton: {fileID: 1752117633}
   popupMessage: {fileID: 535697789}
+  scorecard: {fileID: 0}
+  photonView: {fileID: 0}
 --- !u!114 &661289859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5504,6 +5509,14 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 231740838640033951, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 231740838640033951, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
     - target: {fileID: 517501167426216049, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
       propertyPath: sceneViewId
       value: 6
@@ -5512,14 +5525,38 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1015762745186138101, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 1015762745186138101, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
     - target: {fileID: 1056323965711779039, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
       propertyPath: sceneViewId
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1378642464571325015, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 1378642464571325015, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
     - target: {fileID: 1488556902049018434, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
       propertyPath: sceneViewId
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 1780572148667358890, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 1780572148667358890, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
     - target: {fileID: 2015825871883823010, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
       propertyPath: sceneViewId
       value: 20
@@ -5528,6 +5565,18 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2853040870076403499, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 2859292371907497691, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 2859292371907497691, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
     - target: {fileID: 2884120031091203700, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
       propertyPath: sceneViewId
       value: 16
@@ -5540,6 +5589,14 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 3739153846893972412, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 3739153846893972412, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
     - target: {fileID: 3769933874788306504, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
       propertyPath: sceneViewId
       value: 12
@@ -5556,6 +5613,30 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5148925262810434929, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 5148925262810434929, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
+    - target: {fileID: 5567188368803445131, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 5567188368803445131, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
+    - target: {fileID: 6332657432141899392, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 6332657432141899392, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
     - target: {fileID: 6532430719562692512, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
       propertyPath: sceneViewId
       value: 18
@@ -5648,10 +5729,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scorecard
       objectReference: {fileID: 0}
+    - target: {fileID: 6789777939824175639, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 6789777939824175639, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
     - target: {fileID: 7501811012241144443, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
       propertyPath: sceneViewId
       value: 19
       objectReference: {fileID: 0}
+    - target: {fileID: 7953816599576028521, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 7953816599576028521, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
+    - target: {fileID: 8134875429175619801, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 8134875429175619801, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
+    - target: {fileID: 8312238229552756246, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
+    - target: {fileID: 8312238229552756246, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: popupWindowObject
+      value: 
+      objectReference: {fileID: 661289856}
+    - target: {fileID: 9003625628063217352, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
+      propertyPath: yesButton
+      value: 
+      objectReference: {fileID: 892775116}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91855a795fce54d10b16340ad6b7c1a1, type: 3}
 --- !u!1 &1097751259

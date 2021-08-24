@@ -13,6 +13,7 @@ public class Score : MonoBehaviour
 
     public bool isSelected = false;
     public int scoreValue = 0;
+    
 
     public GameObject popupWindowObject;
 
@@ -114,10 +115,28 @@ public class Score : MonoBehaviour
         popupWindowObject.SetActive(false);
         Debug.Log("Yes Clicked");
 
+        isSelected = true;
+        scoreValue = 0;
+         // code to change image color to reflect that score is chosen
+
         this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
-                        transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
-                            TranscriptMessage.SubsystemType.score);
-                        transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
+        transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
+        TranscriptMessage.SubsystemType.score);
+        transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
+
+        diceController.resetRollCounter();
+
+        scorecard.calculateSum();
+        scorecard.calculateTotal();
+        Debug.Log("Score has been selected");
+        diceController.resetDice();
+
+        photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
+           gameObject.name, scoreValue);
+
+        scorecard.clearUnselectedScores();
+
+        SetTurnIsDone();
     }
 
     public void noClicked(){
