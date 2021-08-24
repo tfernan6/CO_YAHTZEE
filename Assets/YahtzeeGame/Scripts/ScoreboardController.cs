@@ -63,7 +63,7 @@ using edu.jhu.co;
 
     public void checkGameConcluded()
     {
-        if (gameManager.turnManager.Turn == 13) {
+        if (gameManager.turnManager.Turn > 13) {
             gameManager.winners = determineWinner();
             gameManager.endGame();
         }

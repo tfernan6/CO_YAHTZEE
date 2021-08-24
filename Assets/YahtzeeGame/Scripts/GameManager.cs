@@ -661,8 +661,6 @@ public void SetScore()
             if (diceController != null) { diceController.resetRollCounter(); }
             this.turnManager.SendMove(ScoreValue, true);  //pass value and say my turn is over (need to be called by score)
             if (RollDiceButton != null) { RollDiceButton.interactable = false; }
-
-            sbController.checkGameConcluded();
         }
         #endregion
 
@@ -682,6 +680,7 @@ public void SetScore()
         /// <param name="turn">Turn Index</param>
         public void OnTurnBegins(int turn)
         {
+            sbController.checkGameConcluded();
             if (PhotonNetwork.PlayerList.Length == 1)
             {
                 RollDiceButton.interactable = true; //its just me, so keep it enabled
