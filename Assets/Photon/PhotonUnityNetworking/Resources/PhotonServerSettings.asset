@@ -46,6 +46,7 @@ MonoBehaviour:
   - updateOtherClients
   - selectDiceForPlayer
   - updateToggleUIforOthers
+  - updateOtherClientsSummaryScores
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -227,6 +227,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &3895717267918172703
@@ -432,6 +437,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &3978783817465815339
@@ -862,6 +872,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &8044143043804491682
@@ -1142,6 +1157,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &6638910806690430960
@@ -1347,6 +1367,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &3152650662294131518
@@ -1627,6 +1652,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &6641591161092348203
@@ -2041,6 +2071,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &6947579854681055586
@@ -2396,6 +2431,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &5434468662452045263
@@ -2601,6 +2641,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &6825401037346448834
@@ -2956,6 +3001,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &485180224565535383
@@ -3161,6 +3211,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &7847663167434526074
@@ -3366,6 +3421,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &1178155836990129842
@@ -3571,6 +3631,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &3707857000719062098
@@ -3878,6 +3943,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &4266393404647140547
@@ -4083,6 +4153,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &5888860553942877883
@@ -4438,6 +4513,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
+  popupWindowObject: {fileID: 0}
+  yesButton: {fileID: 0}
+  noButton: {fileID: 0}
+  popupMessage: {fileID: 0}
+  popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
 --- !u!114 &2656620083718773588

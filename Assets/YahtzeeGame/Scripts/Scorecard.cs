@@ -74,20 +74,27 @@ public class Scorecard : MonoBehaviour
                 tempScore += score.scoreValue;
             }
             summaryScores[0].scoreValue = tempScore;
-            if (summaryScores[0].scoreValue > 0)
+            summaryScores[0].updateScoreText();
+            /*if (summaryScores[0].scoreValue > 0)
             {
                 summaryScores[0].updateScoreText();
             }
             else
             {
                 summaryScores[0].blankOutScore();
-            }
+            }*/
         }
         if (summaryScores[0].scoreValue >= 63)
         {
             summaryScores[1].scoreValue = 35;
             summaryScores[1].updateScoreText();
+        } else
+        {
+            summaryScores[1].scoreValue = 0;
+            summaryScores[1].updateScoreText();
         }
+        summaryScores[0].updateSummaryScoresForOthers();
+        summaryScores[1].updateSummaryScoresForOthers();
     }
     
     public void calculateTotal()
@@ -101,6 +108,14 @@ public class Scorecard : MonoBehaviour
             }
         }
         summaryScores[2].updateScoreText();
+        summaryScores[2].updateSummaryScoresForOthers();
+    }
+
+    public void updateSummaryScores()
+    {
+        foreach (Score score in summaryScores)
+        {
+        }
     }
 
 
@@ -121,51 +136,4 @@ public class Scorecard : MonoBehaviour
             }
         }
     }
-    /*public void updateUpperScores()
-    {
-        int[] dataToSend = new int[3];
-        dataToSend[0] = this.transform.Find("Ones").gameObject.GetComponent<Score>().scoreValue;
-        dataToSend[1] = this.transform.Find("Twos").gameObject.GetComponent<Score>().scoreValue;
-        dataToSend[2] = this.transform.Find("Threes").gameObject.GetComponent<Score>().scoreValue;
-        photonView.RPC("updateUpperScoresForOther", RpcTarget.All, this.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
-            dataToSend);
-        
-    }
-    [PunRPC]
-    public void updateUpperScoresForOthers(string playerName, int[] upperScoreValues)
-    {
-        // if playerName matches -> overwrite score values
-        if (this.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text == playerName)
-        {
-            this.transform.Find("Ones").gameObject.GetComponent<Score>().scoreValue = upperScoreValues[0];
-            this.transform.Find("Ones").gameObject.GetComponent<Score>().updateScoreText();
-
-            this.transform.Find("Twos").gameObject.GetComponent<Score>().scoreValue = upperScoreValues[1];
-            this.transform.Find("Twos").gameObject.GetComponent<Score>().updateScoreText();
-
-            this.transform.Find("Threes").gameObject.GetComponent<Score>().scoreValue = upperScoreValues[2];
-            this.transform.Find("Threes").gameObject.GetComponent<Score>().updateScoreText();
-        }
-    }
-
-
-
-    public void matchUpperScores(Score[] otherUpperScores)
-    {
-        print("Attempting to match scores");
-        foreach (Score score in upperScores)
-        {
-            foreach (Score otherUpperScore in otherUpperScores)
-            {
-                print(score.gameObject.name == otherUpperScore.gameObject.name);
-                if (score.gameObject.name == otherUpperScore.gameObject.name)
-                {
-                    score.scoreValue = otherUpperScore.scoreValue;
-                    score.updateScoreText();
-                }
-            }
-
-        }
-        print("Other client's scorecards updated");
-    }*/
 }
