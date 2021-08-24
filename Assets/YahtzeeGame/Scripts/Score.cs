@@ -20,6 +20,7 @@ public class Score : MonoBehaviour
     public Button yesButton;
     public Button noButton;
     public Text popupMessage;
+    public PopupWindow popupWindow;
 
     private DiceController diceController;
     private Die[] currentDice = new Die[5];
@@ -54,7 +55,7 @@ public class Score : MonoBehaviour
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         gameManager = GameObject.Find("GameRoomObject").GetComponent<GameManager>();
         photonView = this.GetComponent<PhotonView>();
-    
+        popupWindow = GameObject.Find("PopupWindow").GetComponent<PopupWindow>();
     }
     public void selectScore()
     {
@@ -79,7 +80,6 @@ public class Score : MonoBehaviour
                         transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
 
                         diceController.resetRollCounter();
-
                         scorecard.calculateSum();
                         scorecard.calculateTotal();
                         Debug.Log("Score has been selected");
@@ -103,7 +103,8 @@ public class Score : MonoBehaviour
         }
     }
 
-    public void OpenPopupWindow(string message){
+    public void OpenPopupWindow(string message)
+    {
         popupWindowObject.SetActive(true);
         yesButton.onClick.AddListener(YesClicked);
         noButton.onClick.AddListener(noClicked);
@@ -111,13 +112,15 @@ public class Score : MonoBehaviour
     }
 
     //include all logic to set score to 0 and reset counter and endturn
-    public void YesClicked(){
+    public void YesClicked()
+    {
         popupWindowObject.SetActive(false);
         Debug.Log("Yes Clicked");
 
         isSelected = true;
         scoreValue = 0;
-         // code to change image color to reflect that score is chosen
+        updateScoreText();
+        // code to change image color to reflect that score is chosen
 
         this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
         transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
