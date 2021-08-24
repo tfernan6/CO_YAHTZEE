@@ -61,12 +61,15 @@ using edu.jhu.co;
         }
     }
 
-    public void checkGameConcluded()
+    public List<string> checkGameConcluded()
     {
+        List<string> weHaveAWinner = new List<string>();
         if (gameManager.turnManager.Turn > 13) {
-            gameManager.winners = determineWinner();
+            weHaveAWinner = gameManager.winners = determineWinner();
             gameManager.endGame();
         }
+
+        return weHaveAWinner;
     }
 
     public List<string> determineWinner()

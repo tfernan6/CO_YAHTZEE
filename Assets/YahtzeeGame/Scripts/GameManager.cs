@@ -90,7 +90,7 @@ namespace edu.jhu.co
         public string currentTurnPlayer;
         public List<string> winners = new List<string>();
 
-
+        public Text WinnerText;
 
         #region MonoBehaviour CallBacks
 
@@ -118,7 +118,7 @@ namespace edu.jhu.co
                 //define the turn manager
                 this.turnManager = this.gameObject.AddComponent<PunTurnManager>();
                 this.turnManager.TurnManagerListener = this;
-                turnManager.TurnDuration = 5f; // 5seconds
+                turnManager.TurnDuration = 15f; // 5seconds
 
                 //set the photon view and punturnmanager
                 //  this.photonView = this.gameObject.AddComponent<PhotonView>();
@@ -165,6 +165,10 @@ namespace edu.jhu.co
                 if (RollDiceButton == null)
                     RollDiceButton = GameObject.Find("RollDiceButton").GetComponent<Button>();
 
+                if(WinnerText != null)
+                {
+                    WinnerText.enabled = false;
+                }
                 //set the welcome and game status messages
                 SetWelcomeText();
 
@@ -286,7 +290,9 @@ namespace edu.jhu.co
                 Debug.Log(ex.Message);
             }
         }
-     #endregion
+
+
+        #endregion
 
         /// <summary>
         /// 
@@ -296,19 +302,30 @@ namespace edu.jhu.co
             Player LocalPlayer = PhotonNetwork.LocalPlayer;
             DiceController localDiceController = GameObject.Find("DiceController").GetComponent<DiceController>();
 
-            string rollsLeft =  "You have " + localDiceController.rollCounter + " rolls. "; 
+            string rollsLeft =  "You have " + localDiceController.rollCounter + " rolls. ";
 
-            if (PhotonNetwork.PlayerList.Length > 1)
+            if (PhotonNetwork.PlayerList.Length > 1 && 
+                this.turnManager.Turn <= 13)
             {
-                Player nextPlayer = PhotonNetwork.LocalPlayer.GetNext();
+                Player nextPlayer = (YtzPlayer != null) ? YtzPlayer.GetNext() : PhotonNetwork.LocalPlayer.GetNext(); //should be the next player in turn
                 if (nextPlayer != null)
                 {
                     LogFeedback(System.Environment.NewLine
                         + "<i><color=orange>You have 3 rolls in a turn. Select a value to end your turn</color> </i>" + System.Environment.NewLine
                         + " [Turn:  " + this.turnManager.Turn.ToString() + "] "
-                        + "Your next player is: <b>" + nextPlayer.NickName + "</b>"
+                        + "Next player to play is: <b>" + nextPlayer.NickName + "</b>"
                         );
                 }
+            }
+            else if(PhotonNetwork.PlayerList.Length > 1 &&
+                this.turnManager.Turn > 13) //Game is over
+            {
+                WinnerText.enabled = true;
+                this.TurnStatus.text = string.Empty;
+
+                List<string> weHaveAWinner = sbController.checkGameConcluded();
+                LogFeedback("Game has ended. The winner is " + weHaveAWinner[0] );
+                RollDiceButton.interactable = false;
             }
 
         }
@@ -419,11 +436,11 @@ namespace edu.jhu.co
             }
         }
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="other"></param>
-public override void OnPlayerEnteredRoom(Player other)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="other"></param>
+        public override void OnPlayerEnteredRoom(Player other)
         {
             try
             {
@@ -454,10 +471,10 @@ public override void OnPlayerEnteredRoom(Player other)
 #endregion
 
 #region GameManagerFunctions
-/// <summary>
-/// 
-/// </summary>
-public void SetScore()
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetScore()
         {
             //set game player's score
             try
@@ -670,6 +687,7 @@ public void SetScore()
         /// </summary>
         public void OnEndTurn()
         {
+            sbController.checkGameConcluded();
             LogFeedback("On End Turn");
 
         }
@@ -680,10 +698,20 @@ public void SetScore()
         /// <param name="turn">Turn Index</param>
         public void OnTurnBegins(int turn)
         {
-            sbController.checkGameConcluded();
-            if (PhotonNetwork.PlayerList.Length == 1)
+            //if turnManager.Turn > 13, game has ended. Stop the game!!!
+            List<string> weHaveAWinner = sbController.checkGameConcluded(); //teena
+
+            //allow to play
+            if (this.turnManager.Turn <= 13 && 
+                PhotonNetwork.PlayerList.Length == 1)
             {
                 RollDiceButton.interactable = true; //its just me, so keep it enabled
+            }
+            else if (this.turnManager.Turn > 13)
+            {
+                //game has ended
+                this.LogFeedback("Game has ended");
+                RollDiceButton.interactable = false;
             }
             
    
