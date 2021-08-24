@@ -15,6 +15,8 @@ public class Scorecard : MonoBehaviour
     public Score[] lowerScores = new Score[7];
     public Score[] summaryScores = new Score[3];
     public ScoreboardController sbController;
+    public GameObject popupWindowObject;
+    public GameObject popupWindowObjectParent;
 
     /*public YahtzeePlayer yahtzeePlayer;*/
 
@@ -45,6 +47,8 @@ public class Scorecard : MonoBehaviour
         summaryScores[0] = this.transform.Find("Sum").gameObject.GetComponent<Score>();
         summaryScores[1] = this.transform.Find("Bonus").gameObject.GetComponent<Score>();
         summaryScores[2] = this.transform.Find("Total Score").gameObject.GetComponent<Score>();
+        popupWindowObject = GameObject.Find("PopupWindowParent").transform.Find("PopupWindow").gameObject;
+        popupWindowObjectParent = GameObject.Find("PopupWindowParent");
     }
 
     public void calculateScores()

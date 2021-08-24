@@ -227,10 +227,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -437,10 +433,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -872,10 +864,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -1157,10 +1145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -1367,10 +1351,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -1652,10 +1632,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -2071,10 +2047,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -2431,10 +2403,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -2641,10 +2609,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -3001,10 +2965,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -3211,10 +3171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -3421,10 +3377,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -3631,10 +3583,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -3791,6 +3739,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   sbController: {fileID: 0}
+  popupWindowObject: {fileID: 0}
 --- !u!1 &6585212673604908932
 GameObject:
   m_ObjectHideFlags: 0
@@ -3943,10 +3892,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -4153,10 +4098,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}
@@ -4513,10 +4454,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSelected: 0
   scoreValue: 0
-  popupWindowObject: {fileID: 0}
-  yesButton: {fileID: 0}
-  noButton: {fileID: 0}
-  popupMessage: {fileID: 0}
   popupWindow: {fileID: 0}
   scorecard: {fileID: 0}
   photonView: {fileID: 0}

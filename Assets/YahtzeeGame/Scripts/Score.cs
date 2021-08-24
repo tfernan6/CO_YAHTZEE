@@ -13,13 +13,7 @@ public class Score : MonoBehaviour
 
     public bool isSelected = false;
     public int scoreValue = 0;
-    
 
-    public GameObject popupWindowObject;
-
-    public Button yesButton;
-    public Button noButton;
-    public Text popupMessage;
     public PopupWindow popupWindow;
 
     private DiceController diceController;
@@ -55,7 +49,6 @@ public class Score : MonoBehaviour
         transcriptController = GameObject.Find("TranscriptController").GetComponent<TranscriptController>();
         gameManager = GameObject.Find("GameRoomObject").GetComponent<GameManager>();
         photonView = this.GetComponent<PhotonView>();
-        popupWindow = GameObject.Find("PopupWindow").GetComponent<PopupWindow>();
     }
     public void selectScore()
     {
@@ -63,56 +56,50 @@ public class Score : MonoBehaviour
         //adjust logic to allow selection of 0 scores but add a prompt asking user if they are sure
 
         //include logic where only your Score can be locked by you
-        if (gameManager.currentTurnPlayer == scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text) {
-            if (PhotonNetwork.LocalPlayer.NickName == scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text)
+        if (diceController.rollCounter < 3) {
+            if (gameManager.currentTurnPlayer == scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text)
             {
-                if (gameObject.name != "Sum" && gameObject.name != "Bonus" && gameObject.name != "Total Score")
+                if (PhotonNetwork.LocalPlayer.NickName == scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text)
                 {
-                    if (!isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+                    if (gameObject.name != "Sum" && gameObject.name != "Bonus" && gameObject.name != "Total Score")
                     {
-                        isSelected = true;
+                        if (!isSelected && !string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+                        {
+                            isSelected = true;
 
-                        // code to change image color to reflect that score is chosen
+                            // code to change image color to reflect that score is chosen
 
-                        this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
-                        transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
-                            TranscriptMessage.SubsystemType.score);
-                        transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
+                            this.transform.Find("Borderline").gameObject.GetComponent<Image>().color = new Color32(0, 115, 16, 255);
+                            transcriptController.SendMessageToTranscript("Selected Score of " + this.GetComponent<TMP_Text>().text + " for " + gameObject.name + " Slot",
+                                TranscriptMessage.SubsystemType.score);
+                            transcriptController.SendMessageToTranscript("Turn complete", TranscriptMessage.SubsystemType.turn);
 
-                        diceController.resetRollCounter();
-                        scorecard.calculateSum();
-                        scorecard.calculateTotal();
-                        Debug.Log("Score has been selected");
-                        diceController.resetDice();
+                            diceController.resetRollCounter();
+                            scorecard.calculateSum();
+                            scorecard.calculateTotal();
+                            Debug.Log("Score has been selected");
+                            diceController.resetDice();
 
-                        photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
-                            gameObject.name, scoreValue);
+                            photonView.RPC("updateOtherClients", RpcTarget.Others, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
+                                gameObject.name, scoreValue);
 
-                        scorecard.clearUnselectedScores();
+                            scorecard.clearUnselectedScores();
 
-                        SetTurnIsDone();
-                    }
-                    else if (!isSelected && string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
-                    {
-                        isSelected = true;
-                        OpenPopupWindow("Are you sure you want to score 0 in this category?");
-                        Debug.Log("Empty box is clicked");
+                            SetTurnIsDone();
+                        }
+                        if (!isSelected && string.IsNullOrEmpty(this.GetComponent<TMP_Text>().text))
+                        {
+                            isSelected = true;
+                            scorecard.popupWindowObject.GetComponent<PopupWindow>().OpenPopupWindow("Are you sure you want to score 0 in this category?", this);
+                            Debug.Log("Empty box is clicked");
+                        }
                     }
                 }
             }
         }
     }
-
-    public void OpenPopupWindow(string message)
-    {
-        popupWindowObject.SetActive(true);
-        yesButton.onClick.AddListener(YesClicked);
-        noButton.onClick.AddListener(noClicked);
-        popupMessage.text = message;
-    }
-
     //include all logic to set score to 0 and reset counter and endturn
-    public void YesClicked()
+    /*public void YesClicked()
     {
         popupWindowObject.SetActive(false);
         Debug.Log("Yes Clicked");
@@ -146,8 +133,8 @@ public class Score : MonoBehaviour
         popupWindowObject.SetActive(false);
         Debug.Log("No Clicked");
     }
-
-    private void SetTurnIsDone()
+*/
+    public void SetTurnIsDone()
     {
         if (gameManager != null)
         {
