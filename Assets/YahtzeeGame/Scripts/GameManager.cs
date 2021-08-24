@@ -313,7 +313,7 @@ namespace edu.jhu.co
                     LogFeedback(System.Environment.NewLine
                         + "<i><color=orange>You have 3 rolls in a turn. Select a value to end your turn</color> </i>" + System.Environment.NewLine
                         + " [Turn:  " + this.turnManager.Turn.ToString() + "] "
-                        + "Next player to play is: <b>" + nextPlayer.NickName + "</b>"
+                        /*+ "Next player to play is: <b>" + nextPlayer.NickName + "</b>"*/
                         );
                 }
             }
@@ -572,13 +572,13 @@ namespace edu.jhu.co
         public void LogTurnTime(string message)
         {
             // we do not assume there is a feedbackText defined.
-            if (TurnStatus == null)
+            /*if (TurnStatus == null)
             {
                 return;
             }
 
             // add new messages as a new line and at the bottom of the log.
-            TurnStatus.text = "[Turn Time: " + message + "secs]";
+            TurnStatus.text = "[Turn Time: " + message + "secs]";*/
         }
 
 
