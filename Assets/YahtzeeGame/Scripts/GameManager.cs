@@ -86,8 +86,9 @@ namespace edu.jhu.co
 
         //I would need to derive from this class and construct my own
         public PunTurnManager turnManager;
-        private PhotonView photonView = null;
+        private PhotonView photonView;
         public string currentTurnPlayer;
+        public List<string> winners = new List<string>();
 
 
 
@@ -124,6 +125,15 @@ namespace edu.jhu.co
                 // this.photonView.InstantiationId = 101;
                 this.photonView = this.gameObject.GetComponent<PhotonView>();
 
+                if (sbController == null &&
+                    GameObject.Find("ScoreboardController") != null)
+                {
+                    sbController = GameObject.Find("ScoreboardController").GetComponent<ScoreboardController>();
+                }
+                else
+                {
+                    Debug.Log("Scoreboard controller is null");
+                }
 
                 if (transcriptController == null &&
                     GameObject.Find("TranscriptController") != null)
@@ -301,6 +311,26 @@ namespace edu.jhu.co
                 }
             }
 
+        }
+
+        public void endGame()
+        {
+            string temp = "";
+            if (winners.Count == 1) {
+                LogFeedback(System.Environment.NewLine + "<i><color=green>The winner is </color> </i>" + winners[0]);
+            } else
+            {
+                foreach (string winner in winners) {
+                    if (temp == "")
+                    {
+                        temp = winner;
+                    } else
+                    {
+                        temp = temp + ", " + winner;
+                    }
+                }
+                LogFeedback(System.Environment.NewLine + "<i><color=green>The winners are </color> </i>" + temp);
+            }
         }
 
         [PunRPC]
@@ -631,6 +661,8 @@ public void SetScore()
             if (diceController != null) { diceController.resetRollCounter(); }
             this.turnManager.SendMove(ScoreValue, true);  //pass value and say my turn is over (need to be called by score)
             if (RollDiceButton != null) { RollDiceButton.interactable = false; }
+
+            sbController.checkGameConcluded();
         }
         #endregion
 

@@ -59,7 +59,40 @@ using edu.jhu.co;
                 }
             }
         }
+    }
 
+    public void checkGameConcluded()
+    {
+        if (gameManager.turnManager.Turn == 13) {
+            gameManager.winners = determineWinner();
+            gameManager.endGame();
+        }
+    }
+
+    public List<string> determineWinner()
+    {
+        int topScore = 0;
+        List<string> currentWinner = new List<string>();
+        bool tie = false;
+
+        foreach (Scorecard scorecard in scorecards)
+        {
+            if (scorecard.summaryScores[2].scoreValue > topScore)
+            {
+                if (tie)
+                {
+                    currentWinner.Clear();
+                }
+                topScore = scorecard.summaryScores[2].scoreValue;
+                currentWinner.Add(scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
+            }
+            else if (scorecard.summaryScores[2].scoreValue == topScore)
+            {
+                currentWinner.Add(scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text);
+            }
+        }
+
+        return currentWinner;
     }
 }
 
