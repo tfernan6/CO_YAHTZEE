@@ -352,6 +352,11 @@ public class Score : MonoBehaviour
         //tells turn manager that we have a joker
     }
 
+    public void updateSummaryScoresForOthers()
+    {
+        photonView.RPC("updateOtherClients", RpcTarget.All, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
+                            gameObject.name, scoreValue);
+    }
 
     //add logic to update the entire scorecard. Can we call this 16 times on the Scorecard class?
     [PunRPC]
@@ -364,19 +369,5 @@ public class Score : MonoBehaviour
         updateScoreText();
     }
 
-    public void updateSummaryScoresForOthers()
-    {
-        photonView.RPC("updateOtherClientsSummaryScores", RpcTarget.All, this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text,
-                            gameObject.name, scoreValue);
-    }
-
-    [PunRPC]
-    private void updateOtherClientsSummaryScores(string playerName, string scoreType, int scoreValue)
-    {
-        if (this.transform.parent.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text == playerName)
-        {
-            this.transform.parent.transform.Find(scoreType).gameObject.GetComponent<Score>().scoreValue = scoreValue;
-        }
-        updateScoreText();
-    }
+   
 }
