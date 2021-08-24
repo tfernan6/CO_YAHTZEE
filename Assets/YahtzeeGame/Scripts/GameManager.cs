@@ -427,6 +427,12 @@ namespace edu.jhu.co
                 {
                     Debug.LogFormat("OnPlayerLeftRoom() {0}", other.NickName); // seen when other disconnects
                     LogFeedback("Player " + other.NickName + " left the Game");
+
+                    //check if the player who left is next player to play
+                    if(YtzPlayer == other)
+                    {
+                        YtzPlayer = other.GetNext();
+                    }
                     this.UpdatePlayerList();
                 }
             }
