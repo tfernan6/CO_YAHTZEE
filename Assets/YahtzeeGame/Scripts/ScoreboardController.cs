@@ -72,6 +72,23 @@ using edu.jhu.co;
         return weHaveAWinner;
     }
 
+    public string GetPlayerWithHighestScore()
+    {
+        string player = string.Empty;
+
+        int highScore = scorecards[0].summaryScores[2].scoreValue;
+        player = scorecards[0].transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text;
+        foreach (Scorecard scorecard in scorecards)
+        {
+            if (scorecard.summaryScores[2].scoreValue > highScore)
+            {
+                highScore = scorecard.summaryScores[2].scoreValue;
+                player = scorecard.transform.Find("playerName").gameObject.GetComponent<TMP_Text>().text;
+            }
+        }
+        return player;
+    }
+
     public List<string> determineWinner()
     {
         int topScore = 0;

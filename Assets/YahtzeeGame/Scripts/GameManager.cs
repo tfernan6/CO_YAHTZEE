@@ -323,8 +323,8 @@ namespace edu.jhu.co
                 WinnerText.enabled = true;
                 this.TurnStatus.text = string.Empty;
 
-                List<string> weHaveAWinner = sbController.checkGameConcluded();
-                LogFeedback("Game has ended. The winner is " + weHaveAWinner[0] );
+                string playerWhoWon = sbController.GetPlayerWithHighestScore();
+                LogFeedback("Game has ended. The winner is " + playerWhoWon);
                 RollDiceButton.interactable = false;
             }
 
@@ -704,9 +704,6 @@ namespace edu.jhu.co
         /// <param name="turn">Turn Index</param>
         public void OnTurnBegins(int turn)
         {
-            //if turnManager.Turn > 13, game has ended. Stop the game!!!
-            List<string> weHaveAWinner = sbController.checkGameConcluded(); //teena
-
             //allow to play
             if (this.turnManager.Turn <= 13 && 
                 PhotonNetwork.PlayerList.Length == 1)
